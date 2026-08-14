@@ -1,0 +1,2803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#C97B99">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Laceira PRO">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAHYElEQVR4nO3dyY9UVRTH8VOVWgoE5N9wBaQbdMGsewFdyCAYFKWhQJBJNzL1AKjBGZVGXSiyMwKNaEygGxp05X8hjUDivl0Ur7vorukN9557T30/yUsITb1376tfnZx7q6guibLxI19Mao8Bxeo5/npJ69reL3z78OcEuMv0nnjDW868XIgQI+E63E5PTpDRjKtgOzkpQUanig52oScjyMiqqGAXcpJbhz4jyCjE0pM7cmWynHcAhBlFypunXIEmzHAhT64ylXeCDF/StiCpKzRhhk9p85Yq/WOEGUqWdVipOw702MFPCTNULet/s21eO2o5CDNC0EkOc2/bASFpG2iqM0LSLo8tA02YEaJWuWzaZI8e/IQwI2jP9r81K7+Vpv+aOCNCDVuO0QNUZ4SvUU7Z5YApswJNdUZMZuZ1Vg9NmhGzJ1aJNw98TJ4RpecGdpZEZlZo4ozITfXQN9+hOiNeSX7Z5YApBBqmlEREbtBuwIjHi0LyDBtqgSbPMIIeGqaUb+w/S32GGRXSDEsqNNCwpEKeYQmLQphCoGEKgYYp7HLAFHY5YAq7HDCFHhqmEGiYwqIQplChYQq7HDCFXQ6YQssBUwg0TGGXA6awKIQptBwwhV0OmEKFhiksCmEKFRqmsMsBU6jQMIVdDphChYYp7HLAFBaFMIWWA6aoLwqX9/fpDqCFPw6e1R5CU08t+lJ7CE3999d2tWurVuiQwywS7vhCDrOI7vjKk1LrojWOGCzv71O7P42O0MOc0Lo/ahV6RaDVD8WYo/TCK1Of26u9+LRr86RaSLLzf49UKvSK/l0al81Fe8xzFp1TvX4WGmMu+34RaQcjjxX9u1SKc4xhTsxZdM7rveKdwpS4X+n5vGdeW46VA/FW54TvOcxdHG91Tvicg7dAWwhzwtdcLIQ54WsuHnc5bKmF2t39shTmae5z5qVCrxzY7eMyCNzcxV85v4b6ZzlitnJgt/z+zkfNfz7Y/IXc6nFzl7h/4tU4zlvpWt+Q00usavGkWvFbXTizzLf+8fMsh/mxR3dfc3Zupy1HN4RZZHqeWeebPK4bwizidp6OF4XdI++Ld9Xgblm8/u+CRhODyBaFqwarrk5tWreEet6Sr52ct3Stb9BxD111eXqz/vzpGe0hOPPo7jZn5y5PToq4PK7v/9DZ4BGfh3e2Oc1baWSn2wpdb/VQ1delTLBUpR/ecVeV63n9LAfVOh0r/bSvMIsofI3B9f0fiIjI6qE9Xq8L/x7e2fr4T/4ypvZfsJJgw6bpMPtVGtk5oL5hTLVuLaZeWivICee7HJ0cv+6jWlvwYHyrepYq2jchkYR6zSmqdWwejOtW5XrBfRUY1TouIYVZRPVrDBofVOi4zO/5RrQzU38E03KsObVXewjIaH7PeREReTD+qvJIAlkUEmYb5vecV8+SaoVee5ogtxPTlp2IyILeWrX+97ZOtVZbFBJm25Jg++b9re+1p9/2ej3oma7WW7xd02uFJszpxNZuNLOgd9jbtbz00AQ5PSthTiShdl2tne9yEGbUW9A7HOcux/NnCHJW1qrzTE8vHRYRkfu3thR+bmc99Mje065ObZr1MCdchFmErzEozMjeU7kf3y1hrnGTOae7HHmf5Fgk88w63+Rx929tLmxMIXM5z9IvO044L6UvnNnn+hJqrrYIcat5t3rcwqUXco0pZBOOX7R8WWMOV/e0rsjtft7MxNhmWbjMaKgd583LGytZn1jYMjHmvqXiC88zurpnSFzer4mxTR5n44v7nHl767sWABt8zcVSqH3NxetnOSyE2vccLITa5xz4tW4pcb/S83nPvP/izSvVeKv0leqQ13uVHPdG463S90Y3eb1XKh/wjzHU2mOOMdQaY+aX13fgSnVQ9O7T9HFvdKPzuRbL/z1S+y9YtZDAKq0XX1mz5sTgcnUwgNo8ffwTSZXWuj+q35x0OfAqHer4Qg+15vhKP28/FkuxBNoK7rvtgDy8f40B4BIVGqbw1jdM4QP+MIWWA6awKIQpVGiYwqIQplChYQq7HDCFCg1T2OWAKSwKYQotB0wh0DCFXQ6YQoWGKexywBR2OWAKLQdMIdAwhV0OmMKiEKawKIQp9NAwhUDDFAINU9jlgCnscsAUdjlgSvnF8++XtAcBFIVFIUypiAhtNMyoBZpEw4ip/vnSlvdINaK2bvhoiR4aphBomDIV6HXDR9m+Q7SS/Fae+Fu6aERuVlW+tPldYo2orLtwbCrHlZk/JM2I2axF4fq6tAOhm5lXdjlgSsNAU6URg0Y5ndVDT6GZRoRaVuKLm44QawRpw7fHG2a3ZQ/d7EGApla5bLsoJNQISbs8sssBUzoKNFUaIegkh6mCenHjYRaJULHhuxMdZTV15f2RUMOzlzoMs0iGHjrNyYG80uYtVzip1nAla+HMtctBtYYLeXKVe9uOUKNIefNUaBh/eOUQLQgyefn7k4Vk0Ul1JdjoVFFBTjhtFwg2mik6yAkv/S/BRsJVkBPeF3SEu/u4DnG9/wEgOwFSECV8QQAAAABJRU5ErkJggg==">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAHYElEQVR4nO3dyY9UVRTH8VOVWgoE5N9wBaQbdMGsewFdyCAYFKWhQJBJNzL1AKjBGZVGXSiyMwKNaEygGxp05X8hjUDivl0Ur7vorukN9557T30/yUsITb1376tfnZx7q6guibLxI19Mao8Bxeo5/npJ69reL3z78OcEuMv0nnjDW868XIgQI+E63E5PTpDRjKtgOzkpQUanig52oScjyMiqqGAXcpJbhz4jyCjE0pM7cmWynHcAhBlFypunXIEmzHAhT64ylXeCDF/StiCpKzRhhk9p85Yq/WOEGUqWdVipOw702MFPCTNULet/s21eO2o5CDNC0EkOc2/bASFpG2iqM0LSLo8tA02YEaJWuWzaZI8e/IQwI2jP9r81K7+Vpv+aOCNCDVuO0QNUZ4SvUU7Z5YApswJNdUZMZuZ1Vg9NmhGzJ1aJNw98TJ4RpecGdpZEZlZo4ozITfXQN9+hOiNeSX7Z5YApBBqmlEREbtBuwIjHi0LyDBtqgSbPMIIeGqaUb+w/S32GGRXSDEsqNNCwpEKeYQmLQphCoGEKgYYp7HLAFHY5YAq7HDCFHhqmEGiYwqIQplChYQq7HDCFXQ6YQssBUwg0TGGXA6awKIQptBwwhV0OmEKFhiksCmEKFRqmsMsBU6jQMIVdDphChYYp7HLAFBaFMIWWA6aoLwqX9/fpDqCFPw6e1R5CU08t+lJ7CE3999d2tWurVuiQwywS7vhCDrOI7vjKk1LrojWOGCzv71O7P42O0MOc0Lo/ahV6RaDVD8WYo/TCK1Of26u9+LRr86RaSLLzf49UKvSK/l0al81Fe8xzFp1TvX4WGmMu+34RaQcjjxX9u1SKc4xhTsxZdM7rveKdwpS4X+n5vGdeW46VA/FW54TvOcxdHG91Tvicg7dAWwhzwtdcLIQ54WsuHnc5bKmF2t39shTmae5z5qVCrxzY7eMyCNzcxV85v4b6ZzlitnJgt/z+zkfNfz7Y/IXc6nFzl7h/4tU4zlvpWt+Q00usavGkWvFbXTizzLf+8fMsh/mxR3dfc3Zupy1HN4RZZHqeWeebPK4bwizidp6OF4XdI++Ld9Xgblm8/u+CRhODyBaFqwarrk5tWreEet6Sr52ct3Stb9BxD111eXqz/vzpGe0hOPPo7jZn5y5PToq4PK7v/9DZ4BGfh3e2Oc1baWSn2wpdb/VQ1delTLBUpR/ecVeV63n9LAfVOh0r/bSvMIsofI3B9f0fiIjI6qE9Xq8L/x7e2fr4T/4ypvZfsJJgw6bpMPtVGtk5oL5hTLVuLaZeWivICee7HJ0cv+6jWlvwYHyrepYq2jchkYR6zSmqdWwejOtW5XrBfRUY1TouIYVZRPVrDBofVOi4zO/5RrQzU38E03KsObVXewjIaH7PeREReTD+qvJIAlkUEmYb5vecV8+SaoVee5ogtxPTlp2IyILeWrX+97ZOtVZbFBJm25Jg++b9re+1p9/2ej3oma7WW7xd02uFJszpxNZuNLOgd9jbtbz00AQ5PSthTiShdl2tne9yEGbUW9A7HOcux/NnCHJW1qrzTE8vHRYRkfu3thR+bmc99Mje065ObZr1MCdchFmErzEozMjeU7kf3y1hrnGTOae7HHmf5Fgk88w63+Rx929tLmxMIXM5z9IvO044L6UvnNnn+hJqrrYIcat5t3rcwqUXco0pZBOOX7R8WWMOV/e0rsjtft7MxNhmWbjMaKgd583LGytZn1jYMjHmvqXiC88zurpnSFzer4mxTR5n44v7nHl767sWABt8zcVSqH3NxetnOSyE2vccLITa5xz4tW4pcb/S83nPvP/izSvVeKv0leqQ13uVHPdG463S90Y3eb1XKh/wjzHU2mOOMdQaY+aX13fgSnVQ9O7T9HFvdKPzuRbL/z1S+y9YtZDAKq0XX1mz5sTgcnUwgNo8ffwTSZXWuj+q35x0OfAqHer4Qg+15vhKP28/FkuxBNoK7rvtgDy8f40B4BIVGqbw1jdM4QP+MIWWA6awKIQpVGiYwqIQplChYQq7HDCFCg1T2OWAKSwKYQotB0wh0DCFXQ6YQoWGKexywBR2OWAKLQdMIdAwhV0OmMKiEKawKIQp9NAwhUDDFAINU9jlgCnscsAUdjlgSvnF8++XtAcBFIVFIUypiAhtNMyoBZpEw4ip/vnSlvdINaK2bvhoiR4aphBomDIV6HXDR9m+Q7SS/Fae+Fu6aERuVlW+tPldYo2orLtwbCrHlZk/JM2I2axF4fq6tAOhm5lXdjlgSsNAU6URg0Y5ndVDT6GZRoRaVuKLm44QawRpw7fHG2a3ZQ/d7EGApla5bLsoJNQISbs8sssBUzoKNFUaIegkh6mCenHjYRaJULHhuxMdZTV15f2RUMOzlzoMs0iGHjrNyYG80uYtVzip1nAla+HMtctBtYYLeXKVe9uOUKNIefNUaBh/eOUQLQgyefn7k4Vk0Ul1JdjoVFFBTjhtFwg2mik6yAkv/S/BRsJVkBPeF3SEu/u4DnG9/wEgOwFSECV8QQAAAABJRU5ErkJggg==">
+<title>Laceira PRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-soft:#FDF7FA; --pink:#F7D6E6; --pink-deep:#C97B99; --pink-dark:#A85C79;
+    --gold:#C9A227; --ink:#2B2530; --ink-soft:#8B8290; --line:#F0E4EC;
+    --success:#6B9A78; --success-bg:#EAF2EC; --warning:#D98E4A; --warning-bg:#FBEEE0; --danger:#C0574F;
+    --sidebar-w:236px;
+  }
+  [data-theme="dark"]{ --bg:#1E1A20; --bg-soft:#26202A; --ink:#F3EDF1; --ink-soft:#B0A6AE; --line:#372E38; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif; background:var(--bg-soft); color:var(--ink); display:flex; min-height:100vh; transition:background .25s,color .25s;}
+  h1,h2,h3{margin:0;}
+  button{font-family:inherit;}
+
+  .sidebar{width:var(--sidebar-w); flex:0 0 auto; background:var(--bg); border-right:1px solid var(--line); padding:24px 16px; display:flex; flex-direction:column; gap:2px; position:sticky; top:0; height:100vh; overflow-y:auto;}
+  .brand{display:flex; align-items:center; gap:9px; padding:4px 10px 22px;}
+  .brand .dot{width:11px;height:11px;border-radius:50%; background:linear-gradient(135deg,var(--pink-deep),var(--gold));}
+  .brand span{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px;}
+  .nav-item{display:flex; align-items:center; gap:11px; padding:9px 12px; border-radius:9px; color:var(--ink-soft); font-size:13.5px; font-weight:500; cursor:pointer; border:none; background:none; width:100%; text-align:left;}
+  .nav-item .ic{width:16px; text-align:center; font-size:14px;}
+  .nav-item:hover{background:var(--bg-soft); color:var(--ink);}
+  .nav-item.active{background:var(--pink); color:var(--pink-dark); font-weight:600;}
+  [data-theme="dark"] .nav-item.active{background:rgba(247,214,230,.14); color:var(--pink);}
+  .nav-sep{height:1px; background:var(--line); margin:12px 6px;}
+
+  .main{flex:1 1 auto; min-width:0; padding:30px 40px 60px; max-width:1180px;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:26px;}
+  .greeting h1{font-family:'Cormorant Garamond',serif; font-weight:600; font-style:italic; font-size:28px; margin:0 0 3px;}
+  .greeting p{margin:0; color:var(--ink-soft); font-size:13.5px;}
+  .top-actions{display:flex; align-items:center; gap:12px;}
+  .theme-toggle{border:1px solid var(--line); background:var(--bg); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:14px;}
+  .avatar{width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--pink),var(--gold)); display:flex; align-items:center; justify-content:center; font:600 13px 'Inter',sans-serif; color:var(--pink-dark);}
+
+  .panel{display:none;}
+  .panel.active{display:block; animation:fade .2s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+  .stat-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:22px;}
+  .stat-card{background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:16px 16px 15px;}
+  .stat-card .k{font-size:11.5px; color:var(--ink-soft); font-weight:600; margin-bottom:8px;}
+  .stat-card .v{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:25px;}
+  .stat-card .trend{font-size:11px; color:var(--success); margin-top:5px; font-weight:600;}
+  .goal-card{background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; justify-content:space-between;}
+  .goal-card .k{font-size:11.5px; color:var(--ink-soft); font-weight:600; margin-bottom:6px;}
+  .ribbon-progress{display:flex; align-items:center; gap:10px;}
+  .ribbon-progress .pct{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px;}
+
+  .content-row{display:grid; grid-template-columns:1.5fr 1fr; gap:16px;}
+  .card{background:var(--bg); border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:16px;}
+  .card h2{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:18px; margin:0 0 4px;}
+  .card .sub{color:var(--ink-soft); font-size:13px; margin:0 0 16px;}
+
+  .chart-bars{display:flex; align-items:flex-end; gap:10px; height:150px; padding-top:6px;}
+  .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; gap:7px;}
+  .bar{width:100%; max-width:26px; border-radius:6px 6px 3px 3px; background:linear-gradient(180deg,var(--pink-deep),var(--pink));}
+  .bar-col .lbl{font-size:10.5px; color:var(--ink-soft);}
+  .chart-legend{display:flex; justify-content:space-between; margin-top:14px; font-size:11.5px; color:var(--ink-soft);}
+
+  .activity-list{display:flex; flex-direction:column; gap:13px;}
+  .activity-item{display:flex; gap:10px; align-items:flex-start; font-size:12.5px;}
+  .activity-item .dot2{width:7px;height:7px;border-radius:50%; margin-top:5px; flex:0 0 auto; background:var(--pink-deep);}
+  .activity-item.warn .dot2{background:var(--warning);}
+  .activity-item .time{display:block; color:var(--ink-soft); font-size:11px; margin-top:1px;}
+  .quick-actions{display:flex; flex-direction:column; gap:9px; margin-top:16px;}
+  .qbtn{border:1px solid var(--line); background:var(--bg-soft); color:var(--ink); font:600 12.5px 'Inter',sans-serif; padding:10px 12px; border-radius:10px; cursor:pointer; text-align:left; display:flex; align-items:center; gap:8px;}
+  .qbtn:hover{border-color:var(--pink-deep); color:var(--pink-dark);}
+
+  /* Forms */
+  .grid-inputs{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px;}
+  .field label{display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:5px;}
+  .field input, .field select{width:100%; border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:9px; padding:9px 10px; font:600 13.5px 'IBM Plex Mono',monospace;}
+  .field.text input, .field select{font-family:'Inter',sans-serif; font-weight:500;}
+  .field input:focus, .field select:focus{outline:2px solid var(--pink-deep); outline-offset:1px;}
+  .editable-select{display:flex; gap:6px; flex-wrap:wrap;}
+  .editable-select select{flex:1 1 100%;}
+  .add-opt-btn, .edit-opt-btn, .del-opt-btn{
+    flex:0 0 auto; border:1px solid var(--line); background:var(--bg-soft); color:var(--pink-dark);
+    font:600 12px 'Inter',sans-serif; padding:0 10px; height:30px; border-radius:9px; cursor:pointer; white-space:nowrap;
+  }
+  .add-opt-btn:hover{border-color:var(--pink-deep);}
+  .edit-opt-btn{color:#a5811d;}
+  .edit-opt-btn:hover{border-color:var(--gold);}
+  .del-opt-btn{color:#c0574f;}
+  .del-opt-btn:hover{border-color:#c0574f;}
+
+  .result-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:18px;}
+  .stat{background:var(--bg-soft); border-radius:11px; padding:12px 14px;}
+  .stat .k{font-size:11px; color:var(--ink-soft); font-weight:600;}
+  .stat .v{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:16px; color:var(--pink-dark);}
+  .hero-tag{background:var(--ink); color:#fff; border-radius:11px; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; margin-top:8px;}
+  .hero-tag .k{font-size:12px; color:var(--gold); font-weight:600;}
+  .hero-tag .v{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:24px;}
+
+  .btn-primary{background:var(--pink-deep); color:#fff; border:none; font:600 13px 'Inter',sans-serif; padding:10px 18px; border-radius:9px; cursor:pointer;}
+  .btn-primary:hover{background:var(--pink-dark);}
+  .btn-ghost{background:none; border:1px solid var(--line); color:var(--ink); font:600 12px 'Inter',sans-serif; padding:7px 12px; border-radius:8px; cursor:pointer;}
+  .btn-ghost:hover{border-color:var(--pink-deep); color:var(--pink-dark);}
+
+  table{width:100%; border-collapse:collapse;}
+  thead th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); font-weight:700; padding:0 10px 8px; border-bottom:2px solid var(--line);}
+  tbody td{padding:9px 10px; border-bottom:1px solid var(--line); font-size:13px;}
+  tbody tr:hover{background:var(--bg-soft);}
+  td input, td select{width:100%; border:1px solid var(--line); background:var(--bg); border-radius:7px; padding:6px 7px; font:600 12.5px 'Inter',sans-serif; color:var(--ink);}
+
+  .badge{display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; font-weight:700;}
+  .badge.ok{background:var(--success-bg); color:var(--success);}
+  .badge.low{background:var(--warning-bg); color:var(--warning);}
+  .badge.pink{background:var(--pink); color:var(--pink-dark);}
+  .badge.cancel{background:#F7E3E1; color:#B4453C;}
+
+  .cat-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px;}
+  .cat-card{border:1px solid var(--line); border-radius:14px; padding:16px; background:var(--bg);}
+  .cat-card .icon{font-size:24px; margin-bottom:8px;}
+  .cat-card .name{font-weight:700; font-size:13.5px; margin-bottom:2px;}
+  .cat-card .meta{font-size:11.5px; color:var(--ink-soft);}
+
+  .model-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px;}
+  .model-card{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg);}
+  .model-card .thumb{height:100px; background:linear-gradient(135deg,var(--pink),var(--bg-soft)); display:flex; align-items:center; justify-content:center; font-size:28px;}
+  .model-card .info{padding:12px;}
+  .model-card .name{font-weight:700; font-size:13px;}
+  .model-card .meta{font-size:11px; color:var(--ink-soft); margin-top:3px;}
+  .model-card label{display:flex; align-items:center; gap:6px; font-size:11.5px; padding:8px 12px; border-top:1px solid var(--line); color:var(--ink-soft);}
+
+  .chat-window{border:1px solid var(--line); border-radius:14px; height:380px; display:flex; flex-direction:column; overflow:hidden;}
+  .chat-msgs{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px;}
+  .msg{max-width:75%; padding:9px 13px; border-radius:13px; font-size:13px; line-height:1.4;}
+  .msg.bot{background:var(--bg-soft); align-self:flex-start; border-bottom-left-radius:3px;}
+  .msg.user{background:var(--pink-deep); color:#fff; align-self:flex-end; border-bottom-right-radius:3px;}
+  .chat-input{display:flex; border-top:1px solid var(--line);}
+  .chat-input input{flex:1; border:none; padding:12px 14px; font:500 13px 'Inter',sans-serif; background:var(--bg); color:var(--ink);}
+  .chat-input input:focus{outline:none;}
+  .chat-input button{border:none; background:var(--pink-deep); color:#fff; padding:0 20px; cursor:pointer; font-weight:600;}
+
+  .agenda-item{display:flex; gap:14px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line);}
+  .agenda-item:last-child{border-bottom:none;}
+  .agenda-date{width:64px; flex:0 0 auto; text-align:center; background:var(--bg-soft); border-radius:10px; padding:8px 4px;}
+  .agenda-date .d{font-family:'Cormorant Garamond',serif; font-weight:700; font-size:18px;}
+  .agenda-date .m{font-size:10px; color:var(--ink-soft); text-transform:uppercase;}
+  .agenda-info b{font-size:13.5px;}
+  .agenda-info .meta{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  .filters-row{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .filters-row select{border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:9px; padding:8px 10px; font:600 12.5px 'Inter',sans-serif;}
+
+  .hint{font-size:12px; color:var(--ink-soft); margin-top:10px;}
+
+  .modal-overlay{
+    display:none; position:fixed; inset:0; background:rgba(43,30,42,.45);
+    z-index:70; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal-card{
+    background:var(--bg); border-radius:16px; padding:24px;
+    max-width:600px; width:100%; max-height:90vh; overflow-y:auto;
+    box-shadow:0 30px 60px -20px rgba(43,30,42,.5);
+  }
+  .modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+  .modal-head h2{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px; margin:0;}
+  .drawer-close{
+    border:none; background:var(--bg-soft); color:var(--ink);
+    width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:15px;
+  }
+  .drawer-close:hover{background:var(--pink-deep); color:#fff;}
+
+  .menu-toggle{display:none; border:1px solid var(--line); background:var(--bg); width:36px; height:36px; border-radius:9px; cursor:pointer; font-size:16px; align-items:center; justify-content:center;}
+  .sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(43,30,42,.42); z-index:29;}
+  .sidebar-overlay.show{display:block;}
+
+  .pw-wrap{position:relative;}
+  .pw-wrap input{width:100%; padding-right:38px;}
+  .pw-toggle{
+    position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer; font-size:15px; line-height:1;
+    color:var(--ink-soft); padding:6px;
+  }
+  .pw-toggle:hover{color:var(--pink-deep);}
+
+  @media (max-width:980px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .content-row{grid-template-columns:1fr;}
+    .main{padding:calc(20px + env(safe-area-inset-top, 0px)) 16px calc(50px + env(safe-area-inset-bottom, 0px));}
+    .menu-toggle{display:inline-flex;}
+    .sidebar{
+      position:fixed; left:0; top:0; z-index:30;
+      height:100vh; height:100dvh;
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+      box-shadow:14px 0 34px -10px rgba(43,30,42,.4);
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
+      overscroll-behavior:contain;
+      padding-bottom:calc(24px + env(safe-area-inset-bottom, 0px));
+    }
+    .sidebar.open{transform:translateX(0);}
+    .topbar{gap:10px;}
+    .greeting h1{font-size:22px;}
+    .modal-card{padding:18px; max-width:94vw;}
+  }
+  .table-scroll{-webkit-overflow-scrolling:touch; overflow-x:auto; max-width:100%;}
+  body{overflow-x:hidden;}
+  @media (max-width:640px){
+    table{min-width:560px;}
+  }
+  @media (max-width:520px){
+    .grid-inputs{grid-template-columns:1fr 1fr;}
+    .stat-grid{grid-template-columns:1fr 1fr;}
+    .filters-row{flex-direction:column; align-items:stretch;}
+    .filters-row > div{width:100%;}
+    .filters-row select, .filters-row button{width:100%;}
+    .modal-card{padding:16px;}
+  }
+  @media (max-width:380px){
+    .grid-inputs{grid-template-columns:1fr;}
+    .stat-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="sidebar" id="sidebar">
+  <div class="brand"><span class="dot"></span><span>Laceira <em style="font-style:italic;">PRO</em></span></div>
+  <button class="nav-item active" data-panel="dashboard"><span class="ic">◆</span>Dashboard</button>
+  <button class="nav-item" data-panel="medidas"><span class="ic">📐</span>Calc. de Medidas</button>
+  <button class="nav-item" data-panel="calculos-salvos"><span class="ic">💾</span>Cálculos Salvos</button>
+  <button class="nav-item" data-panel="custos"><span class="ic">💰</span>Calc. de Custos</button>
+  <button class="nav-item" data-panel="custos-salvos"><span class="ic">🧷</span>Custos Salvos</button>
+  <button class="nav-item" data-panel="lucro"><span class="ic">📈</span>Calc. de Lucro</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" data-panel="estoque"><span class="ic">📦</span>Controle de Estoque</button>
+  <button class="nav-item" data-panel="pedidos"><span class="ic">🧾</span>Pedidos</button>
+  <button class="nav-item" data-panel="clientes"><span class="ic">👥</span>Clientes</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" data-panel="biblioteca"><span class="ic">🎀</span>Biblioteca de Modelos</button>
+  <button class="nav-item" data-panel="posts"><span class="ic">✨</span>Gerador de Posts</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" data-panel="agenda"><span class="ic">📅</span>Agenda Comercial</button>
+  <button class="nav-item" data-panel="fornecedores"><span class="ic">🚚</span>Fornecedores</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" data-panel="perfil"><span class="ic">👤</span>Perfil</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item" id="abrirAdminBtn" type="button" style="opacity:.55; font-size:11.5px;"><span class="ic">⚙️</span>Painel Admin</button>
+</nav>
+
+<main class="main">
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">☰</button>
+      <div class="greeting"><h1 id="panelTitle">Boa tarde, Camila ✨</h1><p id="panelSub">Aqui está o resumo do seu ateliê hoje, 30 de julho</p></div>
+    </div>
+    <div class="top-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" title="Alternar tema">🌙</button>
+      <div class="avatar" id="topAvatar">–</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <section class="panel active" data-p="dashboard">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="btn-ghost" id="mesAnteriorBtn" type="button" aria-label="Mês anterior">◀</button>
+        <div id="mesLabel" style="font-weight:700; min-width:150px; text-align:center;">—</div>
+        <button class="btn-ghost" id="mesProximoBtn" type="button" aria-label="Próximo mês">▶</button>
+      </div>
+      <button class="btn-ghost" id="mesAtualBtn" type="button" style="display:none;">Voltar pro mês atual</button>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="k">Pedidos no mês</div><div class="v" id="dashPedidos">0</div><div class="trend" id="dashPedidosTrend"></div></div>
+      <div class="goal-card">
+        <div class="k">Meta do mês <button type="button" id="editMetaBtn" class="btn-ghost" style="padding:2px 8px; font-size:10px; margin-left:4px;">editar</button></div>
+        <div class="ribbon-progress">
+          <svg width="46" height="46" viewBox="0 0 46 46">
+            <circle cx="23" cy="23" r="19" fill="none" stroke="#F0E4EC" stroke-width="5"/>
+            <circle id="metaRing" cx="23" cy="23" r="19" fill="none" stroke="#C97B99" stroke-width="5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 23 23)"/>
+            <text id="metaPct" x="23" y="27" text-anchor="middle" font-family="Inter" font-size="10" font-weight="700" fill="#A85C79">0%</text>
+          </svg>
+          <div><div class="pct" id="dashFaturadoMeta">R$ 0</div><div style="font-size:11px; color:var(--ink-soft);">de <span id="metaValorTxt">R$ 0</span></div></div>
+        </div>
+      </div>
+      <div class="stat-card"><div class="k">Valor faturado</div><div class="v" id="dashFaturado">R$ 0</div><div class="trend" id="dashFaturadoTrend"></div></div>
+      <div class="stat-card"><div class="k">Produzidos</div><div class="v" id="dashProduzidos">0</div><div class="trend" style="color:var(--ink-soft);">laços este mês</div></div>
+      <div class="stat-card"><div class="k">Vendidos</div><div class="v" id="dashVendidos">0</div><div class="trend" style="color:var(--ink-soft);" id="dashVendidosPct"></div></div>
+    </div>
+    <div class="content-row">
+      <div class="card"><h2>Faturamento mensal</h2><div class="chart-bars" id="chartBars"></div><div class="chart-legend" id="chartLegend"></div></div>
+      <div class="card">
+        <h2>Novidades</h2>
+        <p class="sub">Avisos automáticos do seu ateliê — estoque baixo e datas comemorativas chegando.</p>
+        <div class="activity-list" id="novidadesList"></div>
+        <p class="hint" id="novidadesEmpty" style="display:none;">Nada novo por aqui — tudo em dia! ✓</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2>Consultar um dia específico</h2>
+      <p class="sub">Veja o faturamento, produzidos e vendidos de qualquer data.</p>
+      <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+        <div class="field" style="max-width:200px;"><label>Data</label><input type="date" id="dashDataConsulta"></div>
+        <button class="btn-primary" id="consultarDataBtn">Consultar</button>
+      </div>
+      <div class="result-strip" id="dashDataResult" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2>Pedidos futuros</h2>
+      <p class="sub">Pedidos marcados para o mês que vem, o ano que vem, ou qualquer data futura — pra você acompanhar como estão indo.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Data</th><th>Cliente</th><th>Produto</th><th>Qtd</th><th>Valor</th><th>Status</th></tr></thead>
+        <tbody id="pedidosFuturosBody"></tbody>
+      </table></div>
+      <p class="hint" id="pedidosFuturosEmpty" style="display:none;">Nenhum pedido futuro cadastrado ainda.</p>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE MEDIDAS -->
+  <section class="panel" data-p="medidas">
+    <div class="card">
+      <h2>Calculadora de Medidas</h2>
+      <p class="sub">Escolha o modelo e as medidas para saber exatamente o que separar na produção.</p>
+      <div class="grid-inputs">
+        <div class="field text">
+          <label>Modelo do laço</label>
+          <div class="editable-select" data-storage-key="opcoes-modelo">
+            <select id="mModelo"></select>
+            <button type="button" class="add-opt-btn" data-target="mModelo">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="mModelo">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="mModelo">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field"><label>Tamanho (cm)</label><input type="number" id="mTamanho" value="12" step="0.5"></div>
+        <div class="field"><label>Largura da fita (mm)</label><input type="number" id="mLargura" value="22" step="1"></div>
+        <div class="field text">
+          <label>Acabamento</label>
+          <div class="editable-select" data-storage-key="opcoes-acabamento">
+            <select id="mAcabamento"></select>
+            <button type="button" class="add-opt-btn" data-target="mAcabamento">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="mAcabamento">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="mAcabamento">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field text">
+          <label>Fixação</label>
+          <div class="editable-select" data-storage-key="opcoes-fixacao">
+            <select id="mFixacao"></select>
+            <button type="button" class="add-opt-btn" data-target="mFixacao">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="mFixacao">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="mFixacao">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field"><label>Quantidade desejada</label><input type="number" id="mQtd" value="20" step="1"></div>
+      </div>
+      <div class="result-strip" id="mResult"></div>
+      <button class="btn-primary" style="margin-top:16px;" id="mSaveBtn">Salvar este cálculo</button>
+      <p class="hint" id="mSavedHint"></p>
+    </div>
+  </section>
+
+  <!-- CÁLCULOS SALVOS -->
+  <section class="panel" data-p="calculos-salvos">
+    <div class="card">
+      <h2>Cálculos Salvos</h2>
+      <p class="sub">Todos os cálculos de medidas que você salvou. Edite ou remova quando quiser.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Data</th><th>Modelo</th><th>Tamanho</th><th>Qtd</th><th>Acabamento</th><th>Fixação</th><th></th></tr></thead>
+        <tbody id="calculosSalvosBody"></tbody>
+      </table></div>
+      <p class="hint" id="calculosSalvosEmpty">Nenhum cálculo salvo ainda — salve um na aba Calc. de Medidas.</p>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE CUSTOS -->
+  <section class="panel" data-p="custos">
+    <div class="card">
+      <h2>Calculadora de Custos</h2>
+      <p class="sub">Adicione quantos itens de custo quiser, na medida do seu produto — some tudo e veja o preço ideal na hora.</p>
+
+      <div class="field text" style="max-width:380px; margin-bottom:16px;">
+        <label>Nome do produto</label>
+        <input type="text" id="cNomeProduto" placeholder="Ex.: Laço Boutique Duplo P">
+      </div>
+
+      <div class="field text" style="max-width:380px; margin-bottom:18px;">
+        <label>Foto do produto (opcional)</label>
+        <input type="file" id="cFoto" accept="image/*" capture="environment">
+        <div id="cFotoPreviewWrap" style="display:none; margin-top:8px; align-items:center; gap:10px;">
+          <img id="cFotoPreview" alt="Foto do produto" style="width:56px; height:56px; object-fit:cover; border-radius:9px; border:1px solid var(--line);">
+          <button type="button" class="btn-ghost" id="cFotoRemoveBtn">Remover foto</button>
+        </div>
+      </div>
+
+      <div class="table-scroll"><table>
+        <thead><tr><th>Item de custo</th><th>Valor (R$)</th><th></th></tr></thead>
+        <tbody id="custoItensBody"></tbody>
+      </table></div>
+      <button class="btn-ghost" style="margin-top:12px;" id="addCustoItemBtn">＋ Adicionar item de custo</button>
+
+      <div class="field" style="max-width:220px; margin-top:20px;"><label>Multiplicador de venda</label><input type="number" id="cMult" value="8" step="0.5"></div>
+
+      <div class="result-strip" id="cResult"></div>
+      <div class="hero-tag"><span class="k">Preço de venda sugerido</span><span class="v" id="cPreco">R$ 0,00</span></div>
+
+      <button class="btn-primary" style="margin-top:18px;" id="cSaveBtn">Salvar este custo</button>
+      <p class="hint" id="cSavedHint"></p>
+    </div>
+  </section>
+
+  <!-- CUSTOS SALVOS -->
+  <section class="panel" data-p="custos-salvos">
+    <div class="card">
+      <h2>Custos Salvos</h2>
+      <p class="sub">Todos os cálculos de custo que você salvou, com a foto de cada produto.</p>
+      <div id="custosSalvosGrid" class="model-grid"></div>
+      <p class="hint" id="custosSalvosEmpty">Nenhum custo salvo ainda — salve um na aba Calc. de Custos.</p>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE LUCRO -->
+  <section class="panel" data-p="lucro">
+    <div class="card">
+      <h2>Calculadora de Lucro</h2>
+      <p class="sub">Defina sua meta de ganho e descubra quantos laços precisa vender.</p>
+      <div class="grid-inputs">
+        <div class="field"><label>Quanto deseja ganhar por mês (R$)</label><input type="number" id="lMeta" value="5000" step="100"></div>
+        <div class="field"><label>Dias trabalhados por mês</label><input type="number" id="lDias" value="22" step="1"></div>
+        <div class="field"><label>Horas por dia</label><input type="number" id="lHoras" value="6" step="0.5"></div>
+        <div class="field"><label>Tempo médio por laço (min)</label><input type="number" id="lTempo" value="18" step="1"></div>
+        <div class="field"><label>Preço médio de venda (R$)</label><input type="number" id="lPreco" value="22" step="1"></div>
+      </div>
+      <div class="result-strip" id="lResult"></div>
+    </div>
+  </section>
+
+  <!-- ESTOQUE -->
+  <section class="panel" data-p="estoque">
+    <div class="card">
+      <h2>Controle de Estoque</h2>
+      <p class="sub">Itens abaixo do mínimo aparecem destacados em laranja.</p>
+
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Nome do item</label><input type="text" id="eNome" placeholder="Ex.: Fita cetim rosa 22mm"></div>
+        <div class="field text">
+          <label>Categoria</label>
+          <div class="editable-select" data-storage-key="opcoes-estoque-categoria">
+            <select id="eCategoria"></select>
+            <button type="button" class="add-opt-btn" data-target="eCategoria">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="eCategoria">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="eCategoria">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field"><label>Quantidade atual</label><input type="number" id="eQtd" value="0" step="1"></div>
+        <div class="field"><label>Mínimo</label><input type="number" id="eMin" value="10" step="1"></div>
+        <div class="field text">
+          <label>Foto (opcional)</label>
+          <input type="file" id="eFoto" accept="image/*" capture="environment">
+          <div id="eFotoPreviewWrap" style="display:none; margin-top:8px; align-items:center; gap:10px;">
+            <img id="eFotoPreview" alt="Foto do item" style="width:48px; height:48px; object-fit:cover; border-radius:9px; border:1px solid var(--line);">
+            <button type="button" class="btn-ghost" id="eFotoRemoveBtn">Remover foto</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" id="eSaveBtn">＋ Adicionar item</button>
+      <p class="hint" id="eSavedHint"></p>
+
+      <div class="table-scroll" style="margin-top:20px;"><table>
+        <thead><tr><th></th><th>Item</th><th>Categoria</th><th>Qtd atual</th><th>Mínimo</th><th>Status</th><th></th></tr></thead>
+        <tbody id="estoqueBody"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- PEDIDOS -->
+  <section class="panel" data-p="pedidos">
+    <div class="card">
+      <h2>Pedidos</h2>
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Cliente</label><input type="text" id="pCliente" placeholder="Nome da cliente"></div>
+        <div class="field text"><label>Telefone (opcional)</label><input type="text" id="pTelefone" placeholder="(00) 00000-0000"></div>
+        <div class="field text"><label>Produto</label><input type="text" id="pProduto" placeholder="Ex.: Laço Boutique M"></div>
+        <div class="field"><label>Quantidade</label><input type="number" id="pQtd" value="1" step="1"></div>
+        <div class="field"><label>Valor total (R$)</label><input type="number" id="pValor" value="0" step="1"></div>
+        <div class="field text"><label>Status</label><select id="pStatus"><option>Aguardando pagamento</option><option>Em produção</option><option>Pronto</option><option>Entregue</option><option>Cancelado</option></select></div>
+        <div class="field"><label>Data do pedido</label><input type="date" id="pData"></div>
+      </div>
+      <button class="btn-primary" id="addPedidoBtn">＋ Novo pedido</button>
+      <p class="hint" id="pSavedHint"></p>
+      <div class="table-scroll" style="margin-top:18px;"><table>
+        <thead><tr><th>#</th><th>Cliente</th><th>Telefone</th><th>Produto</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+        <tbody id="pedidosBody"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="panel" data-p="clientes">
+    <div class="card">
+      <h2>Clientes</h2>
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Nome</label><input type="text" id="clNome" placeholder="Nome da cliente"></div>
+        <div class="field text"><label>Telefone</label><input type="text" id="clTelefone" placeholder="(00) 00000-0000"></div>
+        <div class="field text"><label>Cidade</label><input type="text" id="clCidade" placeholder="Cidade"></div>
+        <div class="field text"><label>Instagram</label><input type="text" id="clInsta" placeholder="@usuario"></div>
+      </div>
+      <button class="btn-primary" id="addClienteBtn">＋ Nova cliente</button>
+      <p class="hint" id="clSavedHint"></p>
+      <div class="table-scroll" style="margin-top:18px;"><table>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>Instagram</th><th>Total comprado</th><th></th></tr></thead>
+        <tbody id="clientesBody"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- BIBLIOTECA -->
+  <section class="panel" data-p="biblioteca">
+    <div class="card">
+      <h2>Biblioteca de Modelos</h2>
+      <p class="sub">Cadastre os modelos do seu ateliê: foto, nome, cores e detalhes — tudo editável.</p>
+
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Nome do modelo</label><input type="text" id="bmNome" placeholder="Ex.: Laço Boutique Duplo P"></div>
+        <div class="field text"><label>Categoria</label><input type="text" id="bmCategoria" placeholder="Ex.: Boutique"></div>
+        <div class="field text"><label>Cores</label><input type="text" id="bmCores" placeholder="Ex.: Rosa e dourado"></div>
+        <div class="field text"><label>Dificuldade</label>
+          <select id="bmDificuldade"><option>Fácil</option><option>Médio</option><option>Difícil</option></select>
+        </div>
+        <div class="field text"><label>Tempo médio</label><input type="text" id="bmTempo" placeholder="Ex.: 15 min"></div>
+        <div class="field text">
+          <label>Foto (opcional)</label>
+          <input type="file" id="bmFoto" accept="image/*" capture="environment">
+          <div id="bmFotoPreviewWrap" style="display:none; margin-top:8px; align-items:center; gap:10px;">
+            <img id="bmFotoPreview" alt="Foto do modelo" style="width:48px; height:48px; object-fit:cover; border-radius:9px; border:1px solid var(--line);">
+            <button type="button" class="btn-ghost" id="bmFotoRemoveBtn">Remover foto</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" id="bmSaveBtn">＋ Adicionar modelo</button>
+      <p class="hint" id="bmSavedHint"></p>
+
+      <div class="model-grid" id="modelGrid" style="margin-top:20px;"></div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section class="panel" data-p="posts">
+    <div class="card">
+      <h2>Gerador de Posts</h2>
+      <div class="grid-inputs" style="margin-bottom:14px; max-width:320px;">
+        <div class="field text"><label>Campanha</label>
+          <select id="campanhaSel">
+            <option>Natal</option><option>Dia das Mães</option><option>Páscoa</option>
+            <option>Festa Junina</option><option>Volta às Aulas</option><option>Dia das Crianças</option>
+            <option>Halloween</option><option>Black Friday</option><option>Aniversário da Loja</option>
+            <option>Promoção</option><option>Lançamento</option><option>Liquidação de Estoque</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="genPostBtn">Gerar conteúdo</button>
+      <div id="postResult" style="margin-top:18px;"></div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section class="panel" data-p="agenda">
+    <div class="card">
+      <h2>Agenda Comercial</h2>
+      <p class="sub">O que produzir e quando começar, por data comemorativa. Você recebe um aviso quando a data estiver chegando perto.</p>
+
+      <div id="agendaAvisos"></div>
+
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Título da data</label><input type="text" id="agTitulo" placeholder="Ex.: Dia dos Namorados"></div>
+        <div class="field"><label>Dia</label><input type="number" id="agDia" min="1" max="31" value="1"></div>
+        <div class="field text"><label>Mês</label>
+          <select id="agMes">
+            <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
+            <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
+            <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
+            <option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option>
+          </select>
+        </div>
+        <div class="field text"><label>O que produzir</label><input type="text" id="agProducao" placeholder="Ex.: Laços vermelhos e brancos"></div>
+        <div class="field text"><label>Quando começar</label><input type="text" id="agInicio" placeholder="Ex.: Começar 60 dias antes"></div>
+        <div class="field text"><label>Quantidade sugerida</label><input type="text" id="agQtd" placeholder="Ex.: 100 un."></div>
+      </div>
+      <button class="btn-primary" id="agSaveBtn">＋ Adicionar data</button>
+      <p class="hint" id="agSavedHint"></p>
+
+      <label style="display:flex; align-items:center; gap:8px; margin:18px 0 4px; font-size:12.5px; color:var(--ink-soft); font-weight:600;">
+        <input type="checkbox" id="agMuteGlobal"> Silenciar todos os avisos de data próxima
+      </label>
+
+      <div id="agendaList" style="margin-top:10px;"></div>
+    </div>
+  </section>
+
+  <!-- FORNECEDORES -->
+  <section class="panel" data-p="fornecedores">
+    <div class="card">
+      <h2>Fornecedores</h2>
+      <p class="sub">Cadastre seus fornecedores com o máximo de detalhe — endereço, o que fornece, contato e mais.</p>
+      <div class="filters-row" style="justify-content:space-between;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <select id="fEstado"><option value="">Estado (todos)</option></select>
+          <select id="fCategoria"><option value="">Categoria (todas)</option></select>
+        </div>
+        <button class="btn-primary" id="fNovoBtn">＋ Novo fornecedor</button>
+      </div>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Nome</th><th>Estado</th><th>Cidade</th><th>Categoria</th><th>Avaliação</th><th></th></tr></thead>
+        <tbody id="fornecedoresBody"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- MODAL DETALHE DO FORNECEDOR -->
+  <div class="modal-overlay" id="fModalOverlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="fModalTitulo">Novo fornecedor</h2>
+        <button class="drawer-close" id="fModalCloseBtn" type="button" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Nome do fornecedor</label><input type="text" id="fNome" placeholder="Ex.: Fitas & Cia"></div>
+        <div class="field text">
+          <label>Estado</label>
+          <div class="editable-select" data-storage-key="opcoes-fornecedor-estado">
+            <select id="fNovoEstado"></select>
+            <button type="button" class="add-opt-btn" data-target="fNovoEstado">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="fNovoEstado">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="fNovoEstado">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field text"><label>Cidade</label><input type="text" id="fCidade" placeholder="Ex.: Curitiba"></div>
+        <div class="field text">
+          <label>Categoria</label>
+          <div class="editable-select" data-storage-key="opcoes-fornecedor-categoria">
+            <select id="fNovaCategoria"></select>
+            <button type="button" class="add-opt-btn" data-target="fNovaCategoria">+ Adicionar</button>
+            <button type="button" class="edit-opt-btn" data-target="fNovaCategoria">✎ Editar</button>
+            <button type="button" class="del-opt-btn" data-target="fNovaCategoria">✕ Remover</button>
+          </div>
+        </div>
+        <div class="field text"><label>Endereço / Local</label><input type="text" id="fEndereco" placeholder="Rua, bairro, referência..."></div>
+        <div class="field"><label>Avaliação (0 a 5)</label><input type="number" id="fAvaliacao" min="0" max="5" step="0.1" value="5"></div>
+        <div class="field text"><label>Telefone / WhatsApp (opcional)</label><input type="text" id="fTelefone" placeholder="(00) 00000-0000"></div>
+        <div class="field text"><label>Instagram ou site (opcional)</label><input type="text" id="fInsta" placeholder="@fornecedor ou site.com"></div>
+      </div>
+      <div class="field text" style="margin-bottom:14px;">
+        <label>O que fornece</label>
+        <textarea id="fOQueFornece" style="width:100%; min-height:60px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;" placeholder="Ex.: Fitas de cetim e gorgurão, todas as larguras"></textarea>
+      </div>
+      <div class="field text" style="margin-bottom:16px;">
+        <label>Observações (opcional)</label>
+        <textarea id="fObs" style="width:100%; min-height:50px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;" placeholder="Prazo de entrega, pedido mínimo, condições de pagamento..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="btn-primary" id="fSalvarBtn" style="flex:1;">Salvar fornecedor</button>
+        <button class="btn-ghost" id="fExcluirBtn" style="display:none;">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <section class="panel" data-p="perfil">
+    <div class="card">
+      <h2>Perfil</h2>
+      <div class="grid-inputs" style="max-width:520px;">
+        <div class="field text"><label>Nome</label><input type="text" id="prNome" value=""></div>
+        <div class="field text"><label>E-mail (opcional)</label><input type="email" id="prEmail" value=""></div>
+      </div>
+      <button class="btn-primary" style="margin-top:16px;" id="salvarPerfilBtn">Salvar alterações</button>
+      <p class="hint" id="perfilHint"></p>
+    </div>
+
+    <div class="card">
+      <h2>Sincronizar entre aparelhos</h2>
+      <p class="sub">Sem senha, sem login — é só um código. Deixa ele salvo do mesmo jeito nos dois aparelhos e os dados ficam sempre iguais nos dois, sozinhos.</p>
+      <p class="hint" id="statusNuvem" style="font-weight:700; margin-bottom:14px;">⏳ Conectando com a nuvem...</p>
+
+      <div style="margin-bottom:18px;">
+        <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Código deste aparelho</label>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div id="syncCodeDisplay" style="font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:700; letter-spacing:.08em; background:var(--bg-soft); border:1px solid var(--line); border-radius:10px; padding:10px 16px; flex:1;">------</div>
+          <button class="btn-ghost" id="copiarCodigoBtn" type="button">Copiar</button>
+        </div>
+        <p class="hint" id="copiarCodigoHint"></p>
+        <button class="btn-ghost" id="desconectarAparelhoBtn" type="button" style="margin-top:10px; color:var(--danger); border-color:var(--danger);">Desconectar este aparelho</button>
+        <p class="hint" id="desconectarHint"></p>
+      </div>
+
+      <div>
+        <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Já tem um código de outro aparelho? Cole aqui pra conectar</label>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="text" id="conectarCodigoInput" placeholder="Ex.: AB3F9K" style="flex:1; min-width:160px; border:1px solid var(--line); background:var(--bg); border-radius:9px; padding:9px 12px; font:700 14px 'IBM Plex Mono',monospace; text-transform:uppercase;">
+          <button class="btn-primary" id="conectarCodigoBtn" type="button">Conectar</button>
+        </div>
+        <p class="hint" id="conectarCodigoHint"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- PAINEL ADMIN -->
+<div class="modal-overlay" id="adminOverlay">
+  <div class="modal-card" style="max-width:480px;">
+    <div class="modal-head">
+      <h2>Painel Admin</h2>
+      <button class="drawer-close" id="fecharAdminBtn" type="button" aria-label="Fechar">✕</button>
+    </div>
+
+    <div id="adminLoginView">
+      <p class="hint" style="margin-bottom:14px;">Acesso restrito — só você.</p>
+      <div class="field text" style="margin-bottom:14px; text-align:left;"><label>Senha</label><div class="pw-wrap"><input type="password" id="adminSenha" placeholder="Sua senha"><button type="button" class="pw-toggle" data-target="adminSenha" aria-label="Mostrar senha">👁</button></div></div>
+
+      <div id="adminCodigoWrap" style="display:none; margin-bottom:14px; text-align:left;">
+        <p class="hint" style="margin-bottom:8px;">Primeiro acesso neste aparelho — digite o código de confirmação.</p>
+        <label>Código de confirmação</label>
+        <input type="text" id="adminCodigo" placeholder="Código">
+      </div>
+
+      <button class="btn-primary" id="adminEntrarBtn" style="width:100%;">Entrar</button>
+      <p class="hint" id="adminLoginErro" style="color:#B4453C;"></p>
+    </div>
+
+    <div id="adminPainelView" style="display:none;">
+      <p class="hint" style="margin-bottom:14px;">Tudo que você postar aqui aparece pra todas as pessoas que usam o Laceira PRO, na aba Dashboard.</p>
+      <p class="hint" id="novidadeModoEdicao" style="display:none; color:var(--pink-deep); font-weight:700; margin-bottom:10px;">✎ Editando uma novidade já publicada</p>
+      <div class="field text" style="margin-bottom:10px; text-align:left;"><label>Título</label><input type="text" id="novidadeTitulo" placeholder="Ex.: Nova função de catálogo!"></div>
+      <div class="grid-inputs" style="margin-bottom:10px;">
+        <div class="field text" style="text-align:left;">
+          <label>Mostrar por quantos dias (a partir de agora)</label>
+          <input type="number" id="novidadeDias" value="14" min="1" max="90">
+        </div>
+        <div class="field text" style="text-align:left;">
+          <label>Link (opcional)</label>
+          <input type="text" id="novidadeLink" placeholder="https://...">
+        </div>
+      </div>
+      <div class="field text" style="margin-bottom:14px; text-align:left;">
+        <label>Texto</label>
+        <textarea id="novidadeTexto" style="width:100%; min-height:70px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;" placeholder="Conta a novidade..."></textarea>
+      </div>
+
+      <div style="margin-bottom:14px; text-align:left;">
+        <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Prévia — é exatamente assim que vai aparecer pra todo mundo:</label>
+        <div class="activity-list" style="border:1px dashed var(--line); border-radius:10px; padding:10px;">
+          <div class="activity-item" id="novidadePreview" style="background:var(--pink); border-radius:9px; padding:8px 10px;">
+            <span class="dot2"></span><div class="txt">📢 <b>Seu título aparece aqui</b><br><span style="font-size:12px;">O texto da novidade aparece aqui...</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="btn-primary" id="postarNovidadeBtn" style="flex:1;">Publicar pra todo mundo</button>
+        <button class="btn-ghost" id="cancelarEdicaoNovidadeBtn" style="display:none;">Cancelar edição</button>
+      </div>
+      <p class="hint" id="adminPostErro" style="color:#B4453C;"></p>
+
+      <h2 style="margin-top:24px; font-size:16px;">Novidades já postadas</h2>
+      <p class="hint" style="margin-bottom:10px;">Ficam guardadas aqui mesmo depois de saírem da aba Novidades de todo mundo — você pode editar ou excluir a qualquer momento.</p>
+      <div id="adminNovidadesList" style="display:flex; flex-direction:column; gap:8px;"></div>
+
+      <button type="button" id="adminSairBtn" style="background:none; border:none; color:var(--ink-soft); font:600 12px 'Inter',sans-serif; cursor:pointer; margin-top:16px;">Sair do painel admin</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, updateDoc, deleteDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXUdzqt4zGGiP-wI59AWvclwp1T-rOwf8",
+    authDomain: "laceira-pro.firebaseapp.com",
+    projectId: "laceira-pro",
+    storageBucket: "laceira-pro.firebasestorage.app",
+    messagingSenderId: "869698816398",
+    appId: "1:869698816398:web:2efce18fbc7332938e3cdf"
+  };
+
+  try {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.__firebase = {
+      entrarAnonimo: () => signInAnonymously(auth),
+      garantirAutenticado: () => new Promise((resolve, reject) => {
+        const unsub = onAuthStateChanged(auth, (user) => {
+          unsub();
+          if(user){ resolve(user); }
+          else { signInAnonymously(auth).then(cred => resolve(cred.user)).catch(reject); }
+        }, reject);
+      }),
+      buscarDados: async (codigo) => {
+        const snap = await getDoc(doc(db, 'usuarios', codigo));
+        return snap.exists() ? snap.data() : null;
+      },
+      salvarDados: (codigo, dados) => setDoc(doc(db, 'usuarios', codigo), dados, { merge: true }),
+      escutarDados: (codigo, cb) => onSnapshot(doc(db, 'usuarios', codigo), (snap) => {
+        cb(snap.exists() ? snap.data() : null, snap.metadata.hasPendingWrites);
+      }, (err) => console.error('Erro ao escutar mudanças da nuvem:', err)),
+      // ---- Admin (só você) ----
+      criarContaAdmin: (email, senha) => createUserWithEmailAndPassword(auth, email, senha),
+      entrarAdmin: (email, senha) => signInWithEmailAndPassword(auth, email, senha),
+      sairAdmin: () => signOut(auth).then(() => signInAnonymously(auth)),
+      adminAtual: () => (auth.currentUser && !auth.currentUser.isAnonymous) ? auth.currentUser : null,
+      postarNovidade: (titulo, texto, dias, link) => addDoc(collection(db, 'novidades_globais'), {
+        titulo, texto, link: link || '', data: new Date().toISOString(),
+        expiraEm: new Date(Date.now() + (dias||14)*86400000).toISOString()
+      }),
+      editarNovidade: (id, titulo, texto, dias, link) => updateDoc(doc(db, 'novidades_globais', id), {
+        titulo, texto, link: link || '',
+        expiraEm: new Date(Date.now() + (dias||14)*86400000).toISOString()
+      }),
+      excluirNovidade: (id) => deleteDoc(doc(db, 'novidades_globais', id)),
+      buscarNovidadesGlobais: async () => {
+        const q = query(collection(db, 'novidades_globais'), orderBy('data', 'desc'), limit(50));
+        const snap = await getDocs(q);
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      },
+      mapErro: (code) => {
+        const mapa = {
+          'auth/network-request-failed': 'Sem conexão com a internet no momento.',
+          'permission-denied': 'A nuvem ainda não está liberada pra esse app (regras do Firestore). Fale com quem configurou o Firebase.',
+          'auth/email-already-in-use': 'Já existe uma conta admin com esse e-mail. Tente entrar em vez de criar.',
+          'auth/invalid-email': 'E-mail inválido.',
+          'auth/weak-password': 'A senha precisa ter pelo menos 6 caracteres.',
+          'auth/user-not-found': 'Não encontramos uma conta admin com esse e-mail.',
+          'auth/wrong-password': 'Senha incorreta.',
+          'auth/invalid-credential': 'E-mail ou senha incorretos.',
+          'auth/too-many-requests': 'Muitas tentativas. Espere um pouco e tente de novo.',
+        };
+        return mapa[code] || 'Não foi possível completar. Tente de novo.';
+      },
+    };
+  } catch (e) {
+    console.error('Firebase não pôde iniciar:', e);
+  }
+  window.dispatchEvent(new Event('firebase-pronto'));
+</script>
+
+<script>
+(function(){
+  const BRL = v => (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const NUM = v => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
+  const uid = () => 'id'+Math.random().toString(36).slice(2,9);
+  const LS = 'laceira-pro:';
+  const lsGet = (k,d) => { try{ const r = localStorage.getItem(LS+k); return r ? JSON.parse(r) : d; }catch(e){ return d; } };
+
+  // ---------- SINCRONIZAÇÃO COM A NUVEM (sem senha — por código de aparelho) ----------
+  const SYNC_KEYS = ['perfil','meta-mensal','pedidos','pedido-seq','estoque','clientes',
+    'fornecedores','agenda-comercial','agenda-mute-global','medidas-salvas','custos-salvos','modelos-biblioteca',
+    'opcoes-modelo','opcoes-acabamento','opcoes-fixacao','opcoes-estoque-categoria',
+    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria'];
+
+  function gerarCodigoSync(){
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem caracteres ambíguos (0/O, 1/I)
+    let out = '';
+    for(let i=0;i<8;i++) out += chars[Math.floor(Math.random()*chars.length)];
+    return out;
+  }
+
+  let syncCode = lsGet('sync-code', null);
+  let cloudSyncTimer = null;
+
+  function aoFirebasePronto(cb){
+    if(window.__firebase) return cb();
+    window.addEventListener('firebase-pronto', () => cb(), { once:true });
+  }
+  setTimeout(() => {
+    if(!window.__firebase){
+      const el = document.getElementById('statusNuvem');
+      if(el){ el.textContent = '🔴 Não consegui carregar a conexão com a nuvem (sem internet?). Os dados continuam salvos só neste aparelho.'; el.style.color = '#B4453C'; }
+    }
+  }, 6000);
+
+  function agendarEnvioNuvem(){
+    if(!syncCode || !window.__firebase) return;
+    clearTimeout(cloudSyncTimer);
+    cloudSyncTimer = setTimeout(async () => {
+      const blob = {};
+      SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) blob[k] = v; });
+      ultimoBlobConhecido = JSON.stringify(blob);
+      try{ await window.__firebase.salvarDados(syncCode, { dados: blob, atualizadoEm: new Date().toISOString() }); }
+      catch(e){ console.error('Falha ao sincronizar com a nuvem:', e); }
+    }, 1200);
+  }
+
+  let ultimoBlobConhecido = null;
+
+  const lsSet = (k,v) => {
+    try{ localStorage.setItem(LS+k, JSON.stringify(v)); }catch(e){}
+    agendarEnvioNuvem();
+  };
+
+  if(!syncCode){
+    syncCode = gerarCodigoSync();
+    lsSet('sync-code', syncCode);
+  }
+
+  async function puxarDaNuvemEAtualizar(codigoAlvo){
+    if(!window.__firebase) return false;
+    try{
+      const doc = await window.__firebase.buscarDados(codigoAlvo);
+      if(!doc || !doc.dados) return false;
+      const dados = doc.dados;
+      const antesSnapshot = JSON.stringify(SYNC_KEYS.map(k => lsGet(k, null)));
+      SYNC_KEYS.forEach(k => { if(dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados[k])); });
+      const depoisSnapshot = JSON.stringify(SYNC_KEYS.map(k => lsGet(k, null)));
+      ultimoBlobConhecido = JSON.stringify(dados);
+      return antesSnapshot !== depoisSnapshot;
+    }catch(e){ console.error('Falha ao buscar dados da nuvem:', e); return false; }
+  }
+
+  function statusNuvemEl(){ return document.getElementById('statusNuvem'); }
+
+  const RECARGA_MIN_INTERVALO_MS = 8000;
+  function podeRecarregarAgora(){
+    const ultimo = Number(sessionStorage.getItem('laceira-ultimo-reload') || '0');
+    return (Date.now() - ultimo) > RECARGA_MIN_INTERVALO_MS;
+  }
+  function marcarRecarregouAgora(){
+    sessionStorage.setItem('laceira-ultimo-reload', String(Date.now()));
+  }
+
+  async function mostrarAvisoSincronizando(){
+    if(!podeRecarregarAgora()){
+      // já atualizamos a página recentemente — só atualiza os dados guardados,
+      // sem recarregar de novo (evita ficar recarregando sem parar).
+      try{ await puxarDaNuvemEAtualizar(syncCode); }catch(e){ console.error(e); }
+      const el = statusNuvemEl();
+      if(el){ el.textContent = '🟢 Sincronizado — abra a tela de novo pra ver a última atualização.'; el.style.color = 'var(--success)'; }
+      return;
+    }
+    const el = statusNuvemEl();
+    if(el){ el.textContent = '🔄 Novidade de outro aparelho chegou — atualizando...'; el.style.color = 'var(--pink-deep)'; }
+    try{ await puxarDaNuvemEAtualizar(syncCode); }catch(e){ console.error(e); }
+    marcarRecarregouAgora();
+    setTimeout(() => location.reload(), 500);
+  }
+
+  aoFirebasePronto(async () => {
+    try{
+      await window.__firebase.garantirAutenticado();
+    }catch(e){
+      console.error('Falha ao conectar com a nuvem:', e);
+      const el = statusNuvemEl(); if(el){ el.textContent = '🔴 Sem conexão com a nuvem agora — os dados continuam salvos só neste aparelho.'; el.style.color = '#B4453C'; }
+      return;
+    }
+    if(syncCode){
+      try{
+        await puxarDaNuvemEAtualizar(syncCode);
+        // Na primeira vez que essa aba sincroniza, recarrega uma única vez pra garantir
+        // que a tela já nasça com os dados mais recentes (em vez de só atualizar depois).
+        if(!sessionStorage.getItem('laceira-sync-inicial')){
+          sessionStorage.setItem('laceira-sync-inicial', '1');
+          marcarRecarregouAgora();
+          location.reload();
+          return;
+        }
+      }catch(e){
+        const el = statusNuvemEl(); if(el){ el.textContent = '🔴 ' + (window.__firebase.mapErro(e.code) || 'Erro ao buscar dados da nuvem.'); el.style.color = '#B4453C'; }
+        return;
+      }
+
+      // fica escutando mudanças em tempo real vindas de outro aparelho
+      window.__firebase.escutarDados(syncCode, (remoto, temEnvioPendente) => {
+        if(!remoto || !remoto.dados) return;
+        if(temEnvioPendente) return; // eco da nossa própria escrita, ignora
+        const blobRemoto = JSON.stringify(remoto.dados);
+        if(blobRemoto === ultimoBlobConhecido) return; // já é o que já temos
+        ultimoBlobConhecido = blobRemoto;
+        mostrarAvisoSincronizando();
+      });
+    }
+    const el = statusNuvemEl();
+    if(el){ el.textContent = '🟢 Conectado à nuvem — sincronizando automaticamente.'; el.style.color = 'var(--success)'; }
+
+    try{
+      novidadesGlobaisCache = await window.__firebase.buscarNovidadesGlobais();
+      if(typeof renderDashboard === 'function') renderDashboard();
+    }catch(e){ console.error('Falha ao buscar novidades globais:', e); }
+  });
+
+  // ---------- NAV ----------
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+  document.getElementById('menuToggle').addEventListener('click', openSidebar);
+  overlay.addEventListener('click', closeSidebar);
+
+  const panelTitles = {
+    dashboard:['Boa tarde, Camila ✨','Aqui está o resumo do seu ateliê hoje, 30 de julho'],
+    medidas:['Calculadora de Medidas','Descubra exatamente o que separar para a produção'],
+    'calculos-salvos':['Cálculos Salvos','Seus cálculos de medidas guardados, prontos para editar'],
+    custos:['Calculadora de Custos','Some os custos e veja o preço ideal na hora'],
+    'custos-salvos':['Custos Salvos','Seus custos guardados, com foto de cada produto'],
+    lucro:['Calculadora de Lucro','Transforme sua meta de ganho em metas diárias'],
+    estoque:['Controle de Estoque','Fitas, bicos, mantas e mais, sempre atualizados'],
+    pedidos:['Pedidos','Acompanhe tudo o que está em produção e entrega'],
+    clientes:['Clientes','Histórico e contato de quem compra de você'],
+    biblioteca:['Biblioteca de Modelos','Seus modelos próprios, prontos para editar'],
+    posts:['Gerador de Posts','Conteúdo pronto pra Instagram'],
+    agenda:['Agenda Comercial','O calendário do seu ateliê'],
+    fornecedores:['Fornecedores','Encontre quem fornece o que você precisa'],
+    perfil:['Perfil','Seus dados e a segurança de acesso']
+  };
+  document.querySelectorAll('.nav-item[data-panel]').forEach(btn => {
+    btn.addEventListener('click', () => { goTo(btn.dataset.panel); closeSidebar(); });
+  });
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-goto]');
+    if(g) goTo(g.dataset.goto);
+  });
+  function goTo(name){
+    document.querySelectorAll('.nav-item[data-panel]').forEach(b => b.classList.toggle('active', b.dataset.panel===name));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.p===name));
+    const t = panelTitles[name];
+    if(t){ document.getElementById('panelTitle').textContent = t[0]; document.getElementById('panelSub').textContent = t[1]; }
+  }
+
+  // ---------- MOSTRAR/OCULTAR SENHA ----------
+  document.querySelectorAll('.pw-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const inp = document.getElementById(btn.dataset.target);
+      if(!inp) return;
+      if(inp.type === 'password'){ inp.type = 'text'; btn.textContent = '🙈'; }
+      else { inp.type = 'password'; btn.textContent = '👁'; }
+    });
+  });
+
+  // ---------- THEME ----------
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const root = document.documentElement;
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeToggle').textContent = isDark ? '🌙' : '☀️';
+  });
+
+  // ---------- DASHBOARD ----------
+  // (o cálculo real do dashboard acontece no fim do script, depois que pedidos/estoque/agenda existem)
+
+  // ---------- CALC MEDIDAS ----------
+  // ---------- EDITABLE SELECTS (Modelo / Acabamento / Fixação) ----------
+  const OPCOES_PADRAO = {
+    'opcoes-modelo': { select: 'mModelo', defaults: ['Laço X', 'Laço Pétala', 'Laço Boutique Duplo', 'Catavento', 'Laço com Pernas'] },
+    'opcoes-acabamento': { select: 'mAcabamento', defaults: ['Enrugado', 'Torcido', 'Armado', 'Simples'] },
+    'opcoes-fixacao': { select: 'mFixacao', defaults: ['Bico de Pato', 'Faixinha', 'Tiara'] },
+    'opcoes-estoque-categoria': { select: 'eCategoria', defaults: ['Fita', 'Bico', 'Manta', 'Strass', 'Cola', 'Embalagem'] },
+    'opcoes-fornecedor-estado': { select: 'fNovoEstado', defaults: ['PR', 'SC', 'SP', 'RJ', 'MG', 'RS'] },
+    'opcoes-fornecedor-categoria': { select: 'fNovaCategoria', defaults: ['Fitas', 'Aviamentos', 'Embalagens', 'Mantas', 'Cola'] },
+  };
+  function populateEditableSelect(key){
+    const cfg = OPCOES_PADRAO[key];
+    const opcoes = lsGet(key, cfg.defaults);
+    const sel = document.getElementById(cfg.select);
+    const prev = sel.value;
+    sel.innerHTML = opcoes.map(o => `<option${o===prev?' selected':''}>${o}</option>`).join('');
+  }
+  Object.keys(OPCOES_PADRAO).forEach(populateEditableSelect);
+
+  document.querySelectorAll('.add-opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const key = Object.keys(OPCOES_PADRAO).find(k => OPCOES_PADRAO[k].select === targetId);
+      const novo = prompt('Digite a nova opção:');
+      if(!novo || !novo.trim()) return;
+      const opcoes = lsGet(key, OPCOES_PADRAO[key].defaults);
+      if(!opcoes.includes(novo.trim())) opcoes.push(novo.trim());
+      lsSet(key, opcoes);
+      populateEditableSelect(key);
+      document.getElementById(targetId).value = novo.trim();
+      calcMedidas();
+    });
+  });
+
+  document.querySelectorAll('.edit-opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const key = Object.keys(OPCOES_PADRAO).find(k => OPCOES_PADRAO[k].select === targetId);
+      const sel = document.getElementById(targetId);
+      const atual = sel.value;
+      if(!atual){ alert('Não há opção selecionada para editar.'); return; }
+      const editado = prompt('Editar opção:', atual);
+      if(editado === null || !editado.trim()) return;
+      const opcoes = lsGet(key, OPCOES_PADRAO[key].defaults);
+      const idx = opcoes.indexOf(atual);
+      if(idx === -1) return;
+      opcoes[idx] = editado.trim();
+      lsSet(key, opcoes);
+      populateEditableSelect(key);
+      sel.value = editado.trim();
+      calcMedidas();
+    });
+  });
+
+  document.querySelectorAll('.del-opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const key = Object.keys(OPCOES_PADRAO).find(k => OPCOES_PADRAO[k].select === targetId);
+      const sel = document.getElementById(targetId);
+      const atual = sel.value;
+      if(!atual){ alert('Não há opção selecionada para remover.'); return; }
+      if(!confirm(`Remover a opção "${atual}"?`)) return;
+      let opcoes = lsGet(key, OPCOES_PADRAO[key].defaults);
+      opcoes = opcoes.filter(o => o !== atual);
+      lsSet(key, opcoes);
+      populateEditableSelect(key);
+      calcMedidas();
+    });
+  });
+
+  function calcMedidas(){
+    const tamanho = NUM(document.getElementById('mTamanho').value);
+    const qtd = NUM(document.getElementById('mQtd').value);
+    const fixacao = document.getElementById('mFixacao').value;
+    const compFita = tamanho * 2.6; // cm de fita por laço, estimado
+    const totalMetros = (compFita * qtd) / 100;
+    const bicos = fixacao === 'Bico de Pato' ? qtd : 0;
+    const mantas = qtd;
+    const cola = (qtd * 0.8).toFixed(1);
+    const tempoMin = qtd * 4.5;
+    document.getElementById('mResult').innerHTML = `
+      <div class="stat"><div class="k">Fitas necessárias</div><div class="v">${qtd} un.</div></div>
+      <div class="stat"><div class="k">Comprimento por fita</div><div class="v">${compFita.toFixed(1)} cm</div></div>
+      <div class="stat"><div class="k">Total em metros</div><div class="v">${totalMetros.toFixed(2)} m</div></div>
+      <div class="stat"><div class="k">Bicos de pato</div><div class="v">${bicos} un.</div></div>
+      <div class="stat"><div class="k">Mantas</div><div class="v">${mantas} un.</div></div>
+      <div class="stat"><div class="k">Cola estimada</div><div class="v">${cola} g</div></div>
+      <div class="stat"><div class="k">Tempo médio de produção</div><div class="v">${Math.round(tempoMin)} min</div></div>
+    `;
+  }
+  ['mTamanho','mQtd','mAcabamento','mModelo','mLargura','mFixacao'].forEach(id => document.getElementById(id).addEventListener('input', calcMedidas));
+
+  // ---------- CÁLCULOS SALVOS (salvar / editar / excluir) ----------
+  let editingMedidaId = null;
+  const mSaveBtn = document.getElementById('mSaveBtn');
+
+  function renderCalculosSalvos(){
+    const list = lsGet('medidas-salvas', []);
+    const body = document.getElementById('calculosSalvosBody');
+    const empty = document.getElementById('calculosSalvosEmpty');
+    body.innerHTML = '';
+    if(!list.length){ empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    list.forEach(c => {
+      const tr = document.createElement('tr');
+      const dataStr = new Date(c.date).toLocaleDateString('pt-BR');
+      tr.innerHTML = `<td>${dataStr}</td><td>${c.modelo||''}</td><td>${c.tamanho||''} cm</td><td>${c.qtd||''}</td><td>${c.acabamento||''}</td><td>${c.fixacao||''}</td>
+        <td style="white-space:nowrap;">
+          <button class="btn-ghost" data-edit-medida="${c.id}">Editar</button>
+          <button class="btn-ghost" data-del-medida="${c.id}">Excluir</button>
+        </td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  mSaveBtn.addEventListener('click', () => {
+    const list = lsGet('medidas-salvas', []);
+    const dados = {
+      modelo: document.getElementById('mModelo').value,
+      acabamento: document.getElementById('mAcabamento').value,
+      fixacao: document.getElementById('mFixacao').value,
+      tamanho: document.getElementById('mTamanho').value,
+      qtd: document.getElementById('mQtd').value,
+    };
+    if(editingMedidaId){
+      const idx = list.findIndex(c => c.id === editingMedidaId);
+      if(idx !== -1){ list[idx] = { ...list[idx], ...dados }; }
+      lsSet('medidas-salvas', list);
+      document.getElementById('mSavedHint').textContent = 'Alterações salvas ✓';
+      editingMedidaId = null;
+      mSaveBtn.textContent = 'Salvar este cálculo';
+    } else {
+      list.unshift({ id: uid(), ...dados, date: new Date().toISOString() });
+      lsSet('medidas-salvas', list);
+      document.getElementById('mSavedHint').textContent = 'Cálculo salvo ✓';
+    }
+    setTimeout(() => document.getElementById('mSavedHint').textContent = '', 2000);
+    renderCalculosSalvos();
+  });
+
+  document.addEventListener('click', (e) => {
+    const editId = e.target.dataset.editMedida;
+    const delId = e.target.dataset.delMedida;
+    if(editId){
+      const list = lsGet('medidas-salvas', []);
+      const c = list.find(x => x.id === editId);
+      if(!c) return;
+      document.getElementById('mModelo').value = c.modelo || '';
+      document.getElementById('mAcabamento').value = c.acabamento || '';
+      document.getElementById('mFixacao').value = c.fixacao || '';
+      document.getElementById('mTamanho').value = c.tamanho || '';
+      document.getElementById('mQtd').value = c.qtd || '';
+      editingMedidaId = c.id;
+      mSaveBtn.textContent = 'Salvar alterações';
+      calcMedidas();
+      goTo('medidas');
+    }
+    if(delId){
+      if(!confirm('Excluir este cálculo salvo?')) return;
+      let list = lsGet('medidas-salvas', []);
+      list = list.filter(x => x.id !== delId);
+      lsSet('medidas-salvas', list);
+      if(editingMedidaId === delId){ editingMedidaId = null; mSaveBtn.textContent = 'Salvar este cálculo'; }
+      renderCalculosSalvos();
+    }
+  });
+
+  calcMedidas();
+  renderCalculosSalvos();
+
+  // ---------- CALC CUSTOS (itens dinâmicos + foto + salvos) ----------
+  let custoItens = [
+    { id: uid(), nome: 'Fita', valor: 1.8 },
+    { id: uid(), nome: 'Bico', valor: 0.6 },
+    { id: uid(), nome: 'Manta', valor: 0.4 },
+    { id: uid(), nome: 'Cola', valor: 0.2 },
+    { id: uid(), nome: 'Linha', valor: 0.15 },
+    { id: uid(), nome: 'Embalagem', valor: 0.5 },
+    { id: uid(), nome: 'Mão de obra', valor: 2.4 },
+  ];
+  let currentCustoFoto = null;
+  let editingCustoId = null;
+  const cSaveBtn = document.getElementById('cSaveBtn');
+
+  function renderCustoItens(){
+    const body = document.getElementById('custoItensBody');
+    body.innerHTML = '';
+    custoItens.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" data-custo-nome="${item.id}" value="${item.nome.replace(/"/g,'&quot;')}" placeholder="Nome do item"></td>
+        <td><input type="number" step="0.01" data-custo-valor="${item.id}" value="${item.valor}" style="width:110px;"></td>
+        <td><button class="btn-ghost" data-custo-del="${item.id}">Remover</button></td>
+      `;
+      body.appendChild(tr);
+    });
+  }
+
+  document.getElementById('addCustoItemBtn').addEventListener('click', () => {
+    custoItens.push({ id: uid(), nome: '', valor: 0 });
+    renderCustoItens();
+  });
+
+  document.addEventListener('input', (e) => {
+    const nomeId = e.target.dataset.custoNome;
+    const valorId = e.target.dataset.custoValor;
+    if(nomeId){ const it = custoItens.find(x=>x.id===nomeId); if(it){ it.nome = e.target.value; } calcCustos(); }
+    if(valorId){ const it = custoItens.find(x=>x.id===valorId); if(it){ it.valor = NUM(e.target.value); } calcCustos(); }
+  });
+
+  document.addEventListener('click', (e) => {
+    const delId = e.target.dataset.custoDel;
+    if(delId){ custoItens = custoItens.filter(x=>x.id!==delId); renderCustoItens(); calcCustos(); }
+  });
+
+  function calcCustos(){
+    const soma = custoItens.reduce((acc, it) => acc + NUM(it.valor), 0);
+    const mult = NUM(document.getElementById('cMult').value);
+    const precoMinimo = soma * 1.3;
+    const precoSugerido = soma * mult;
+    const lucro = precoSugerido - soma;
+    const margem = precoSugerido > 0 ? (lucro/precoSugerido)*100 : 0;
+    document.getElementById('cResult').innerHTML = `
+      <div class="stat"><div class="k">Custo por unidade</div><div class="v">${BRL(soma)}</div></div>
+      <div class="stat"><div class="k">Preço mínimo</div><div class="v">${BRL(precoMinimo)}</div></div>
+      <div class="stat"><div class="k">Lucro por unidade</div><div class="v">${BRL(lucro)}</div></div>
+      <div class="stat"><div class="k">Margem</div><div class="v">${margem.toFixed(0)}%</div></div>
+    `;
+    document.getElementById('cPreco').textContent = BRL(precoSugerido);
+    return { soma, precoMinimo, precoSugerido, lucro, margem };
+  }
+  document.getElementById('cMult').addEventListener('input', calcCustos);
+  renderCustoItens();
+  calcCustos();
+
+  // foto do produto (redimensiona para caber no localStorage)
+  function resizePhoto(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 420;
+          let w = img.width, h = img.height;
+          if(w > h && w > maxDim){ h = Math.round(h*maxDim/w); w = maxDim; }
+          else if(h > maxDim){ w = Math.round(w*maxDim/h); h = maxDim; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  document.getElementById('cFoto').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      currentCustoFoto = await resizePhoto(file);
+      document.getElementById('cFotoPreview').src = currentCustoFoto;
+      document.getElementById('cFotoPreviewWrap').style.display = 'flex';
+    }catch(err){ console.error('Falha ao processar foto', err); }
+  });
+  document.getElementById('cFotoRemoveBtn').addEventListener('click', () => {
+    currentCustoFoto = null;
+    document.getElementById('cFoto').value = '';
+    document.getElementById('cFotoPreviewWrap').style.display = 'none';
+  });
+
+  function resetCustoForm(){
+    editingCustoId = null;
+    cSaveBtn.textContent = 'Salvar este custo';
+    document.getElementById('cNomeProduto').value = '';
+    document.getElementById('cFoto').value = '';
+    document.getElementById('cFotoPreviewWrap').style.display = 'none';
+    currentCustoFoto = null;
+    custoItens = [
+      { id: uid(), nome: 'Fita', valor: 1.8 }, { id: uid(), nome: 'Bico', valor: 0.6 },
+      { id: uid(), nome: 'Manta', valor: 0.4 }, { id: uid(), nome: 'Cola', valor: 0.2 },
+      { id: uid(), nome: 'Linha', valor: 0.15 }, { id: uid(), nome: 'Embalagem', valor: 0.5 },
+      { id: uid(), nome: 'Mão de obra', valor: 2.4 },
+    ];
+    document.getElementById('cMult').value = 8;
+    renderCustoItens();
+    calcCustos();
+  }
+
+  function renderCustosSalvos(){
+    const list = lsGet('custos-salvos', []);
+    const grid = document.getElementById('custosSalvosGrid');
+    const empty = document.getElementById('custosSalvosEmpty');
+    grid.innerHTML = '';
+    if(!list.length){ empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    list.forEach(c => {
+      const card = document.createElement('div'); card.className = 'model-card';
+      card.innerHTML = `
+        ${c.foto ? `<img class="thumb" src="${c.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${c.nome||'Produto'}">` : `<div class="thumb">🎀</div>`}
+        <div class="info">
+          <div class="name">${c.nome || 'Sem nome'}</div>
+          <div class="meta">Custo: ${BRL(c.resumo?.soma||0)} · Sugerido: ${BRL(c.resumo?.precoSugerido||0)}</div>
+        </div>
+        <div style="display:flex; gap:8px; padding:0 12px 12px;">
+          <button class="btn-ghost" data-edit-custo="${c.id}" style="flex:1;">Editar</button>
+          <button class="btn-ghost" data-del-custo="${c.id}" style="flex:1;">Excluir</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  cSaveBtn.addEventListener('click', () => {
+    const list = lsGet('custos-salvos', []);
+    const resumo = calcCustos();
+    const dados = {
+      nome: document.getElementById('cNomeProduto').value.trim() || 'Produto sem nome',
+      foto: currentCustoFoto,
+      itens: JSON.parse(JSON.stringify(custoItens)),
+      mult: document.getElementById('cMult').value,
+      resumo,
+    };
+    if(editingCustoId){
+      const idx = list.findIndex(c => c.id === editingCustoId);
+      if(idx !== -1) list[idx] = { ...list[idx], ...dados };
+      lsSet('custos-salvos', list);
+      document.getElementById('cSavedHint').textContent = 'Alterações salvas ✓';
+      editingCustoId = null;
+      cSaveBtn.textContent = 'Salvar este custo';
+    } else {
+      list.unshift({ id: uid(), ...dados, date: new Date().toISOString() });
+      lsSet('custos-salvos', list);
+      document.getElementById('cSavedHint').textContent = 'Custo salvo ✓';
+    }
+    setTimeout(() => document.getElementById('cSavedHint').textContent = '', 2000);
+    renderCustosSalvos();
+  });
+
+  document.addEventListener('click', (e) => {
+    const editId = e.target.dataset.editCusto;
+    const delId = e.target.dataset.delCusto;
+    if(editId){
+      const list = lsGet('custos-salvos', []);
+      const c = list.find(x => x.id === editId);
+      if(!c) return;
+      document.getElementById('cNomeProduto').value = c.nome || '';
+      currentCustoFoto = c.foto || null;
+      if(currentCustoFoto){
+        document.getElementById('cFotoPreview').src = currentCustoFoto;
+        document.getElementById('cFotoPreviewWrap').style.display = 'flex';
+      } else {
+        document.getElementById('cFotoPreviewWrap').style.display = 'none';
+      }
+      custoItens = JSON.parse(JSON.stringify(c.itens || []));
+      document.getElementById('cMult').value = c.mult || 8;
+      editingCustoId = c.id;
+      cSaveBtn.textContent = 'Salvar alterações';
+      renderCustoItens();
+      calcCustos();
+      goTo('custos');
+    }
+    if(delId){
+      if(!confirm('Excluir este custo salvo?')) return;
+      let list = lsGet('custos-salvos', []);
+      list = list.filter(x => x.id !== delId);
+      lsSet('custos-salvos', list);
+      if(editingCustoId === delId) resetCustoForm();
+      renderCustosSalvos();
+    }
+  });
+
+  renderCustosSalvos();
+
+
+  // ---------- CALC LUCRO ----------
+  function calcLucro(){
+    const meta = NUM(document.getElementById('lMeta').value);
+    const dias = NUM(document.getElementById('lDias').value) || 1;
+    const horas = NUM(document.getElementById('lHoras').value);
+    const tempo = NUM(document.getElementById('lTempo').value) || 1;
+    const preco = NUM(document.getElementById('lPreco').value) || 1;
+    const qtdNecessaria = meta / preco;
+    const metaDiaria = qtdNecessaria / dias;
+    const metaSemanal = metaDiaria * 6;
+    const capacidadeDiaria = (horas*60)/tempo;
+    document.getElementById('lResult').innerHTML = `
+      <div class="stat"><div class="k">Quantidade necessária/mês</div><div class="v">${Math.ceil(qtdNecessaria)} laços</div></div>
+      <div class="stat"><div class="k">Meta diária</div><div class="v">${Math.ceil(metaDiaria)} laços</div></div>
+      <div class="stat"><div class="k">Meta semanal</div><div class="v">${Math.ceil(metaSemanal)} laços</div></div>
+      <div class="stat"><div class="k">Meta mensal</div><div class="v">${Math.ceil(qtdNecessaria)} laços</div></div>
+      <div class="stat"><div class="k">Sua capacidade diária</div><div class="v">${Math.floor(capacidadeDiaria)} laços</div></div>
+    `;
+  }
+  ['lMeta','lDias','lHoras','lTempo','lPreco'].forEach(id => document.getElementById(id).addEventListener('input', calcLucro));
+  calcLucro();
+
+  // ---------- ESTOQUE ----------
+  let estoque = lsGet('estoque', [
+    {id:uid(), item:'Fita cetim rosa 22mm', cat:'Fita', qtd:8, min:15, foto:null},
+    {id:uid(), item:'Bico strass pequeno', cat:'Bico', qtd:40, min:20, foto:null},
+    {id:uid(), item:'Manta feltro branca', cat:'Manta', qtd:25, min:10, foto:null},
+    {id:uid(), item:'Cola quente bastão', cat:'Cola', qtd:12, min:10, foto:null},
+    {id:uid(), item:'Embalagem kraft', cat:'Embalagem', qtd:60, min:30, foto:null},
+  ]);
+  let editingEstoqueId = null;
+  let currentEstoqueFoto = null;
+  const eSaveBtn = document.getElementById('eSaveBtn');
+
+  function renderEstoque(){
+    const body = document.getElementById('estoqueBody');
+    body.innerHTML = '';
+    estoque.forEach(it => {
+      const low = it.qtd < it.min;
+      const tr = document.createElement('tr');
+      tr.dataset.estRow = it.id;
+      tr.innerHTML = `
+        <td>${it.foto ? `<img src="${it.foto}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;" alt="${it.item}">` : '<span style="opacity:.35;">🎀</span>'}</td>
+        <td>${it.item}</td><td>${it.cat}</td>
+        <td><input type="number" data-est-qtd="${it.id}" value="${it.qtd}" style="width:70px;"></td>
+        <td>${it.min}</td>
+        <td><span class="badge ${low?'low':'ok'}" data-est-badge="${it.id}">${low?'Estoque baixo':'OK'}</span></td>
+        <td style="white-space:nowrap;">
+          <button class="btn-ghost" data-est-edit="${it.id}">Editar</button>
+          <button class="btn-ghost" data-est-del="${it.id}">Excluir</button>
+        </td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  document.getElementById('eFoto').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      currentEstoqueFoto = await resizePhoto(file);
+      document.getElementById('eFotoPreview').src = currentEstoqueFoto;
+      document.getElementById('eFotoPreviewWrap').style.display = 'flex';
+    }catch(err){ console.error('Falha ao processar foto', err); }
+  });
+  document.getElementById('eFotoRemoveBtn').addEventListener('click', () => {
+    currentEstoqueFoto = null;
+    document.getElementById('eFoto').value = '';
+    document.getElementById('eFotoPreviewWrap').style.display = 'none';
+  });
+
+  function resetEstoqueForm(){
+    editingEstoqueId = null;
+    eSaveBtn.textContent = '＋ Adicionar item';
+    document.getElementById('eNome').value = '';
+    document.getElementById('eQtd').value = '0';
+    document.getElementById('eMin').value = '10';
+    document.getElementById('eFoto').value = '';
+    document.getElementById('eFotoPreviewWrap').style.display = 'none';
+    currentEstoqueFoto = null;
+  }
+
+  eSaveBtn.addEventListener('click', () => {
+    const nome = document.getElementById('eNome').value.trim();
+    if(!nome){ alert('Digite o nome do item.'); return; }
+    const dados = {
+      item: nome,
+      cat: document.getElementById('eCategoria').value,
+      qtd: NUM(document.getElementById('eQtd').value),
+      min: NUM(document.getElementById('eMin').value),
+      foto: currentEstoqueFoto,
+    };
+    if(editingEstoqueId){
+      const idx = estoque.findIndex(x => x.id === editingEstoqueId);
+      if(idx !== -1) estoque[idx] = { ...estoque[idx], ...dados };
+      document.getElementById('eSavedHint').textContent = 'Alterações salvas ✓';
+    } else {
+      estoque.unshift({ id: uid(), ...dados });
+      document.getElementById('eSavedHint').textContent = 'Item adicionado ✓';
+    }
+    lsSet('estoque', estoque);
+    setTimeout(() => document.getElementById('eSavedHint').textContent = '', 2000);
+    resetEstoqueForm();
+    renderEstoque();
+    if(typeof renderDashboard === 'function') renderDashboard();
+  });
+
+  document.addEventListener('input', e => {
+    const id = e.target.dataset.estQtd;
+    if(!id) return;
+    const it = estoque.find(x=>x.id===id); if(!it) return;
+    it.qtd = NUM(e.target.value);
+    lsSet('estoque', estoque);
+    const badge = document.querySelector(`[data-est-badge="${id}"]`);
+    if(badge){
+      const low = it.qtd < it.min;
+      badge.className = `badge ${low?'low':'ok'}`;
+      badge.textContent = low ? 'Estoque baixo' : 'OK';
+    }
+    if(typeof renderDashboard === 'function') renderDashboard();
+  });
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.estEdit;
+    const delId = e.target.dataset.estDel;
+    if(editId){
+      const it = estoque.find(x => x.id === editId);
+      if(!it) return;
+      document.getElementById('eNome').value = it.item;
+      document.getElementById('eCategoria').value = it.cat;
+      document.getElementById('eQtd').value = it.qtd;
+      document.getElementById('eMin').value = it.min;
+      currentEstoqueFoto = it.foto || null;
+      if(currentEstoqueFoto){
+        document.getElementById('eFotoPreview').src = currentEstoqueFoto;
+        document.getElementById('eFotoPreviewWrap').style.display = 'flex';
+      } else {
+        document.getElementById('eFotoPreviewWrap').style.display = 'none';
+      }
+      editingEstoqueId = it.id;
+      eSaveBtn.textContent = 'Salvar alterações';
+      goTo('estoque');
+    }
+    if(delId){
+      if(!confirm('Excluir este item do estoque?')) return;
+      estoque = estoque.filter(x=>x.id!==delId); lsSet('estoque', estoque);
+      if(editingEstoqueId === delId) resetEstoqueForm();
+      renderEstoque();
+      if(typeof renderDashboard === 'function') renderDashboard();
+    }
+  });
+  renderEstoque();
+
+  // ---------- PEDIDOS ----------
+  let pedidos = lsGet('pedidos', [
+    {id:uid(), n:128, cliente:'Marina Alves', telefone:'', produto:'Laço Boutique M', qtd:6, valor:120, status:'Em produção', data: new Date().toISOString().slice(0,10)},
+    {id:uid(), n:127, cliente:'Juliana Costa', telefone:'', produto:'Kit Butterfly', qtd:12, valor:260, status:'Entregue', data: new Date(Date.now()-5*86400000).toISOString().slice(0,10)},
+  ]);
+  let pedidoSeq = lsGet('pedido-seq', 129);
+  let editingPedidoId = null;
+  const addPedidoBtn = document.getElementById('addPedidoBtn');
+
+  function statusBadgeClass(status){
+    if(status === 'Cancelado') return 'cancel';
+    if(status === 'Entregue' || status === 'Pronto') return 'ok';
+    return 'pink';
+  }
+
+  function renderPedidos(){
+    const body = document.getElementById('pedidosBody');
+    body.innerHTML = '';
+    pedidos.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>#${p.n}</td><td>${p.cliente}</td><td>${p.telefone||'—'}</td><td>${p.produto}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td>
+        <td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td>
+        <td style="white-space:nowrap;">
+          <button class="btn-ghost" data-ped-edit="${p.id}">Editar</button>
+          <button class="btn-ghost" data-ped-del="${p.id}">Excluir</button>
+        </td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  function resetPedidoForm(){
+    editingPedidoId = null;
+    addPedidoBtn.textContent = '＋ Novo pedido';
+    document.getElementById('pCliente').value='';
+    document.getElementById('pTelefone').value='';
+    document.getElementById('pProduto').value='';
+    document.getElementById('pQtd').value='1';
+    document.getElementById('pValor').value='0';
+    document.getElementById('pStatus').value='Aguardando pagamento';
+    document.getElementById('pData').value = new Date().toISOString().slice(0,10);
+  }
+  resetPedidoForm();
+
+  addPedidoBtn.addEventListener('click', () => {
+    const cliente = document.getElementById('pCliente').value.trim();
+    if(!cliente) return;
+    const dados = {
+      cliente,
+      telefone: document.getElementById('pTelefone').value.trim(),
+      produto: document.getElementById('pProduto').value || '—',
+      qtd: NUM(document.getElementById('pQtd').value),
+      valor: NUM(document.getElementById('pValor').value),
+      status: document.getElementById('pStatus').value,
+      data: document.getElementById('pData').value || new Date().toISOString().slice(0,10),
+    };
+    if(editingPedidoId){
+      const idx = pedidos.findIndex(x => x.id === editingPedidoId);
+      if(idx !== -1) pedidos[idx] = { ...pedidos[idx], ...dados };
+      document.getElementById('pSavedHint').textContent = 'Pedido atualizado ✓';
+    } else {
+      pedidos.unshift({ id: uid(), n: pedidoSeq, ...dados });
+      pedidoSeq++; lsSet('pedido-seq', pedidoSeq);
+      document.getElementById('pSavedHint').textContent = 'Pedido criado ✓';
+    }
+    lsSet('pedidos', pedidos);
+    setTimeout(() => document.getElementById('pSavedHint').textContent = '', 2000);
+    resetPedidoForm();
+    renderPedidos();
+    if(typeof renderDashboard === 'function') renderDashboard();
+  });
+
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.pedEdit;
+    const delId = e.target.dataset.pedDel;
+    if(editId){
+      const p = pedidos.find(x => x.id === editId);
+      if(!p) return;
+      document.getElementById('pCliente').value = p.cliente;
+      document.getElementById('pTelefone').value = p.telefone || '';
+      document.getElementById('pProduto').value = p.produto;
+      document.getElementById('pQtd').value = p.qtd;
+      document.getElementById('pValor').value = p.valor;
+      document.getElementById('pStatus').value = p.status;
+      document.getElementById('pData').value = p.data || new Date().toISOString().slice(0,10);
+      editingPedidoId = p.id;
+      addPedidoBtn.textContent = 'Salvar alterações';
+      goTo('pedidos');
+    }
+    if(delId){
+      if(!confirm('Excluir este pedido?')) return;
+      pedidos = pedidos.filter(x=>x.id!==delId); lsSet('pedidos', pedidos);
+      if(editingPedidoId === delId) resetPedidoForm();
+      renderPedidos();
+      if(typeof renderDashboard === 'function') renderDashboard();
+    }
+  });
+  renderPedidos();
+
+  // ---------- CLIENTES ----------
+  let clientes = lsGet('clientes', [
+    {id:uid(), nome:'Marina Alves', tel:'(41) 98888-1234', cidade:'Curitiba', insta:'@marina.alves', total:840},
+    {id:uid(), nome:'Juliana Costa', tel:'(41) 97777-5678', cidade:'Rio Azul', insta:'@ju.costa', total:1260},
+  ]);
+  let editingClienteId = null;
+  const addClienteBtn = document.getElementById('addClienteBtn');
+
+  function renderClientes(){
+    const body = document.getElementById('clientesBody');
+    body.innerHTML = '';
+    clientes.forEach(c => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel}</td><td>${c.cidade}</td><td>${c.insta}</td><td>${BRL(c.total)}</td>
+        <td style="white-space:nowrap;">
+          <button class="btn-ghost" data-cl-edit="${c.id}">Editar</button>
+          <button class="btn-ghost" data-cl-del="${c.id}">Excluir</button>
+        </td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  function resetClienteForm(){
+    editingClienteId = null;
+    addClienteBtn.textContent = '＋ Nova cliente';
+    ['clNome','clTelefone','clCidade','clInsta'].forEach(id => document.getElementById(id).value='');
+  }
+
+  addClienteBtn.addEventListener('click', () => {
+    const nome = document.getElementById('clNome').value.trim();
+    if(!nome) return;
+    const dados = { nome, tel:document.getElementById('clTelefone').value, cidade:document.getElementById('clCidade').value, insta:document.getElementById('clInsta').value };
+    if(editingClienteId){
+      const idx = clientes.findIndex(x => x.id === editingClienteId);
+      if(idx !== -1) clientes[idx] = { ...clientes[idx], ...dados };
+      document.getElementById('clSavedHint').textContent = 'Alterações salvas ✓';
+    } else {
+      clientes.unshift({ id: uid(), ...dados, total: 0 });
+      document.getElementById('clSavedHint').textContent = 'Cliente adicionada ✓';
+    }
+    lsSet('clientes', clientes);
+    setTimeout(() => document.getElementById('clSavedHint').textContent = '', 2000);
+    resetClienteForm();
+    renderClientes();
+  });
+
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.clEdit;
+    const delId = e.target.dataset.clDel;
+    if(editId){
+      const c = clientes.find(x => x.id === editId);
+      if(!c) return;
+      document.getElementById('clNome').value = c.nome;
+      document.getElementById('clTelefone').value = c.tel || '';
+      document.getElementById('clCidade').value = c.cidade || '';
+      document.getElementById('clInsta').value = c.insta || '';
+      editingClienteId = c.id;
+      addClienteBtn.textContent = 'Salvar alterações';
+      goTo('clientes');
+    }
+    if(delId){
+      if(!confirm('Excluir esta cliente?')) return;
+      clientes = clientes.filter(x=>x.id!==delId); lsSet('clientes', clientes);
+      if(editingClienteId === delId) resetClienteForm();
+      renderClientes();
+    }
+  });
+  renderClientes();
+
+  // ---------- BIBLIOTECA DE MODELOS ----------
+  let modelos = lsGet('modelos-biblioteca', [
+    {id:uid(), nome:'Laço Boutique Clássico', cat:'Boutique', cores:'Rosa e branco', dif:'Fácil', tempo:'15 min', foto:null},
+    {id:uid(), nome:'Laço Butterfly Duplo', cat:'Butterfly', cores:'Lilás e dourado', dif:'Médio', tempo:'22 min', foto:null},
+    {id:uid(), nome:'Laço Luxo Strass', cat:'Luxo', cores:'Vinho e prata', dif:'Difícil', tempo:'35 min', foto:null},
+  ]);
+  let editingModeloId = null;
+  let currentModeloFoto = null;
+  const bmSaveBtn = document.getElementById('bmSaveBtn');
+
+  function renderBiblioteca(){
+    const modelGrid = document.getElementById('modelGrid');
+    modelGrid.innerHTML = '';
+    modelos.forEach(m => {
+      const card = document.createElement('div'); card.className = 'model-card';
+      card.innerHTML = `
+        ${m.foto ? `<img class="thumb" src="${m.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${m.nome}">` : `<div class="thumb">🎀</div>`}
+        <div class="info">
+          <div class="name">${m.nome}</div>
+          <div class="meta">${[m.cat, m.cores, m.dif, m.tempo].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div style="display:flex; gap:8px; padding:0 12px 12px;">
+          <button class="btn-ghost" data-edit-modelo="${m.id}" style="flex:1;">Editar</button>
+          <button class="btn-ghost" data-del-modelo="${m.id}" style="flex:1;">Excluir</button>
+        </div>
+      `;
+      modelGrid.appendChild(card);
+    });
+  }
+
+  document.getElementById('bmFoto').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      currentModeloFoto = await resizePhoto(file);
+      document.getElementById('bmFotoPreview').src = currentModeloFoto;
+      document.getElementById('bmFotoPreviewWrap').style.display = 'flex';
+    }catch(err){ console.error('Falha ao processar foto', err); }
+  });
+  document.getElementById('bmFotoRemoveBtn').addEventListener('click', () => {
+    currentModeloFoto = null;
+    document.getElementById('bmFoto').value = '';
+    document.getElementById('bmFotoPreviewWrap').style.display = 'none';
+  });
+
+  function resetModeloForm(){
+    editingModeloId = null;
+    bmSaveBtn.textContent = '＋ Adicionar modelo';
+    document.getElementById('bmNome').value = '';
+    document.getElementById('bmCategoria').value = '';
+    document.getElementById('bmCores').value = '';
+    document.getElementById('bmDificuldade').value = 'Fácil';
+    document.getElementById('bmTempo').value = '';
+    document.getElementById('bmFoto').value = '';
+    document.getElementById('bmFotoPreviewWrap').style.display = 'none';
+    currentModeloFoto = null;
+  }
+
+  bmSaveBtn.addEventListener('click', () => {
+    const nome = document.getElementById('bmNome').value.trim();
+    if(!nome){ alert('Digite o nome do modelo.'); return; }
+    const dados = {
+      nome,
+      cat: document.getElementById('bmCategoria').value.trim(),
+      cores: document.getElementById('bmCores').value.trim(),
+      dif: document.getElementById('bmDificuldade').value,
+      tempo: document.getElementById('bmTempo').value.trim(),
+      foto: currentModeloFoto,
+    };
+    if(editingModeloId){
+      const idx = modelos.findIndex(x => x.id === editingModeloId);
+      if(idx !== -1) modelos[idx] = { ...modelos[idx], ...dados };
+      document.getElementById('bmSavedHint').textContent = 'Alterações salvas ✓';
+    } else {
+      modelos.unshift({ id: uid(), ...dados });
+      document.getElementById('bmSavedHint').textContent = 'Modelo adicionado ✓';
+    }
+    lsSet('modelos-biblioteca', modelos);
+    setTimeout(() => document.getElementById('bmSavedHint').textContent = '', 2000);
+    resetModeloForm();
+    renderBiblioteca();
+  });
+
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.editModelo;
+    const delId = e.target.dataset.delModelo;
+    if(editId){
+      const m = modelos.find(x => x.id === editId);
+      if(!m) return;
+      document.getElementById('bmNome').value = m.nome;
+      document.getElementById('bmCategoria').value = m.cat || '';
+      document.getElementById('bmCores').value = m.cores || '';
+      document.getElementById('bmDificuldade').value = m.dif || 'Fácil';
+      document.getElementById('bmTempo').value = m.tempo || '';
+      currentModeloFoto = m.foto || null;
+      if(currentModeloFoto){
+        document.getElementById('bmFotoPreview').src = currentModeloFoto;
+        document.getElementById('bmFotoPreviewWrap').style.display = 'flex';
+      } else {
+        document.getElementById('bmFotoPreviewWrap').style.display = 'none';
+      }
+      editingModeloId = m.id;
+      bmSaveBtn.textContent = 'Salvar alterações';
+      goTo('biblioteca');
+    }
+    if(delId){
+      if(!confirm('Excluir este modelo?')) return;
+      modelos = modelos.filter(x=>x.id!==delId); lsSet('modelos-biblioteca', modelos);
+      if(editingModeloId === delId) resetModeloForm();
+      renderBiblioteca();
+    }
+  });
+  renderBiblioteca();
+
+  // ---------- POSTS (campanhas variadas + gerar mais) ----------
+  const POST_BANKS = {
+    'Natal': {
+      legendas: [
+        'O Natal pede laços especiais 🎄✨ Descubra a nossa coleção natalina e encante seus clientes.',
+        'Já separou os laços de Natal da sua loja? A época mais mágica do ano merece um capricho a mais 🎄',
+        'Vermelho, dourado e muito brilho: a coleção de Natal chegou pra deixar tudo mais festivo 🎁',
+      ],
+      hashtags: ['#lacosartesanais #natal #hairaccessories #ateliedelacos', '#natal2026 #lacosdenatal #atacadodelacos #feitocomamor'],
+      roteiros: [
+        '1. Mostre o rolo de fita natalina\n2. Corte e montagem em timelapse\n3. Laço pronto com trilha natalina\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Detalhe dos acabamentos brilhantes\n3. Combo de laços prontos pra despachar\n4. CTA final',
+      ],
+      ctas: ['Garanta o seu antes que acabe!', 'Faça seu pedido de Natal com antecedência!', 'Corre no link da bio e escolha o seu!'],
+    },
+    'Dia das Mães': {
+      legendas: [
+        'Presenteie quem também presenteia todos os dias 💐 Kits especiais de Dia das Mães chegaram.',
+        'Ela merece um mimo à altura do carinho dela 💐 Conheça os kits de Dia das Mães.',
+        'Um laço, um cartão, um carinho especial: assim são nossos kits de Dia das Mães 💐',
+      ],
+      hashtags: ['#diadasmaes #lacosartesanais #presenteespecial', '#diadasmaes2026 #presenteparamae #ateliedelacos'],
+      roteiros: [
+        '1. Depoimento carinhoso\n2. Mostre o kit sendo embalado\n3. Close nos detalhes do laço\n4. CTA final',
+        '1. Unboxing do kit especial\n2. Cartão personalizado sendo escrito\n3. Reação de quem recebeu\n4. CTA final',
+      ],
+      ctas: ['Peça o seu kit hoje mesmo!', 'Frete rápido pra chegar a tempo!', 'Fale com a gente e monte o kit perfeito!'],
+    },
+    'Páscoa': {
+      legendas: [
+        'Laços fofos em tons pastel pra combinar com a cestinha de Páscoa 🐰🌸',
+        'Coelhinhos e orelhinhas: a coleção de Páscoa já chegou, cheia de fofura 🐰',
+        'Deixe a Páscoa ainda mais doce com um laço combinando com a fantasia 🌷',
+      ],
+      hashtags: ['#pascoa #lacosdepascoa #ateliedelacos', '#pascoa2026 #lacosartesanais #coelhinho'],
+      roteiros: [
+        '1. Mostre a paleta de cores pastel da coleção\n2. Montagem do laço coelhinho\n3. Combo pronto com a cestinha\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Detalhe do acabamento e do miolo\n3. Resultado final em uso\n4. CTA final',
+      ],
+      ctas: ['Encomende antes que esgote!', 'Combine com toda a família!', 'Vem garantir o seu no link da bio!'],
+    },
+    'Festa Junina': {
+      legendas: [
+        'Bora de xadrez! Laços juninos pra arrasar na quadrilha 🌽🔥',
+        'Arraiá chegando e os laços juninos também 🎪 Confira a coleção.',
+        'Chapéu de palha, vestido de poá e um laço xadrez — combo perfeito pro arraiá 🌽',
+      ],
+      hashtags: ['#festajunina #lacosjuninos #ateliedelacos', '#arraia2026 #lacosartesanais #modajunina'],
+      roteiros: [
+        '1. Mostre os tecidos xadrez\n2. Montagem passo a passo\n3. Look completo com o laço\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Detalhe do acabamento\n3. Cliente usando no arraiá\n4. CTA final',
+      ],
+      ctas: ['Garanta o seu pro arraiá!', 'Fala com a gente no direct!', 'Corre que é por tempo limitado!'],
+    },
+    'Volta às Aulas': {
+      legendas: [
+        'Ano letivo novo, laços novos ✏️📚 Combine com o uniforme da escola.',
+        'Organização começa pelo visual! Laços escolares pra começar o ano com estilo 📚',
+        'Volta às aulas com muito estilo: confira os laços prontos pra semana inteira ✏️',
+      ],
+      hashtags: ['#voltaasaulas #lacosescolares #ateliedelacos', '#voltaasaulas2026 #lacosartesanais #modaescolar'],
+      roteiros: [
+        '1. Mostre o kit da semana (5 laços)\n2. Combine com o uniforme\n3. Detalhe do acabamento resistente\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Testando a fixação\n3. Resultado no dia a dia\n4. CTA final',
+      ],
+      ctas: ['Monte o kit da semana!', 'Peça o seu combo escolar!', 'Fala com a gente e garanta o desconto!'],
+    },
+    'Dia das Crianças': {
+      legendas: [
+        'Alegria em forma de laço 🎈 Coleção Dia das Crianças chegando!',
+        'Um mimo especial pra fazer o dia dela ainda mais feliz 🎈',
+        'Cores vibrantes e muito carinho: assim é a coleção Dia das Crianças 🎈',
+      ],
+      hashtags: ['#diadascriancas #lacosinfantis #ateliedelacos', '#diadascriancas2026 #lacosartesanais'],
+      roteiros: [
+        '1. Mostre as cores da coleção\n2. Criança escolhendo o favorito\n3. Reação de felicidade\n4. CTA final',
+        '1. Bastidor da produção\n2. Combo de presente\n3. Embalagem especial\n4. CTA final',
+      ],
+      ctas: ['Garanta o mimo da sua pequena!', 'Peça o combo especial!', 'Corre no link da bio!'],
+    },
+    'Halloween': {
+      legendas: [
+        'Doce ou laço? 🎃 Coleção de Halloween cheia de charme (nada de travessura).',
+        'Laços temáticos pra arrasar no Halloween 🕸️🎃',
+        'Um toque assustadoramente fofo pra fantasia dela 🦇',
+      ],
+      hashtags: ['#halloween #lacosdehalloween #ateliedelacos', '#halloween2026 #lacosartesanais #fantasiainfantil'],
+      roteiros: [
+        '1. Mostre a paleta laranja e preto\n2. Montagem do laço temático\n3. Combo com a fantasia\n4. CTA final',
+        '1. Bastidor da produção\n2. Detalhe do acabamento\n3. Resultado em uso\n4. CTA final',
+      ],
+      ctas: ['Garanta o seu antes do grande dia!', 'Combine com a fantasia toda!', 'Corre no link da bio!'],
+    },
+    'Black Friday': {
+      legendas: [
+        'Black Friday chegou 🖤 Condições especiais nos laços mais pedidos, por tempo limitado.',
+        'A sexta-feira mais esperada do ano tem desconto de verdade nos nossos laços 🖤',
+        'Aproveita: preços black em toda a coleção, só até domingo 🖤',
+      ],
+      hashtags: ['#blackfriday #lacosartesanais #promocao', '#blackfriday2026 #ateliedelacos #descontoespecial'],
+      roteiros: [
+        '1. Anuncie o desconto com contagem regressiva\n2. Mostre os modelos participantes\n3. Reforce a urgência\n4. CTA final',
+        '1. Bastidor do estoque se esgotando\n2. Depoimentos de quem já comprou\n3. Últimas unidades\n4. CTA final',
+      ],
+      ctas: ['Corre que acaba domingo!', 'Estoque limitado, garanta o seu!', 'Link na bio, sem enrolação!'],
+    },
+    'Aniversário da Loja': {
+      legendas: [
+        'Estamos de aniversário 🎉 E quem ganha o presente são vocês, com condições exclusivas.',
+        'Mais um ano de muito laço e carinho — vem comemorar com a gente 🎉',
+        'Obrigada por fazer parte dessa história! Comemoração especial de aniversário no ar 🎉',
+      ],
+      hashtags: ['#aniversariodaloja #lacosartesanais #ateliedelacos', '#comemoração #promocaoespecial'],
+      roteiros: [
+        '1. Retrospectiva dos primeiros laços\n2. Bastidor da loja hoje\n3. Anúncio da promoção de aniversário\n4. CTA final',
+        '1. Depoimentos de clientes fiéis\n2. Sorteio ou brinde especial\n3. Chamada para a promoção\n4. CTA final',
+      ],
+      ctas: ['Aproveite a semana de aniversário!', 'Aniversário só se comemora junto, vem!', 'Corre garantir seu desconto!'],
+    },
+    'Promoção': {
+      legendas: [
+        'Promoção relâmpago 🚨 Por tempo limitado, condições especiais nos laços mais pedidos.',
+        'Corre que essa promoção não dura muito! Preços especiais hoje 🚨',
+        'De olho no story: promoção surpresa rolando agora 🚨',
+      ],
+      hashtags: ['#promocao #lacosartesanais #outletdelacos', '#promocaoespecial #ateliedelacos'],
+      roteiros: [
+        '1. Anuncie a promoção com contagem regressiva\n2. Mostre os modelos participantes\n3. Reforce a urgência\n4. CTA final',
+        '1. Bastidor do estoque disponível\n2. Mostre o antes/depois do preço\n3. Reforce quantidade limitada\n4. CTA final',
+      ],
+      ctas: ['Corre que é por tempo limitado!', 'Só até acabar o estoque!', 'Chama no direct e garanta o seu!'],
+    },
+    'Lançamento': {
+      legendas: [
+        'Chegou novidade no ateliê 🎀 Conheça a nova coleção, feita com muito carinho.',
+        'Segredo revelado: a nova coleção já está disponível 🎀',
+        'Depois de semanas de trabalho, o lançamento finalmente chegou 🎀',
+      ],
+      hashtags: ['#lancamento #novacolecao #lacosartesanais', '#lançamento2026 #ateliedelacos #novidade'],
+      roteiros: [
+        '1. Teaser do novo modelo\n2. Processo de produção\n3. Reveal completo da peça\n4. CTA final',
+        '1. Bastidor da criação\n2. Testes de cor e acabamento\n3. Coleção completa em uso\n4. CTA final',
+      ],
+      ctas: ['Já está disponível — vem ver!', 'Seja a primeira a garantir o seu!', 'Corre no link da bio!'],
+    },
+    'Liquidação de Estoque': {
+      legendas: [
+        'Liquidação total 📦 Últimas peças de coleções anteriores com preço imperdível.',
+        'Hora de renovar o estoque: peças selecionadas com desconto de verdade 📦',
+        'Estoque baixando, preço também — aproveita antes que acabe 📦',
+      ],
+      hashtags: ['#liquidacao #outlet #lacosartesanais', '#queimadeestoque #promocao #ateliedelacos'],
+      roteiros: [
+        '1. Mostre as peças selecionadas\n2. Reforce que são últimas unidades\n3. Mostre o preço antes/depois\n4. CTA final',
+        '1. Bastidor da organização do estoque\n2. Combo de peças com desconto\n3. Reforce a urgência\n4. CTA final',
+      ],
+      ctas: ['Últimas unidades, corre!', 'Aproveita antes que acabe!', 'Chama no direct pra garantir!'],
+    },
+  };
+
+  let lastPostCombo = null;
+  function pickDifferent(arr, lastIdx){
+    if(arr.length === 1) return { val: arr[0], idx: 0 };
+    let idx;
+    do{ idx = Math.floor(Math.random()*arr.length); } while(idx === lastIdx);
+    return { val: arr[idx], idx };
+  }
+
+  function gerarConteudoPost(){
+    const camp = document.getElementById('campanhaSel').value;
+    const banco = POST_BANKS[camp];
+    const last = lastPostCombo && lastPostCombo.camp === camp ? lastPostCombo : { legIdx:-1, hashIdx:-1, rotIdx:-1, ctaIdx:-1 };
+    const leg = pickDifferent(banco.legendas, last.legIdx);
+    const hash = pickDifferent(banco.hashtags, last.hashIdx);
+    const rot = pickDifferent(banco.roteiros, last.rotIdx);
+    const cta = pickDifferent(banco.ctas, last.ctaIdx);
+    lastPostCombo = { camp, legIdx: leg.idx, hashIdx: hash.idx, rotIdx: rot.idx, ctaIdx: cta.idx };
+
+    document.getElementById('postResult').innerHTML = `
+      <div class="card" style="margin:0;">
+        <h2>${camp}</h2>
+        <p class="sub">Conteúdo gerado para a campanha</p>
+        <div class="field text" style="margin-bottom:12px;"><label>Legenda</label><textarea style="width:100%; min-height:60px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;">${leg.val}</textarea></div>
+        <div class="field text" style="margin-bottom:12px;"><label>Hashtags</label><input value="${hash.val}"></div>
+        <div class="field text" style="margin-bottom:12px;"><label>Roteiro para Reels</label><textarea style="width:100%; min-height:80px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;">${rot.val}</textarea></div>
+        <div class="field text" style="margin-bottom:14px;"><label>CTA</label><input value="${cta.val}"></div>
+        <button class="btn-ghost" id="genMorePostBtn">🔄 Gerar mais ideias diferentes</button>
+      </div>`;
+    const moreBtn = document.getElementById('genMorePostBtn');
+    if(moreBtn) moreBtn.addEventListener('click', gerarConteudoPost);
+  }
+  document.getElementById('genPostBtn').addEventListener('click', gerarConteudoPost);
+  document.getElementById('campanhaSel').addEventListener('change', () => { lastPostCombo = null; });
+
+  // ---------- AGENDA COMERCIAL ----------
+  const MESES_NOME = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  let agenda = lsGet('agenda-comercial', [
+    {id:uid(), titulo:'Natal', dia:25, mes:12, prod:'Laços natalinos vermelho, verde e dourado', inicio:'Começar a produzir em outubro', qtd:'150 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Dia das Mães', dia:10, mes:5, prod:'Kits com cartão personalizado', inicio:'Começar a produzir em março', qtd:'200 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Páscoa', dia:5, mes:4, prod:'Laços em tons pastel com coelhinho', inicio:'Começar a produzir em fevereiro', qtd:'120 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Festa Junina', dia:12, mes:6, prod:'Laços xadrez vermelho e branco', inicio:'Começar a produzir em abril', qtd:'100 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Volta às Aulas', dia:1, mes:2, prod:'Kits escolares (5 laços por semana)', inicio:'Começar a produzir em dezembro', qtd:'150 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Dia das Crianças', dia:12, mes:10, prod:'Laços coloridos e temáticos infantis', inicio:'Começar a produzir em agosto', qtd:'150 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Halloween', dia:31, mes:10, prod:'Laços laranja e preto temáticos', inicio:'Começar a produzir em agosto', qtd:'80 un.', silenciado:false, feitoAno:null},
+    {id:uid(), titulo:'Black Friday', dia:27, mes:11, prod:'Reforço de estoque dos modelos mais vendidos', inicio:'Começar a produzir em setembro', qtd:'200 un.', silenciado:false, feitoAno:null},
+  ]);
+
+  function nextOccurrence(item){
+    const hoje = new Date();
+    const anoAtual = hoje.getFullYear();
+    let data = new Date(anoAtual, item.mes - 1, item.dia);
+    if(data < new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())){
+      data = new Date(anoAtual + 1, item.mes - 1, item.dia);
+    }
+    return data;
+  }
+  function diasAte(data){
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const alvo = new Date(data); alvo.setHours(0,0,0,0);
+    return Math.round((alvo - hoje) / 86400000);
+  }
+
+  function renderAgendaAvisos(){
+    const wrap = document.getElementById('agendaAvisos');
+    const muteGlobal = document.getElementById('agMuteGlobal').checked;
+    wrap.innerHTML = '';
+    if(muteGlobal) return;
+    const anoAtual = new Date().getFullYear();
+    agenda.forEach(item => {
+      if(item.silenciado) return;
+      const prox = nextOccurrence(item);
+      const dias = diasAte(prox);
+      const anoDoAviso = prox.getFullYear();
+      if(item.feitoAno === anoDoAviso) return;
+      if(dias >= 0 && dias <= 14){
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.style.cssText = 'margin:0 0 12px; background:var(--pink); border-color:var(--pink-deep);';
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+            <div>
+              <b style="color:var(--pink-dark);">🔔 ${item.titulo} é ${dias===0?'hoje':'em '+dias+' dia(s)'}</b>
+              <div style="font-size:12.5px; color:var(--pink-dark); margin-top:2px;">Já preparou os posts e o estoque pra essa data?</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-ghost" data-aviso-feito="${item.id}" data-ano="${anoDoAviso}">✓ Já preparei</button>
+              <button class="btn-ghost" data-aviso-mute="${item.id}">🔕 Silenciar</button>
+            </div>
+          </div>`;
+        wrap.appendChild(div);
+      }
+    });
+  }
+
+  function renderAgendaList(){
+    const list = [...agenda].sort((a,b) => nextOccurrence(a) - nextOccurrence(b));
+    const agendaList = document.getElementById('agendaList');
+    agendaList.innerHTML = '';
+    list.forEach(item => {
+      const div = document.createElement('div'); div.className = 'agenda-item';
+      div.innerHTML = `
+        <div class="agenda-date"><div class="d">${String(item.dia).padStart(2,'0')}</div><div class="m">${MESES_NOME[item.mes]}</div></div>
+        <div class="agenda-info" style="flex:1;">
+          <b>${item.titulo}${item.silenciado ? ' <span style="font-size:11px; color:var(--ink-soft); font-weight:500;">(avisos silenciados)</span>' : ''}</b>
+          <div class="meta">${item.prod} · ${item.inicio} · sugestão: ${item.qtd}</div>
+        </div>
+        <div style="display:flex; gap:6px; flex:0 0 auto;">
+          <button class="btn-ghost" data-ag-edit="${item.id}">Editar</button>
+          <button class="btn-ghost" data-ag-del="${item.id}">Excluir</button>
+        </div>`;
+      agendaList.appendChild(div);
+    });
+  }
+
+  function resetAgendaForm(){
+    editingAgendaId = null;
+    document.getElementById('agSaveBtn').textContent = '＋ Adicionar data';
+    document.getElementById('agTitulo').value = '';
+    document.getElementById('agDia').value = '1';
+    document.getElementById('agMes').value = '1';
+    document.getElementById('agProducao').value = '';
+    document.getElementById('agInicio').value = '';
+    document.getElementById('agQtd').value = '';
+  }
+
+  let editingAgendaId = null;
+  document.getElementById('agSaveBtn').addEventListener('click', () => {
+    const titulo = document.getElementById('agTitulo').value.trim();
+    if(!titulo){ alert('Digite o título da data.'); return; }
+    const dados = {
+      titulo,
+      dia: NUM(document.getElementById('agDia').value) || 1,
+      mes: NUM(document.getElementById('agMes').value) || 1,
+      prod: document.getElementById('agProducao').value.trim(),
+      inicio: document.getElementById('agInicio').value.trim(),
+      qtd: document.getElementById('agQtd').value.trim(),
+    };
+    if(editingAgendaId){
+      const idx = agenda.findIndex(x => x.id === editingAgendaId);
+      if(idx !== -1) agenda[idx] = { ...agenda[idx], ...dados };
+      document.getElementById('agSavedHint').textContent = 'Alterações salvas ✓';
+    } else {
+      agenda.push({ id: uid(), ...dados, silenciado:false, feitoAno:null });
+      document.getElementById('agSavedHint').textContent = 'Data adicionada ✓';
+    }
+    lsSet('agenda-comercial', agenda);
+    setTimeout(() => document.getElementById('agSavedHint').textContent = '', 2000);
+    resetAgendaForm();
+    renderAgendaList();
+    renderAgendaAvisos();
+    if(typeof renderDashboard === 'function') renderDashboard();
+  });
+
+  document.getElementById('agMuteGlobal').addEventListener('change', (e) => {
+    lsSet('agenda-mute-global', e.target.checked);
+    renderAgendaAvisos();
+    if(typeof renderDashboard === 'function') renderDashboard();
+  });
+
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.agEdit;
+    const delId = e.target.dataset.agDel;
+    const feitoId = e.target.dataset.avisoFeito;
+    const muteId = e.target.dataset.avisoMute;
+    if(editId){
+      const item = agenda.find(x => x.id === editId);
+      if(!item) return;
+      document.getElementById('agTitulo').value = item.titulo;
+      document.getElementById('agDia').value = item.dia;
+      document.getElementById('agMes').value = item.mes;
+      document.getElementById('agProducao').value = item.prod || '';
+      document.getElementById('agInicio').value = item.inicio || '';
+      document.getElementById('agQtd').value = item.qtd || '';
+      editingAgendaId = item.id;
+      document.getElementById('agSaveBtn').textContent = 'Salvar alterações';
+      goTo('agenda');
+    }
+    if(delId){
+      if(!confirm('Excluir esta data da agenda?')) return;
+      agenda = agenda.filter(x=>x.id!==delId); lsSet('agenda-comercial', agenda);
+      if(editingAgendaId === delId) resetAgendaForm();
+      renderAgendaList(); renderAgendaAvisos();
+      if(typeof renderDashboard === 'function') renderDashboard();
+    }
+    if(feitoId){
+      const item = agenda.find(x => x.id === feitoId);
+      if(item){ item.feitoAno = NUM(e.target.dataset.ano); lsSet('agenda-comercial', agenda); renderAgendaAvisos(); if(typeof renderDashboard === 'function') renderDashboard(); }
+    }
+    if(muteId){
+      const item = agenda.find(x => x.id === muteId);
+      if(item){ item.silenciado = true; lsSet('agenda-comercial', agenda); renderAgendaAvisos(); renderAgendaList(); if(typeof renderDashboard === 'function') renderDashboard(); }
+    }
+  });
+
+  document.getElementById('agMuteGlobal').checked = lsGet('agenda-mute-global', false);
+  renderAgendaList();
+  renderAgendaAvisos();
+
+  // ---------- FORNECEDORES ----------
+  let fornecedores = lsGet('fornecedores', [
+    {id:uid(), nome:'Fitas & Cia', estado:'PR', cidade:'Curitiba', cat:'Fitas', nota:4.8, endereco:'', oQueFornece:'Fitas de cetim e gorgurão, várias larguras', telefone:'', insta:'', obs:''},
+    {id:uid(), nome:'Aviamentos Sul', estado:'SC', cidade:'Joinville', cat:'Aviamentos', nota:4.5, endereco:'', oQueFornece:'Bicos, strass e chatons', telefone:'', insta:'', obs:''},
+    {id:uid(), nome:'Embalagens Prime', estado:'SP', cidade:'São Paulo', cat:'Embalagens', nota:4.6, endereco:'', oQueFornece:'Embalagens kraft e caixinhas personalizadas', telefone:'', insta:'', obs:''},
+    {id:uid(), nome:'Strass & Cia', estado:'PR', cidade:'Rio Azul', cat:'Aviamentos', nota:4.3, endereco:'', oQueFornece:'Strass e aplicações em geral', telefone:'', insta:'', obs:''},
+  ]);
+  const fBody = document.getElementById('fornecedoresBody');
+  let editingFornecedorId = null;
+
+  function populateFornecedorFiltros(){
+    const estOpcoes = lsGet('opcoes-fornecedor-estado', OPCOES_PADRAO['opcoes-fornecedor-estado'].defaults);
+    const catOpcoes = lsGet('opcoes-fornecedor-categoria', OPCOES_PADRAO['opcoes-fornecedor-categoria'].defaults);
+    const fEstadoSel = document.getElementById('fEstado');
+    const fCategoriaSel = document.getElementById('fCategoria');
+    const prevEst = fEstadoSel.value, prevCat = fCategoriaSel.value;
+    fEstadoSel.innerHTML = '<option value="">Estado (todos)</option>' + estOpcoes.map(e=>`<option${e===prevEst?' selected':''}>${e}</option>`).join('');
+    fCategoriaSel.innerHTML = '<option value="">Categoria (todas)</option>' + catOpcoes.map(c=>`<option${c===prevCat?' selected':''}>${c}</option>`).join('');
+  }
+
+  function renderFornecedores(){
+    const est = document.getElementById('fEstado').value;
+    const cat = document.getElementById('fCategoria').value;
+    fBody.innerHTML = '';
+    fornecedores.filter(f => (!est||f.estado===est) && (!cat||f.cat===cat)).forEach(f => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${f.nome}</td><td>${f.estado}</td><td>${f.cidade}</td><td>${f.cat}</td><td>⭐ ${f.nota}</td>
+        <td style="white-space:nowrap;"><button class="btn-ghost" data-forn-edit="${f.id}">Editar</button></td>`;
+      fBody.appendChild(tr);
+    });
+  }
+  document.getElementById('fEstado').addEventListener('change', renderFornecedores);
+  document.getElementById('fCategoria').addEventListener('change', renderFornecedores);
+
+  // ---------- Modal de fornecedor ----------
+  const fModalOverlay = document.getElementById('fModalOverlay');
+  function openFornecedorModal(){ fModalOverlay.classList.add('show'); }
+  function closeFornecedorModal(){ fModalOverlay.classList.remove('show'); }
+
+  function resetFornecedorForm(){
+    editingFornecedorId = null;
+    document.getElementById('fModalTitulo').textContent = 'Novo fornecedor';
+    document.getElementById('fExcluirBtn').style.display = 'none';
+    document.getElementById('fNome').value = '';
+    document.getElementById('fCidade').value = '';
+    document.getElementById('fEndereco').value = '';
+    document.getElementById('fAvaliacao').value = '5';
+    document.getElementById('fTelefone').value = '';
+    document.getElementById('fInsta').value = '';
+    document.getElementById('fOQueFornece').value = '';
+    document.getElementById('fObs').value = '';
+    populateEditableSelect('opcoes-fornecedor-estado');
+    populateEditableSelect('opcoes-fornecedor-categoria');
+  }
+
+  document.getElementById('fNovoBtn').addEventListener('click', () => {
+    resetFornecedorForm();
+    openFornecedorModal();
+  });
+  document.getElementById('fModalCloseBtn').addEventListener('click', closeFornecedorModal);
+  fModalOverlay.addEventListener('click', (e) => { if(e.target === fModalOverlay) closeFornecedorModal(); });
+
+  document.getElementById('fSalvarBtn').addEventListener('click', () => {
+    const nome = document.getElementById('fNome').value.trim();
+    if(!nome){ alert('Digite o nome do fornecedor.'); return; }
+    const dados = {
+      nome,
+      estado: document.getElementById('fNovoEstado').value,
+      cidade: document.getElementById('fCidade').value.trim(),
+      cat: document.getElementById('fNovaCategoria').value,
+      endereco: document.getElementById('fEndereco').value.trim(),
+      nota: NUM(document.getElementById('fAvaliacao').value),
+      telefone: document.getElementById('fTelefone').value.trim(),
+      insta: document.getElementById('fInsta').value.trim(),
+      oQueFornece: document.getElementById('fOQueFornece').value.trim(),
+      obs: document.getElementById('fObs').value.trim(),
+    };
+    if(editingFornecedorId){
+      const idx = fornecedores.findIndex(x => x.id === editingFornecedorId);
+      if(idx !== -1) fornecedores[idx] = { ...fornecedores[idx], ...dados };
+    } else {
+      fornecedores.unshift({ id: uid(), ...dados });
+    }
+    lsSet('fornecedores', fornecedores);
+    populateFornecedorFiltros();
+    renderFornecedores();
+    closeFornecedorModal();
+  });
+
+  document.getElementById('fExcluirBtn').addEventListener('click', () => {
+    if(!editingFornecedorId) return;
+    if(!confirm('Excluir este fornecedor?')) return;
+    fornecedores = fornecedores.filter(x => x.id !== editingFornecedorId);
+    lsSet('fornecedores', fornecedores);
+    renderFornecedores();
+    closeFornecedorModal();
+  });
+
+  document.addEventListener('click', e => {
+    const editId = e.target.dataset.fornEdit;
+    if(!editId) return;
+    const f = fornecedores.find(x => x.id === editId);
+    if(!f) return;
+    resetFornecedorForm();
+    document.getElementById('fModalTitulo').textContent = f.nome;
+    document.getElementById('fExcluirBtn').style.display = 'inline-block';
+    document.getElementById('fNome').value = f.nome;
+    document.getElementById('fCidade').value = f.cidade || '';
+    document.getElementById('fEndereco').value = f.endereco || '';
+    document.getElementById('fAvaliacao').value = f.nota || 5;
+    document.getElementById('fTelefone').value = f.telefone || '';
+    document.getElementById('fInsta').value = f.insta || '';
+    document.getElementById('fOQueFornece').value = f.oQueFornece || '';
+    document.getElementById('fObs').value = f.obs || '';
+    if(f.estado) document.getElementById('fNovoEstado').value = f.estado;
+    if(f.cat) document.getElementById('fNovaCategoria').value = f.cat;
+    editingFornecedorId = f.id;
+    openFornecedorModal();
+  });
+
+  populateFornecedorFiltros();
+  renderFornecedores();
+
+  // ---------- PERFIL ----------
+  function saudacaoPorHora(){
+    const h = new Date().getHours();
+    if(h < 12) return 'Bom dia';
+    if(h < 18) return 'Boa tarde';
+    return 'Boa noite';
+  }
+  function iniciais(nome){
+    if(!nome) return '–';
+    const partes = nome.trim().split(/\s+/);
+    return ((partes[0]?.[0]||'') + (partes[1]?.[0]||'')).toUpperCase() || nome[0].toUpperCase();
+  }
+  function atualizarSaudacao(){
+    const perfil = lsGet('perfil', null);
+    const nome = perfil?.nome || '';
+    const primeiroNome = nome.split(' ')[0] || '';
+    const texto = `${saudacaoPorHora()}${primeiroNome ? ', ' + primeiroNome : ''} ✨`;
+    const dataTexto = `Aqui está o resumo do seu ateliê hoje, ${new Date().toLocaleDateString('pt-BR', { day:'numeric', month:'long' })}`;
+    panelTitles.dashboard[0] = texto;
+    panelTitles.dashboard[1] = dataTexto;
+    const ativo = document.querySelector('.panel.active');
+    if(ativo && ativo.dataset.p === 'dashboard'){
+      document.getElementById('panelTitle').textContent = texto;
+      document.getElementById('panelSub').textContent = dataTexto;
+    }
+    document.getElementById('topAvatar').textContent = iniciais(nome);
+  }
+
+  function carregarPerfilNoForm(){
+    const perfil = lsGet('perfil', null);
+    document.getElementById('prNome').value = perfil?.nome || '';
+    document.getElementById('prEmail').value = perfil?.email || '';
+  }
+  carregarPerfilNoForm();
+
+  document.getElementById('salvarPerfilBtn').addEventListener('click', () => {
+    const perfil = lsGet('perfil', {});
+    const novoNome = document.getElementById('prNome').value.trim();
+    const novoEmail = document.getElementById('prEmail').value.trim();
+    const hintEl = document.getElementById('perfilHint');
+    if(!novoNome){ alert('Digite seu nome.'); return; }
+    lsSet('perfil', { ...perfil, nome: novoNome, email: novoEmail });
+    hintEl.style.color = '';
+    hintEl.textContent = 'Alterações salvas ✓';
+    setTimeout(()=>hintEl.textContent='', 2000);
+    atualizarSaudacao();
+  });
+
+  // ---------- SINCRONIZAR ENTRE APARELHOS (sem senha) ----------
+  document.getElementById('syncCodeDisplay').textContent = syncCode;
+
+  document.getElementById('copiarCodigoBtn').addEventListener('click', async () => {
+    const hintEl = document.getElementById('copiarCodigoHint');
+    try{
+      await navigator.clipboard.writeText(syncCode);
+      hintEl.textContent = 'Copiado ✓';
+    }catch(e){
+      hintEl.textContent = 'Não consegui copiar automaticamente — selecione o código manualmente.';
+    }
+    setTimeout(()=>hintEl.textContent='', 2500);
+  });
+
+  document.getElementById('conectarCodigoBtn').addEventListener('click', async () => {
+    const hintEl = document.getElementById('conectarCodigoHint');
+    const novoCodigo = document.getElementById('conectarCodigoInput').value.trim().toUpperCase();
+    if(!novoCodigo){ hintEl.style.color = '#B4453C'; hintEl.textContent = 'Cole o código do outro aparelho.'; return; }
+    if(!window.__firebase){ hintEl.style.color = '#B4453C'; hintEl.textContent = 'Ainda carregando a conexão com a nuvem, tente de novo em instantes.'; return; }
+    if(!confirm(`Conectar com o código ${novoCodigo}? Isso vai trazer os dados salvos nesse código pra este aparelho.`)) return;
+    hintEl.style.color = '';
+    hintEl.textContent = 'Verificando código...';
+    try{
+      await window.__firebase.garantirAutenticado();
+      const dados = await window.__firebase.buscarDados(novoCodigo);
+      if(!dados){
+        hintEl.style.color = '#B4453C';
+        hintEl.textContent = 'Não encontramos nenhum dado salvo com esse código ainda. Confira se digitou certo, e se o outro aparelho já fez alguma alteração (o que dispara o primeiro envio pra nuvem).';
+        return;
+      }
+      syncCode = novoCodigo;
+      localStorage.setItem(LS+'sync-code', JSON.stringify(syncCode));
+      SYNC_KEYS.forEach(k => { if(dados.dados && dados.dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados.dados[k])); });
+      hintEl.textContent = 'Conectado ✓ Recarregando...';
+      location.reload();
+    }catch(err){
+      console.error(err);
+      hintEl.style.color = '#B4453C';
+      hintEl.textContent = window.__firebase.mapErro(err.code);
+    }
+  });
+
+  document.getElementById('desconectarAparelhoBtn').addEventListener('click', () => {
+    const hintEl = document.getElementById('desconectarHint');
+    const confirmado = confirm('Tem certeza que quer desconectar este aparelho?\n\nOs dados salvos aqui vão ser apagados e o app volta ao estado original, como se fosse a primeira vez usando. Se quiser recuperar depois, vai precisar do código de sincronização de outro aparelho conectado.\n\nEssa ação não pode ser desfeita.');
+    if(!confirmado) return;
+    try{
+      SYNC_KEYS.forEach(k => localStorage.removeItem(LS+k));
+      localStorage.removeItem(LS+'sync-code');
+      sessionStorage.removeItem('laceira-sync-inicial');
+      sessionStorage.removeItem('laceira-ultimo-reload');
+    }catch(e){ console.error('Falha ao desconectar aparelho:', e); }
+    if(hintEl){ hintEl.style.color = 'var(--success)'; hintEl.textContent = 'Desconectado ✓ Recarregando...'; }
+    setTimeout(() => location.reload(), 600);
+  });
+
+  // ---------- DASHBOARD (dados reais) ----------
+  const MESES_ABREV = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+  function pedidoDataObj(p){
+    if(!p.data) return null;
+    const [y,m,d] = p.data.split('-').map(Number);
+    if(!y) return null;
+    return new Date(y, m-1, d);
+  }
+  function metricasPeriodo(inicio, fimExclusivo){
+    let pedidosCount = 0, faturado = 0, produzidos = 0, vendidos = 0;
+    pedidos.forEach(p => {
+      const d = pedidoDataObj(p);
+      if(!d || d < inicio || d >= fimExclusivo) return;
+      pedidosCount++;
+      if(p.status !== 'Cancelado'){
+        faturado += NUM(p.valor);
+        produzidos += NUM(p.qtd);
+        if(p.status === 'Entregue') vendidos += NUM(p.qtd);
+      }
+    });
+    return { pedidosCount, faturado, produzidos, vendidos };
+  }
+
+  let mesOffset = 0; // 0 = mês atual; muda sozinho pra 0 sempre que a página é recarregada
+  let novidadesGlobaisCache = [];
+
+  function renderDashboard(){
+    const hoje = new Date();
+    const baseMes = new Date(hoje.getFullYear(), hoje.getMonth() + mesOffset, 1);
+    const inicioMes = baseMes;
+    const inicioProxMes = new Date(baseMes.getFullYear(), baseMes.getMonth()+1, 1);
+    const inicioMesAnterior = new Date(baseMes.getFullYear(), baseMes.getMonth()-1, 1);
+
+    const rotuloMes = baseMes.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+    document.getElementById('mesLabel').textContent = rotuloMes.charAt(0).toUpperCase() + rotuloMes.slice(1);
+    document.getElementById('mesAtualBtn').style.display = mesOffset === 0 ? 'none' : 'inline-block';
+    document.getElementById('mesProximoBtn').disabled = mesOffset >= 0;
+
+    const atual = metricasPeriodo(inicioMes, inicioProxMes);
+    const anterior = metricasPeriodo(inicioMesAnterior, inicioMes);
+
+    document.getElementById('dashPedidos').textContent = atual.pedidosCount;
+    document.getElementById('dashFaturado').textContent = BRL(atual.faturado);
+    document.getElementById('dashProduzidos').textContent = atual.produzidos;
+    document.getElementById('dashVendidos').textContent = atual.vendidos;
+
+    function trendTxt(atualV, antV){
+      if(antV === 0 && atualV === 0) return 'sem pedidos no mês anterior';
+      if(antV === 0) return '↑ novo em relação ao mês anterior';
+      const pct = Math.round(((atualV-antV)/antV)*100);
+      return (pct>=0?'↑ ':'↓ ') + Math.abs(pct) + '% vs mês anterior';
+    }
+    document.getElementById('dashPedidosTrend').textContent = trendTxt(atual.pedidosCount, anterior.pedidosCount);
+    document.getElementById('dashFaturadoTrend').textContent = trendTxt(atual.faturado, anterior.faturado);
+    document.getElementById('dashVendidosPct').textContent = atual.produzidos > 0 ? Math.round((atual.vendidos/atual.produzidos)*100) + '% do produzido' : 'sem produção no mês';
+
+    // Meta do mês
+    const meta = lsGet('meta-mensal', 5000);
+    const pct = meta > 0 ? Math.min(100, Math.round((atual.faturado/meta)*100)) : 0;
+    const circunf = 2 * Math.PI * 19;
+    document.getElementById('metaRing').setAttribute('stroke-dasharray', circunf.toFixed(1));
+    document.getElementById('metaRing').setAttribute('stroke-dashoffset', (circunf * (1 - pct/100)).toFixed(1));
+    document.getElementById('metaPct').textContent = pct + '%';
+    document.getElementById('dashFaturadoMeta').textContent = BRL(atual.faturado);
+    document.getElementById('metaValorTxt').textContent = BRL(meta);
+
+    // Gráfico dos últimos 6 meses (real), terminando no mês selecionado
+    const chartWrap = document.getElementById('chartBars');
+    const legendWrap = document.getElementById('chartLegend');
+    chartWrap.innerHTML = ''; legendWrap.innerHTML = '';
+    const valores = [];
+    for(let i=5; i>=0; i--){
+      const ini = new Date(baseMes.getFullYear(), baseMes.getMonth()-i, 1);
+      const fim = new Date(baseMes.getFullYear(), baseMes.getMonth()-i+1, 1);
+      valores.push({ label: MESES_ABREV[ini.getMonth()], faturado: metricasPeriodo(ini, fim).faturado });
+    }
+    const max = Math.max(1, ...valores.map(v=>v.faturado));
+    valores.forEach(v => {
+      const col = document.createElement('div'); col.className = 'bar-col';
+      const h = Math.round((v.faturado/max)*130);
+      col.innerHTML = `<div class="bar" style="height:${Math.max(h,2)}px" title="${BRL(v.faturado)}"></div><span class="lbl">${v.faturado>=1000 ? (v.faturado/1000).toFixed(1)+'k' : BRL(v.faturado)}</span>`;
+      chartWrap.appendChild(col);
+      legendWrap.innerHTML += `<span>${v.label}</span>`;
+    });
+
+    // Novidades reais (posts da admin + estoque baixo + agenda próxima)
+    const novidades = [];
+    const agoraNov = new Date();
+    novidadesGlobaisCache
+      .filter(n => !n.expiraEm || new Date(n.expiraEm) > agoraNov)
+      .forEach(n => {
+        const linkHtml = n.link ? `<br><a href="${n.link}" target="_blank" rel="noopener" style="color:var(--pink-dark); font-weight:700; text-decoration:underline; font-size:12px;">Acessar →</a>` : '';
+        novidades.push({ warn:false, destaque:true, txt: `📢 <b>${n.titulo}</b><br><span style="font-size:12px;">${n.texto}</span>${linkHtml}` });
+      });
+    estoque.forEach(it => {
+      if(it.qtd < it.min) novidades.push({ warn:true, txt: `Estoque baixo: <b>${it.item}</b> (${it.qtd} de ${it.min} mín.)` });
+    });
+    agenda.forEach(item => {
+      if(item.silenciado) return;
+      if(lsGet('agenda-mute-global', false)) return;
+      const prox = nextOccurrence(item);
+      const dias = diasAte(prox);
+      if(item.feitoAno === prox.getFullYear()) return;
+      if(dias >= 0 && dias <= 14){
+        novidades.push({ warn:false, txt: `<b>${item.titulo}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira a Agenda Comercial` });
+      }
+    });
+    const novList = document.getElementById('novidadesList');
+    const novEmpty = document.getElementById('novidadesEmpty');
+    novList.innerHTML = '';
+    if(!novidades.length){
+      novEmpty.style.display = 'block';
+    } else {
+      novEmpty.style.display = 'none';
+      novidades.forEach(n => {
+        const div = document.createElement('div'); div.className = 'activity-item' + (n.warn?' warn':'');
+        if(n.destaque) div.style.cssText = 'background:var(--pink); border-radius:9px; padding:8px 10px;';
+        div.innerHTML = `<span class="dot2"></span><div class="txt">${n.txt}</div>`;
+        novList.appendChild(div);
+      });
+    }
+
+    // Pedidos futuros (qualquer pedido com data depois de hoje)
+    const hojeSemHora = new Date(); hojeSemHora.setHours(0,0,0,0);
+    const futuros = pedidos
+      .filter(p => {
+        const d = pedidoDataObj(p);
+        return d && d > hojeSemHora && p.status !== 'Cancelado';
+      })
+      .sort((a,b) => pedidoDataObj(a) - pedidoDataObj(b));
+    const futBody = document.getElementById('pedidosFuturosBody');
+    const futEmpty = document.getElementById('pedidosFuturosEmpty');
+    futBody.innerHTML = '';
+    if(!futuros.length){
+      futEmpty.style.display = 'block';
+    } else {
+      futEmpty.style.display = 'none';
+      futuros.forEach(p => {
+        const d = pedidoDataObj(p);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${d.toLocaleDateString('pt-BR')}</td><td>${p.cliente}</td><td>${p.produto}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td>
+          <td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td>`;
+        futBody.appendChild(tr);
+      });
+    }
+  }
+
+  document.getElementById('editMetaBtn').addEventListener('click', () => {
+    const atual = lsGet('meta-mensal', 5000);
+    const nova = prompt('Qual a sua meta de faturamento para este mês (R$)?', atual);
+    if(nova === null) return;
+    const num = NUM(nova);
+    if(num <= 0) return;
+    lsSet('meta-mensal', num);
+    renderDashboard();
+  });
+
+  document.getElementById('dashDataConsulta').value = new Date().toISOString().slice(0,10);
+  document.getElementById('consultarDataBtn').addEventListener('click', () => {
+    const val = document.getElementById('dashDataConsulta').value;
+    if(!val) return;
+    const [y,m,d] = val.split('-').map(Number);
+    const inicio = new Date(y, m-1, d);
+    const fim = new Date(y, m-1, d+1);
+    const r = metricasPeriodo(inicio, fim);
+    document.getElementById('dashDataResult').innerHTML = `
+      <div class="stat"><div class="k">Pedidos no dia</div><div class="v">${r.pedidosCount}</div></div>
+      <div class="stat"><div class="k">Faturado no dia</div><div class="v">${BRL(r.faturado)}</div></div>
+      <div class="stat"><div class="k">Produzidos no dia</div><div class="v">${r.produzidos}</div></div>
+      <div class="stat"><div class="k">Vendidos no dia</div><div class="v">${r.vendidos}</div></div>
+    `;
+  });
+
+  document.getElementById('mesAnteriorBtn').addEventListener('click', () => { mesOffset--; renderDashboard(); });
+  document.getElementById('mesProximoBtn').addEventListener('click', () => { mesOffset = Math.min(0, mesOffset+1); renderDashboard(); });
+  document.getElementById('mesAtualBtn').addEventListener('click', () => { mesOffset = 0; renderDashboard(); });
+
+  // ---------- PAINEL ADMIN ----------
+  const adminOverlay = document.getElementById('adminOverlay');
+  function mostrarViewAdmin(logada){
+    document.getElementById('adminLoginView').style.display = logada ? 'none' : 'block';
+    document.getElementById('adminPainelView').style.display = logada ? 'block' : 'none';
+  }
+  function renderAdminNovidadesList(){
+    const wrap = document.getElementById('adminNovidadesList');
+    const agora = new Date();
+    wrap.innerHTML = novidadesGlobaisCache.map(n => {
+      let statusTxt = 'sem prazo definido';
+      if(n.expiraEm){
+        const restante = Math.ceil((new Date(n.expiraEm) - agora) / 86400000);
+        statusTxt = restante > 0 ? `visível por mais ${restante} dia(s)` : 'expirada — não aparece mais pra ninguém, mas fica guardada aqui';
+      }
+      return `
+      <div style="border:1px solid var(--line); border-radius:9px; padding:8px 10px; font-size:12.5px;">
+        <b>${n.titulo}</b><br>${n.texto}
+        ${n.link ? `<br><a href="${n.link}" target="_blank" rel="noopener" style="color:var(--pink-deep);">${n.link}</a>` : ''}
+        <div style="color:var(--ink-soft); font-size:10.5px; margin-top:3px;">${new Date(n.data).toLocaleDateString('pt-BR')} · ${statusTxt}</div>
+        <div style="display:flex; gap:8px; margin-top:6px;">
+          <button class="btn-ghost" data-editar-novidade="${n.id}" style="font-size:11px; padding:4px 9px;">Editar</button>
+          <button class="btn-ghost" data-excluir-novidade="${n.id}" style="font-size:11px; padding:4px 9px;">Excluir</button>
+        </div>
+      </div>`;
+    }).join('') || '<p class="hint">Nenhuma novidade postada ainda.</p>';
+  }
+
+  let editingNovidadeId = null;
+  function resetFormNovidade(){
+    editingNovidadeId = null;
+    document.getElementById('novidadeTitulo').value = '';
+    document.getElementById('novidadeTexto').value = '';
+    document.getElementById('novidadeLink').value = '';
+    document.getElementById('novidadeDias').value = '14';
+    document.getElementById('novidadeModoEdicao').style.display = 'none';
+    document.getElementById('cancelarEdicaoNovidadeBtn').style.display = 'none';
+    document.getElementById('postarNovidadeBtn').textContent = 'Publicar pra todo mundo';
+    atualizarPreviaNovidade();
+  }
+
+  document.getElementById('adminNovidadesList').addEventListener('click', (e) => {
+    const editId = e.target.dataset.editarNovidade;
+    const delId = e.target.dataset.excluirNovidade;
+    if(editId){
+      const n = novidadesGlobaisCache.find(x => x.id === editId);
+      if(!n) return;
+      editingNovidadeId = n.id;
+      document.getElementById('novidadeTitulo').value = n.titulo;
+      document.getElementById('novidadeTexto').value = n.texto;
+      document.getElementById('novidadeLink').value = n.link || '';
+      document.getElementById('novidadeDias').value = '14';
+      document.getElementById('novidadeModoEdicao').style.display = 'block';
+      document.getElementById('cancelarEdicaoNovidadeBtn').style.display = 'inline-block';
+      document.getElementById('postarNovidadeBtn').textContent = 'Salvar alterações';
+      atualizarPreviaNovidade();
+      window.scrollTo({top:0});
+    }
+    if(delId){
+      if(!confirm('Excluir essa novidade de vez? Não tem como desfazer.')) return;
+      window.__firebase.excluirNovidade(delId).then(async () => {
+        novidadesGlobaisCache = await window.__firebase.buscarNovidadesGlobais();
+        renderAdminNovidadesList();
+        if(typeof renderDashboard === 'function') renderDashboard();
+      }).catch(err => alert(window.__firebase.mapErro(err.code)));
+    }
+  });
+
+  document.getElementById('cancelarEdicaoNovidadeBtn').addEventListener('click', resetFormNovidade);
+
+  document.getElementById('abrirAdminBtn').addEventListener('click', () => {
+    const logada = window.__firebase && window.__firebase.adminAtual();
+    mostrarViewAdmin(!!logada);
+    if(logada){ renderAdminNovidadesList(); resetFormNovidade(); }
+    document.getElementById('adminCodigoWrap').style.display = 'none';
+    document.getElementById('adminCodigo').value = '';
+    document.getElementById('adminLoginErro').textContent = '';
+    adminOverlay.classList.add('show');
+    closeSidebar();
+  });
+  document.getElementById('fecharAdminBtn').addEventListener('click', () => adminOverlay.classList.remove('show'));
+  adminOverlay.addEventListener('click', (e) => { if(e.target === adminOverlay) adminOverlay.classList.remove('show'); });
+
+  const CODIGO_CONFIRMACAO_ADMIN = '@Beatriz2025';
+  const ADMIN_EMAIL_INTERNO = 'admin@laceirapro.internal';
+
+  document.getElementById('adminEntrarBtn').addEventListener('click', async () => {
+    const email = ADMIN_EMAIL_INTERNO;
+    const senha = document.getElementById('adminSenha').value;
+    const erroEl = document.getElementById('adminLoginErro');
+    const codigoWrap = document.getElementById('adminCodigoWrap');
+    if(!senha){ erroEl.textContent = 'Digite a senha.'; return; }
+    if(!window.__firebase){ erroEl.textContent = 'Ainda carregando a conexão, tente de novo.'; return; }
+    erroEl.textContent = '';
+
+    // Se o código de confirmação já está visível, é primeiro acesso — confere o código e cria a conta.
+    if(codigoWrap.style.display !== 'none'){
+      const codigo = document.getElementById('adminCodigo').value.trim();
+      if(codigo !== CODIGO_CONFIRMACAO_ADMIN){ erroEl.textContent = 'Código de confirmação incorreto.'; return; }
+      try{
+        await window.__firebase.criarContaAdmin(email, senha);
+        mostrarViewAdmin(true);
+        renderAdminNovidadesList();
+      }catch(err){ erroEl.textContent = window.__firebase.mapErro(err.code); }
+      return;
+    }
+
+    // Tenta entrar normalmente primeiro.
+    try{
+      await window.__firebase.entrarAdmin(email, senha);
+      mostrarViewAdmin(true);
+      renderAdminNovidadesList();
+    }catch(err){
+      if(err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential'){
+        // Pode ser o primeiro acesso neste aparelho — pede o código de confirmação pra criar a conta.
+        codigoWrap.style.display = 'block';
+        erroEl.textContent = 'Primeira vez aqui? Digite o código de confirmação acima e clique em Entrar de novo.';
+      } else {
+        erroEl.textContent = window.__firebase.mapErro(err.code);
+      }
+    }
+  });
+
+  function atualizarPreviaNovidade(){
+    const titulo = document.getElementById('novidadeTitulo').value.trim() || 'Seu título aparece aqui';
+    const texto = document.getElementById('novidadeTexto').value.trim() || 'O texto da novidade aparece aqui...';
+    const link = document.getElementById('novidadeLink').value.trim();
+    const linkHtml = link ? `<br><a href="${link}" target="_blank" rel="noopener" style="color:var(--pink-dark); text-decoration:underline;">${link}</a>` : '';
+    document.getElementById('novidadePreview').innerHTML = `<span class="dot2"></span><div class="txt">📢 <b>${titulo}</b><br><span style="font-size:12px;">${texto}</span>${linkHtml}</div>`;
+  }
+  document.getElementById('novidadeTitulo').addEventListener('input', atualizarPreviaNovidade);
+  document.getElementById('novidadeTexto').addEventListener('input', atualizarPreviaNovidade);
+  document.getElementById('novidadeLink').addEventListener('input', atualizarPreviaNovidade);
+
+  document.getElementById('postarNovidadeBtn').addEventListener('click', async () => {
+    const titulo = document.getElementById('novidadeTitulo').value.trim();
+    const texto = document.getElementById('novidadeTexto').value.trim();
+    const link = document.getElementById('novidadeLink').value.trim();
+    const dias = NUM(document.getElementById('novidadeDias').value) || 14;
+    const erroEl = document.getElementById('adminPostErro');
+    if(!titulo || !texto){ erroEl.textContent = 'Preencha título e texto.'; return; }
+    const acao = editingNovidadeId ? 'salvar as alterações' : 'publicar';
+    if(!confirm(`Confere a prévia acima com calma — vai ficar visível por ${dias} dia(s) pra todas as clientes. Quer ${acao} agora?`)) return;
+    erroEl.textContent = '';
+    try{
+      if(editingNovidadeId){
+        await window.__firebase.editarNovidade(editingNovidadeId, titulo, texto, dias, link);
+      } else {
+        await window.__firebase.postarNovidade(titulo, texto, dias, link);
+      }
+      novidadesGlobaisCache = await window.__firebase.buscarNovidadesGlobais();
+      renderAdminNovidadesList();
+      if(typeof renderDashboard === 'function') renderDashboard();
+      resetFormNovidade();
+    }catch(err){ erroEl.textContent = window.__firebase.mapErro(err.code); }
+  });
+
+  document.getElementById('adminSairBtn').addEventListener('click', async () => {
+    try{ await window.__firebase.sairAdmin(); }catch(e){}
+    mostrarViewAdmin(false);
+    adminOverlay.classList.remove('show');
+  });
+
+  renderDashboard();
+  atualizarSaudacao();
+})();
+</script>
+</body>
+</html>
