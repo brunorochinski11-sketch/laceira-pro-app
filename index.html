@@ -559,20 +559,35 @@
   <section class="panel" data-p="posts">
     <div class="card">
       <h2>Gerador de Posts</h2>
-      <div class="grid-inputs" style="margin-bottom:14px; max-width:320px;">
+      <p class="sub">Escolha a campanha e gere legenda, hashtags, roteiro e CTA prontos. Crie campanhas próprias e adicione quantas ideias quiser.</p>
+      <div class="grid-inputs" style="margin-bottom:10px; max-width:320px;">
         <div class="field text"><label>Campanha</label>
-          <select id="campanhaSel">
-            <option>Natal</option><option>Dia das Mães</option><option>Páscoa</option>
-            <option>Festa Junina</option><option>Volta às Aulas</option><option>Dia das Crianças</option>
-            <option>Halloween</option><option>Black Friday</option><option>Aniversário da Loja</option>
-            <option>Promoção</option><option>Lançamento</option><option>Liquidação de Estoque</option>
-          </select>
+          <select id="campanhaSel"></select>
         </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+        <button class="btn-ghost" id="campNovaBtn">+ Nova campanha</button>
+        <button class="btn-ghost" id="campRenomearBtn">✎ Renomear</button>
+        <button class="btn-ghost" id="campExcluirBtn">✕ Excluir campanha</button>
+        <button class="btn-ghost" id="campGerenciarBtn">🗂 Gerenciar ideias desta campanha</button>
       </div>
       <button class="btn-primary" id="genPostBtn">Gerar conteúdo</button>
       <div id="postResult" style="margin-top:18px;"></div>
     </div>
   </section>
+
+  <!-- MODAL GERENCIAR IDEIAS DA CAMPANHA -->
+  <div class="modal-overlay" id="campModalOverlay">
+    <div class="modal-card" style="max-width:640px;">
+      <div class="modal-head">
+        <h2 id="campModalTitulo">Ideias da campanha</h2>
+        <button class="drawer-close" id="campModalCloseBtn" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <p class="hint" style="margin-bottom:14px;">Adicione, edite ou exclua as ideias de cada categoria. Quanto mais ideias, mais variado fica o conteúdo gerado.</p>
+
+      <div id="campCategorias"></div>
+    </div>
+  </div>
 
   <!-- AGENDA -->
   <section class="panel" data-p="agenda">
@@ -870,7 +885,7 @@
   const SYNC_KEYS = ['perfil','meta-mensal','pedidos','pedido-seq','estoque','clientes',
     'fornecedores','agenda-comercial','agenda-mute-global','medidas-salvas','custos-salvos','modelos-biblioteca',
     'opcoes-modelo','opcoes-acabamento','opcoes-fixacao','opcoes-estoque-categoria',
-    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria'];
+    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas'];
 
   function gerarCodigoSync(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem caracteres ambíguos (0/O, 1/I)
@@ -1869,168 +1884,665 @@
   });
   renderBiblioteca();
 
-  // ---------- POSTS (campanhas variadas + gerar mais) ----------
-  const POST_BANKS = {
+  // ---------- POSTS (campanhas editáveis pela usuária + gerar mais) ----------
+  const DEFAULT_POST_CAMPANHAS = {
     'Natal': {
       legendas: [
         'O Natal pede laços especiais 🎄✨ Descubra a nossa coleção natalina e encante seus clientes.',
         'Já separou os laços de Natal da sua loja? A época mais mágica do ano merece um capricho a mais 🎄',
         'Vermelho, dourado e muito brilho: a coleção de Natal chegou pra deixar tudo mais festivo 🎁',
+        'Cheiro de canela, luz piscando e um laço novo pra completar o clima de Natal 🎄✨',
+        'A árvore já tá montada? Então falta só o detalhe: laços de Natal pra combinar com tudo 🎁',
+        'Natal sem laço combinando não é Natal 😉🎄 Vem ver a coleção completa.',
+        'Feito à mão, com todo o capricho que o Natal merece 🧵🎄',
+        'Cada laço dessa coleção foi pensado pra brilhar debaixo da árvore 🎄✨',
+        'O presente de Natal que também é o detalhe do look: nossos laços natalinos 🎁',
+        'Contagem regressiva pro Natal começou — garanta os seus laços antes que a produção feche a agenda 🎄',
       ],
-      hashtags: ['#lacosartesanais #natal #hairaccessories #ateliedelacos', '#natal2026 #lacosdenatal #atacadodelacos #feitocomamor'],
+      hashtags: [
+        '#lacosartesanais #natal #hairaccessories #ateliedelacos',
+        '#natal2026 #lacosdenatal #atacadodelacos #feitocomamor',
+        '#coleçãonatal #lacospersonalizados #modainfantil',
+        '#natalencantado #lacosdefita #presentedenatal',
+        '#feitoamao #artesanatobrasileiro #natalfeliz',
+      ],
       roteiros: [
         '1. Mostre o rolo de fita natalina\n2. Corte e montagem em timelapse\n3. Laço pronto com trilha natalina\n4. CTA final',
         '1. Bastidor da produção em lote\n2. Detalhe dos acabamentos brilhantes\n3. Combo de laços prontos pra despachar\n4. CTA final',
+        '1. Abertura com a árvore de Natal decorada\n2. Detalhe do laço sendo colocado no cabelo\n3. Resultado final com trilha natalina\n4. CTA final',
+        '1. Unboxing de um pedido de Natal\n2. Reação de quem recebeu\n3. Close nos detalhes dourados/vermelhos\n4. CTA final',
       ],
-      ctas: ['Garanta o seu antes que acabe!', 'Faça seu pedido de Natal com antecedência!', 'Corre no link da bio e escolha o seu!'],
+      ctas: [
+        'Garanta o seu antes que acabe!',
+        'Faça seu pedido de Natal com antecedência!',
+        'Corre no link da bio e escolha o seu!',
+        'Agenda de Natal com vagas limitadas, chama no direct!',
+        'Encomende hoje pra garantir a entrega a tempo!',
+        'Vem escolher o seu antes que a coleção esgote!',
+      ],
     },
     'Dia das Mães': {
       legendas: [
         'Presenteie quem também presenteia todos os dias 💐 Kits especiais de Dia das Mães chegaram.',
         'Ela merece um mimo à altura do carinho dela 💐 Conheça os kits de Dia das Mães.',
         'Um laço, um cartão, um carinho especial: assim são nossos kits de Dia das Mães 💐',
+        'Mãe combinando com filha? Sim, e com muito estilo 💐👩‍👧',
+        'O presente que carrega carinho em cada detalhe — kits de Dia das Mães chegaram 🌸',
+        'Ela cuida de tudo o ano inteiro. Que tal cuidar dela nesse Dia das Mães? 💐',
+        'Do jeitinho dela: kits montados com carinho pra esse Dia das Mães 🌸',
+        'Um mimo simples, mas que fala muito — conheça os kits especiais de maio 💐',
+        'A gente separou o carinho, você só escolhe o kit 💐 Dia das Mães chegando.',
+        'Presente pronto, embalado com carinho, prontinho pra entregar 💐',
       ],
-      hashtags: ['#diadasmaes #lacosartesanais #presenteespecial', '#diadasmaes2026 #presenteparamae #ateliedelacos'],
+      hashtags: [
+        '#diadasmaes #lacosartesanais #presenteespecial',
+        '#diadasmaes2026 #presenteparamae #ateliedelacos',
+        '#kitpresente #maesefilhas #lacosdefita',
+        '#presentecommae #diadasmaesbrasil',
+        '#feitocomamor #mimoespecial #lacospersonalizados',
+      ],
       roteiros: [
         '1. Depoimento carinhoso\n2. Mostre o kit sendo embalado\n3. Close nos detalhes do laço\n4. CTA final',
         '1. Unboxing do kit especial\n2. Cartão personalizado sendo escrito\n3. Reação de quem recebeu\n4. CTA final',
+        '1. Mostre a mãe e a filha combinando os laços\n2. Detalhe do acabamento do kit\n3. Momento de carinho entre as duas\n4. CTA final',
+        '1. Bastidor da montagem dos kits em lote\n2. Escolha das cores e fitas\n3. Kits prontos pra envio\n4. CTA final',
       ],
-      ctas: ['Peça o seu kit hoje mesmo!', 'Frete rápido pra chegar a tempo!', 'Fale com a gente e monte o kit perfeito!'],
+      ctas: [
+        'Peça o seu kit hoje mesmo!',
+        'Frete rápido pra chegar a tempo!',
+        'Fale com a gente e monte o kit perfeito!',
+        'Vagas limitadas pra entrega até o Dia das Mães!',
+        'Corre no link da bio e escolhe o kit ideal!',
+        'Chama no direct e personaliza o presente dela!',
+      ],
     },
     'Páscoa': {
       legendas: [
         'Laços fofos em tons pastel pra combinar com a cestinha de Páscoa 🐰🌸',
         'Coelhinhos e orelhinhas: a coleção de Páscoa já chegou, cheia de fofura 🐰',
         'Deixe a Páscoa ainda mais doce com um laço combinando com a fantasia 🌷',
+        'Tons pastel, muita fofura e o clima de Páscoa em cada detalhe 🐰🌸',
+        'A cestinha já tá pronta? Então falta só o laço combinando 🌸',
+        'Orelhinha de coelho + laço pastel = combo perfeito de Páscoa 🐰',
+        'Páscoa merece um capricho a mais — confira a coleção completa 🌷',
+        'Doces, ovos de chocolate e laços fofos: assim é nossa Páscoa 🐰🍫',
+        'Coleção limitada de Páscoa, cheia de cor e fofura pastel 🌸',
+        'Um laço fofo pra completar o look de Páscoa da sua pequena 🐰',
       ],
-      hashtags: ['#pascoa #lacosdepascoa #ateliedelacos', '#pascoa2026 #lacosartesanais #coelhinho'],
+      hashtags: [
+        '#pascoa #lacosdepascoa #ateliedelacos',
+        '#pascoa2026 #lacosartesanais #coelhinho',
+        '#tonspastel #modainfantil #lacosfofos',
+        '#pascoafeliz #presentedepascoa #lacosdefita',
+        '#feitoamao #coleçãopascoa #atacadodelacos',
+      ],
       roteiros: [
         '1. Mostre a paleta de cores pastel da coleção\n2. Montagem do laço coelhinho\n3. Combo pronto com a cestinha\n4. CTA final',
         '1. Bastidor da produção em lote\n2. Detalhe do acabamento e do miolo\n3. Resultado final em uso\n4. CTA final',
+        '1. Abertura com a cestinha de Páscoa montada\n2. Detalhe do laço no cabelo da criança\n3. Cena de Páscoa em família\n4. CTA final',
+        '1. Mostre os moldes de orelha de coelho\n2. Corte e montagem em timelapse\n3. Peça pronta com laço combinando\n4. CTA final',
       ],
-      ctas: ['Encomende antes que esgote!', 'Combine com toda a família!', 'Vem garantir o seu no link da bio!'],
+      ctas: [
+        'Encomende antes que esgote!',
+        'Combine com toda a família!',
+        'Vem garantir o seu no link da bio!',
+        'Coleção limitada, chama no direct!',
+        'Peça o seu combo de Páscoa hoje!',
+        'Corre que os tons pastel voam rápido!',
+      ],
     },
     'Festa Junina': {
       legendas: [
         'Bora de xadrez! Laços juninos pra arrasar na quadrilha 🌽🔥',
         'Arraiá chegando e os laços juninos também 🎪 Confira a coleção.',
         'Chapéu de palha, vestido de poá e um laço xadrez — combo perfeito pro arraiá 🌽',
+        'Fogueira, milho e muito laço xadrez: a Festa Junina chegou 🔥',
+        'Vestido de chita pede um laço à altura — confira a coleção junina 🌽',
+        'Preparando o look pro arraiá? A gente já separou o laço perfeito 🎪',
+        'Xadrez vermelho, azul ou amarelo — qual combina com sua quadrilha? 🌽',
+        'Detalhe que faz toda a diferença no look junino: nosso laço xadrez 🔥',
+        'Coleção junina cheia de cor pra completar a festa do seu arraiá 🎪',
+        'Combinado com o chapéu de palha, o laço junino fecha o visual 🌽',
       ],
-      hashtags: ['#festajunina #lacosjuninos #ateliedelacos', '#arraia2026 #lacosartesanais #modajunina'],
+      hashtags: [
+        '#festajunina #lacosjuninos #ateliedelacos',
+        '#arraia2026 #lacosartesanais #modajunina',
+        '#quadrilha #festadejunho #lacosdefita',
+        '#saopedro #saojoao #arraialfeliz',
+        '#feitoamao #coleçãojunina #atacadodelacos',
+      ],
       roteiros: [
         '1. Mostre os tecidos xadrez\n2. Montagem passo a passo\n3. Look completo com o laço\n4. CTA final',
         '1. Bastidor da produção em lote\n2. Detalhe do acabamento\n3. Cliente usando no arraiá\n4. CTA final',
+        '1. Abertura com a decoração de festa junina\n2. Detalhe do laço no cabelo\n3. Cena de quadrilha ou festa\n4. CTA final',
+        '1. Mostre as cores disponíveis da coleção\n2. Combine com o look completo\n3. Resultado final no arraiá\n4. CTA final',
       ],
-      ctas: ['Garanta o seu pro arraiá!', 'Fala com a gente no direct!', 'Corre que é por tempo limitado!'],
+      ctas: [
+        'Garanta o seu pro arraiá!',
+        'Fala com a gente no direct!',
+        'Corre que é por tempo limitado!',
+        'Peça o combo completo pra quadrilha toda!',
+        'Encomende antes que o arraiá chegue!',
+        'Vem garantir seu laço xadrez favorito!',
+      ],
     },
     'Volta às Aulas': {
       legendas: [
         'Ano letivo novo, laços novos ✏️📚 Combine com o uniforme da escola.',
         'Organização começa pelo visual! Laços escolares pra começar o ano com estilo 📚',
         'Volta às aulas com muito estilo: confira os laços prontos pra semana inteira ✏️',
+        'Um laço pra cada dia da semana — kit completo de volta às aulas 📚',
+        'Uniforme pronto, mochila arrumada e o laço combinando com tudo ✏️',
+        'A rotina escolar fica mais leve com um detalhe que ela ama usar 📚',
+        'Kit volta às aulas: praticidade e fofura pro dia a dia dela ✏️',
+        'Fixação resistente pra aguentar o recreio inteiro 📚',
+        'Combine as cores do uniforme com nossos laços escolares ✏️',
+        'Ano novo, laços novos — chegou a coleção volta às aulas 📚',
       ],
-      hashtags: ['#voltaasaulas #lacosescolares #ateliedelacos', '#voltaasaulas2026 #lacosartesanais #modaescolar'],
+      hashtags: [
+        '#voltaasaulas #lacosescolares #ateliedelacos',
+        '#voltaasaulas2026 #lacosartesanais #modaescolar',
+        '#kitescolar #lacosinfantis #primeirodiadeaula',
+        '#uniformeescolar #lacosdefita #modainfantil',
+        '#feitoamao #atacadodelacos #organizacaoescolar',
+      ],
       roteiros: [
         '1. Mostre o kit da semana (5 laços)\n2. Combine com o uniforme\n3. Detalhe do acabamento resistente\n4. CTA final',
         '1. Bastidor da produção em lote\n2. Testando a fixação\n3. Resultado no dia a dia\n4. CTA final',
+        '1. Abertura com a mochila e o material escolar\n2. Detalhe do laço combinando com o uniforme\n3. Criança saindo pra escola\n4. CTA final',
+        '1. Mostre as cores disponíveis para cada escola\n2. Montagem do kit personalizado\n3. Kit pronto pra despachar\n4. CTA final',
       ],
-      ctas: ['Monte o kit da semana!', 'Peça o seu combo escolar!', 'Fala com a gente e garanta o desconto!'],
+      ctas: [
+        'Monte o kit da semana!',
+        'Peça o seu combo escolar!',
+        'Fala com a gente e garanta o desconto!',
+        'Personalize com as cores do uniforme!',
+        'Corre garantir antes do primeiro dia de aula!',
+        'Chama no direct pra montar o kit ideal!',
+      ],
     },
     'Dia das Crianças': {
       legendas: [
         'Alegria em forma de laço 🎈 Coleção Dia das Crianças chegando!',
         'Um mimo especial pra fazer o dia dela ainda mais feliz 🎈',
         'Cores vibrantes e muito carinho: assim é a coleção Dia das Crianças 🎈',
+        'O sorriso dela ao ver o laço novo não tem preço 🎈',
+        'Um presente pequeno, mas que faz toda diferença no Dia das Crianças 🎈',
+        'Cores, brilho e fofura — a coleção perfeita pra comemorar o dia delas 🎈',
+        'Presenteie com carinho nesse Dia das Crianças 🎈',
+        'Laços coloridos pra deixar o dia ainda mais especial 🎈',
+        'Ela merece brilhar — coleção Dia das Crianças no ar 🎈',
+        'Um mimo que também é diversão: laços temáticos de Dia das Crianças 🎈',
       ],
-      hashtags: ['#diadascriancas #lacosinfantis #ateliedelacos', '#diadascriancas2026 #lacosartesanais'],
+      hashtags: [
+        '#diadascriancas #lacosinfantis #ateliedelacos',
+        '#diadascriancas2026 #lacosartesanais',
+        '#presenteparacrianca #modainfantil #lacosdefita',
+        '#festainfantil #lacoscoloridos #feitocomamor',
+        '#atacadodelacos #diadascriançasfeliz',
+      ],
       roteiros: [
         '1. Mostre as cores da coleção\n2. Criança escolhendo o favorito\n3. Reação de felicidade\n4. CTA final',
         '1. Bastidor da produção\n2. Combo de presente\n3. Embalagem especial\n4. CTA final',
+        '1. Abertura com balões e decoração\n2. Detalhe do laço no cabelo\n3. Criança brincando feliz\n4. CTA final',
+        '1. Mostre o processo de escolha das cores\n2. Montagem do laço temático\n3. Resultado pronto pra presentear\n4. CTA final',
       ],
-      ctas: ['Garanta o mimo da sua pequena!', 'Peça o combo especial!', 'Corre no link da bio!'],
+      ctas: [
+        'Garanta o mimo da sua pequena!',
+        'Peça o combo especial!',
+        'Corre no link da bio!',
+        'Presenteie com carinho, chama no direct!',
+        'Coleção por tempo limitado, aproveite!',
+        'Vem escolher o favorito dela!',
+      ],
     },
     'Halloween': {
       legendas: [
         'Doce ou laço? 🎃 Coleção de Halloween cheia de charme (nada de travessura).',
         'Laços temáticos pra arrasar no Halloween 🕸️🎃',
         'Um toque assustadoramente fofo pra fantasia dela 🦇',
+        'Abóbora, aranha e muito estilo — coleção de Halloween chegou 🎃',
+        'Fantasia pronta, falta só o laço temático 🦇',
+        'Doçura com um toque de mistério: laços de Halloween 🕸️',
+        'Trick or treat? A gente escolhe treat, com esse laço fofo 🎃',
+        'Combine o laço com a fantasia e arrase no Halloween 🦇',
+        'Coleção limitada, cheia de charme pra outubro 🕸️',
+        'Um detalhe assustadoramente charmoso pro look de Halloween 🎃',
       ],
-      hashtags: ['#halloween #lacosdehalloween #ateliedelacos', '#halloween2026 #lacosartesanais #fantasiainfantil'],
+      hashtags: [
+        '#halloween #lacosdehalloween #ateliedelacos',
+        '#halloween2026 #lacosartesanais #fantasiainfantil',
+        '#trickortreat #lacostematicos #modainfantil',
+        '#outubro #festahalloween #lacosdefita',
+        '#feitoamao #atacadodelacos #coleçãohalloween',
+      ],
       roteiros: [
         '1. Mostre a paleta laranja e preto\n2. Montagem do laço temático\n3. Combo com a fantasia\n4. CTA final',
         '1. Bastidor da produção\n2. Detalhe do acabamento\n3. Resultado em uso\n4. CTA final',
+        '1. Abertura com decoração de Halloween\n2. Detalhe do laço temático\n3. Criança fantasiada usando o laço\n4. CTA final',
+        '1. Mostre os modelos disponíveis (abóbora, aranha, morcego)\n2. Processo de montagem\n3. Peça pronta pra usar\n4. CTA final',
       ],
-      ctas: ['Garanta o seu antes do grande dia!', 'Combine com a fantasia toda!', 'Corre no link da bio!'],
+      ctas: [
+        'Garanta o seu antes do grande dia!',
+        'Combine com a fantasia toda!',
+        'Corre no link da bio!',
+        'Coleção limitada, não fica de fora!',
+        'Chama no direct e escolhe o seu!',
+        'Peça o combo temático completo!',
+      ],
     },
     'Black Friday': {
       legendas: [
         'Black Friday chegou 🖤 Condições especiais nos laços mais pedidos, por tempo limitado.',
         'A sexta-feira mais esperada do ano tem desconto de verdade nos nossos laços 🖤',
         'Aproveita: preços black em toda a coleção, só até domingo 🖤',
+        'Desconto de verdade, sem pegadinha — Black Friday no ateliê 🖤',
+        'Os laços mais pedidos com o menor preço do ano 🖤',
+        'Sextou com desconto: Black Friday chegou nos laços 🖤',
+        'Estoque selecionado com condições que não se repetem 🖤',
+        'A Black Friday que você esperava: laços com preço especial 🖤',
+        'Corre que o desconto é por tempo limitado 🖤',
+        'Aproveite pra abastecer o estoque da sua loja com desconto 🖤',
       ],
-      hashtags: ['#blackfriday #lacosartesanais #promocao', '#blackfriday2026 #ateliedelacos #descontoespecial'],
+      hashtags: [
+        '#blackfriday #lacosartesanais #promocao',
+        '#blackfriday2026 #ateliedelacos #descontoespecial',
+        '#promocaoblack #lacosdefita #atacadodelacos',
+        '#descontoreal #sextafeira #modaacessorios',
+        '#feitoamao #precoespecial #estoquelimitado',
+      ],
       roteiros: [
         '1. Anuncie o desconto com contagem regressiva\n2. Mostre os modelos participantes\n3. Reforce a urgência\n4. CTA final',
         '1. Bastidor do estoque se esgotando\n2. Depoimentos de quem já comprou\n3. Últimas unidades\n4. CTA final',
+        '1. Abertura com o preço riscado e o novo preço\n2. Mostre os modelos em promoção\n3. Reforce o prazo\n4. CTA final',
+        '1. Contagem regressiva pro início da promoção\n2. Liberação oficial dos descontos\n3. Chamada pra garantir antes que acabe\n4. CTA final',
       ],
-      ctas: ['Corre que acaba domingo!', 'Estoque limitado, garanta o seu!', 'Link na bio, sem enrolação!'],
+      ctas: [
+        'Corre que acaba domingo!',
+        'Estoque limitado, garanta o seu!',
+        'Link na bio, sem enrolação!',
+        'Só até domingo, não perca!',
+        'Aproveite antes que esgote!',
+        'Chama no direct e garanta seu desconto!',
+      ],
     },
     'Aniversário da Loja': {
       legendas: [
         'Estamos de aniversário 🎉 E quem ganha o presente são vocês, com condições exclusivas.',
         'Mais um ano de muito laço e carinho — vem comemorar com a gente 🎉',
         'Obrigada por fazer parte dessa história! Comemoração especial de aniversário no ar 🎉',
+        'Cada ano com vocês vale a festa — aniversário do ateliê chegando 🎉',
+        'Celebrando mais um ano de história com condições exclusivas pra vocês 🎉',
+        'A gente cresce e comemora junto com quem sempre esteve aqui 🎉',
+        'Semana de aniversário com mimos especiais pra quem é da família 🎉',
+        'Gratidão por cada pedido, cada mensagem, cada parceria — bora comemorar 🎉',
+        'Um brinde a mais um ano de laços feitos com carinho 🎉',
+        'A festa é nossa, mas o presente é seu — aniversário do ateliê 🎉',
       ],
-      hashtags: ['#aniversariodaloja #lacosartesanais #ateliedelacos', '#comemoração #promocaoespecial'],
+      hashtags: [
+        '#aniversariodaloja #lacosartesanais #ateliedelacos',
+        '#comemoração #promocaoespecial',
+        '#aniversario2026 #gratidao #lacosdefita',
+        '#festadaniversario #atacadodelacos',
+        '#feitoamao #condicaoexclusiva #clientesespeciais',
+      ],
       roteiros: [
         '1. Retrospectiva dos primeiros laços\n2. Bastidor da loja hoje\n3. Anúncio da promoção de aniversário\n4. CTA final',
         '1. Depoimentos de clientes fiéis\n2. Sorteio ou brinde especial\n3. Chamada para a promoção\n4. CTA final',
+        '1. Abertura com um "muito obrigada" sincero\n2. Retrospectiva de conquistas do ano\n3. Anúncio da semana de promoções\n4. CTA final',
+        '1. Bastidor da decoração de aniversário do ateliê\n2. Mostre os mimos e brindes da semana\n3. Chamada pra celebrar junto\n4. CTA final',
       ],
-      ctas: ['Aproveite a semana de aniversário!', 'Aniversário só se comemora junto, vem!', 'Corre garantir seu desconto!'],
+      ctas: [
+        'Aproveite a semana de aniversário!',
+        'Aniversário só se comemora junto, vem!',
+        'Corre garantir seu desconto!',
+        'Condições exclusivas só essa semana!',
+        'Chama no direct e aproveite o mimo de aniversário!',
+        'Vem celebrar com a gente, corre no link da bio!',
+      ],
     },
     'Promoção': {
       legendas: [
         'Promoção relâmpago 🚨 Por tempo limitado, condições especiais nos laços mais pedidos.',
         'Corre que essa promoção não dura muito! Preços especiais hoje 🚨',
         'De olho no story: promoção surpresa rolando agora 🚨',
+        'Preço especial nos modelos favoritos, só por hoje 🚨',
+        'Promoção rápida, resultado rápido — corre garantir o seu 🚨',
+        'Sem enrolação: desconto direto nos laços mais pedidos 🚨',
+        'Condições que não se repetem, só nessa promoção 🚨',
+        'A promoção que você estava esperando chegou 🚨',
+        'Aproveita agora, porque amanhã volta ao preço normal 🚨',
+        'Poucas unidades com esse preço — corre antes que acabe 🚨',
       ],
-      hashtags: ['#promocao #lacosartesanais #outletdelacos', '#promocaoespecial #ateliedelacos'],
+      hashtags: [
+        '#promocao #lacosartesanais #outletdelacos',
+        '#promocaoespecial #ateliedelacos',
+        '#descontorelampago #lacosdefita #atacadodelacos',
+        '#precobaixo #ofertaespecial',
+        '#feitoamao #modaacessorios #compreagora',
+      ],
       roteiros: [
         '1. Anuncie a promoção com contagem regressiva\n2. Mostre os modelos participantes\n3. Reforce a urgência\n4. CTA final',
         '1. Bastidor do estoque disponível\n2. Mostre o antes/depois do preço\n3. Reforce quantidade limitada\n4. CTA final',
+        '1. Abertura chamativa anunciando a promoção\n2. Mostre os modelos com desconto\n3. Reforce o prazo curto\n4. CTA final',
+        '1. Story de bastidor separando o estoque promocional\n2. Reveal do preço\n3. Chamada pra garantir rápido\n4. CTA final',
       ],
-      ctas: ['Corre que é por tempo limitado!', 'Só até acabar o estoque!', 'Chama no direct e garanta o seu!'],
+      ctas: [
+        'Corre que é por tempo limitado!',
+        'Só até acabar o estoque!',
+        'Chama no direct e garanta o seu!',
+        'Poucas unidades, corre logo!',
+        'Aproveita antes que volte ao preço normal!',
+        'Link na bio, sem perder tempo!',
+      ],
     },
     'Lançamento': {
       legendas: [
         'Chegou novidade no ateliê 🎀 Conheça a nova coleção, feita com muito carinho.',
         'Segredo revelado: a nova coleção já está disponível 🎀',
         'Depois de semanas de trabalho, o lançamento finalmente chegou 🎀',
+        'Novidade quentinha saindo do forno — coleção nova no ar 🎀',
+        'Cada detalhe pensado com carinho pra esse lançamento 🎀',
+        'A espera acabou: conheça a nova coleção do ateliê 🎀',
+        'Inspiração nova, resultado ainda melhor — lançamento no ar 🎀',
+        'Seja uma das primeiras a garantir a peça nova 🎀',
+        'Muito trabalho e carinho por trás desse lançamento 🎀',
+        'A nova coleção que vai virar o queridinho do seu feed 🎀',
       ],
-      hashtags: ['#lancamento #novacolecao #lacosartesanais', '#lançamento2026 #ateliedelacos #novidade'],
+      hashtags: [
+        '#lancamento #novacolecao #lacosartesanais',
+        '#lançamento2026 #ateliedelacos #novidade',
+        '#colecaonova #lacosdefita #atacadodelacos',
+        '#recemchegado #modaacessorios',
+        '#feitoamao #exclusividade #primeiraslacas',
+      ],
       roteiros: [
         '1. Teaser do novo modelo\n2. Processo de produção\n3. Reveal completo da peça\n4. CTA final',
         '1. Bastidor da criação\n2. Testes de cor e acabamento\n3. Coleção completa em uso\n4. CTA final',
+        '1. Contagem regressiva pro lançamento\n2. Reveal oficial da coleção\n3. Detalhe de cada peça\n4. CTA final',
+        '1. Mostre esboços e ideias iniciais\n2. Evolução até a peça final\n3. Coleção pronta pra venda\n4. CTA final',
       ],
-      ctas: ['Já está disponível — vem ver!', 'Seja a primeira a garantir o seu!', 'Corre no link da bio!'],
+      ctas: [
+        'Já está disponível — vem ver!',
+        'Seja a primeira a garantir o seu!',
+        'Corre no link da bio!',
+        'Estoque de lançamento é limitado, corre!',
+        'Chama no direct pra garantir a sua peça!',
+        'Vem conhecer antes que todo mundo saiba!',
+      ],
     },
     'Liquidação de Estoque': {
       legendas: [
         'Liquidação total 📦 Últimas peças de coleções anteriores com preço imperdível.',
         'Hora de renovar o estoque: peças selecionadas com desconto de verdade 📦',
         'Estoque baixando, preço também — aproveita antes que acabe 📦',
+        'Últimas unidades de coleções passadas, com preço de liquidação 📦',
+        'A gente abre espaço no estoque, você aproveita o desconto 📦',
+        'Peças lindas, preço de liquidação — corre garantir a sua 📦',
+        'Renovando o estoque: fica de olho nesses preços 📦',
+        'Últimas peças, sem reposição — aproveita enquanto tem 📦',
+        'Liquidação de fim de coleção com descontos reais 📦',
+        'Poucas peças, preço baixo — corre que some rápido 📦',
       ],
-      hashtags: ['#liquidacao #outlet #lacosartesanais', '#queimadeestoque #promocao #ateliedelacos'],
+      hashtags: [
+        '#liquidacao #outlet #lacosartesanais',
+        '#queimadeestoque #promocao #ateliedelacos',
+        '#ultimasunidades #lacosdefita #atacadodelacos',
+        '#descontoreal #precobaixo',
+        '#feitoamao #estoquelimitado #renovaçãodeestoque',
+      ],
       roteiros: [
         '1. Mostre as peças selecionadas\n2. Reforce que são últimas unidades\n3. Mostre o preço antes/depois\n4. CTA final',
         '1. Bastidor da organização do estoque\n2. Combo de peças com desconto\n3. Reforce a urgência\n4. CTA final',
+        '1. Abertura mostrando o estoque completo à liquidar\n2. Destaque das peças com maior desconto\n3. Reforce que não terá reposição\n4. CTA final',
+        '1. Mostre a organização por categoria de peça\n2. Preço riscado + preço de liquidação\n3. Chamada pra garantir logo\n4. CTA final',
       ],
-      ctas: ['Últimas unidades, corre!', 'Aproveita antes que acabe!', 'Chama no direct pra garantir!'],
+      ctas: [
+        'Últimas unidades, corre!',
+        'Aproveita antes que acabe!',
+        'Chama no direct pra garantir!',
+        'Sem reposição, corre logo!',
+        'Preço de liquidação só enquanto durar o estoque!',
+        'Link na bio pra ver todas as peças!',
+      ],
+    },
+    'Carnaval': {
+      legendas: [
+        'Bloquinho pede purpurina, cor e um laço que combine com a fantasia 🎉🎊',
+        'Carnaval chegando e a coleção mais colorida do ano também 🎊',
+        'Fantasia pronta? Falta só o laço combinando com o bloco 🎉',
+        'Muita cor, muito brilho — coleção de Carnaval no ar 🎊',
+        'O detalhe que fecha a fantasia: nosso laço de Carnaval 🎉',
+        'Confete, purpurina e um laço à altura da folia 🎊',
+        'Coleção especial pra brilhar em cada bloquinho 🎉',
+        'Combine as cores da fantasia com nossos laços carnavalescos 🎊',
+        'Carnaval é alegria — e alegria também tem laço combinando 🎉',
+        'Aproveite a folia com estilo — coleção de Carnaval chegou 🎊',
+      ],
+      hashtags: [
+        '#carnaval #lacosdecarnaval #ateliedelacos',
+        '#carnaval2026 #lacosartesanais #fantasiainfantil',
+        '#blocodecarnaval #lacoscoloridos #modainfantil',
+        '#folia #purpurina #lacosdefita',
+        '#feitoamao #atacadodelacos #coleçãocarnaval',
+      ],
+      roteiros: [
+        '1. Mostre a paleta de cores vibrantes da coleção\n2. Montagem do laço com brilho\n3. Combo com a fantasia completa\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Detalhe do acabamento com purpurina\n3. Criança pronta pro bloquinho\n4. CTA final',
+        '1. Abertura com o clima de Carnaval (confete, música)\n2. Detalhe do laço no cabelo\n3. Cena de bloquinho ou festa\n4. CTA final',
+        '1. Mostre os modelos temáticos disponíveis\n2. Processo de montagem\n3. Resultado pronto pra folia\n4. CTA final',
+      ],
+      ctas: [
+        'Garanta o seu antes do Carnaval!',
+        'Combine com a fantasia toda!',
+        'Corre no link da bio!',
+        'Coleção limitada, não fica de fora da folia!',
+        'Chama no direct e escolhe o seu!',
+        'Peça o combo completo pro bloquinho!',
+      ],
+    },
+    'Dia dos Namorados': {
+      legendas: [
+        'Um mimo pra quem também merece ser presenteada nesse Dia dos Namorados 💕',
+        'Presente combinando: um laço pra ela, um carinho pra sempre 💕',
+        'Detalhes pequenos que fazem toda diferença — Dia dos Namorados chegando 💕',
+        'Presenteie com algo feito à mão, com carinho de verdade 💕',
+        'O mimo perfeito pra surpreender nesse 12 de junho 💕',
+        'Amor também se mostra em detalhes — que tal um laço especial? 💕',
+        'Coleção romântica de Dia dos Namorados, cheia de carinho 💕',
+        'Um presente delicado pra quem é especial na sua vida 💕',
+        'Surpreenda com um mimo simples e cheio de significado 💕',
+        'Dia dos Namorados pede um presente com carinho — conheça a coleção 💕',
+      ],
+      hashtags: [
+        '#diadosnamorados #lacosartesanais #presenteespecial',
+        '#diadosnamorados2026 #ateliedelacos #presentedeamor',
+        '#mimoromantico #lacosdefita #presenteparaela',
+        '#amor #datacomemorativa #feitocomamor',
+        '#atacadodelacos #coleçãoromantica',
+      ],
+      roteiros: [
+        '1. Mostre o laço sendo embalado com carinho\n2. Cartão personalizado sendo escrito\n3. Reação de quem recebeu\n4. CTA final',
+        '1. Bastidor da produção da coleção romântica\n2. Detalhe do acabamento delicado\n3. Combo pronto pra presentear\n4. CTA final',
+        '1. Abertura com clima romântico (velas, flores)\n2. Detalhe do laço no cabelo dela\n3. Momento de carinho entre o casal\n4. CTA final',
+        '1. Mostre as opções de cores e modelos\n2. Personalização do presente\n3. Embalagem pronta pra entrega\n4. CTA final',
+      ],
+      ctas: [
+        'Peça o seu mimo hoje mesmo!',
+        'Frete rápido pra chegar a tempo!',
+        'Fale com a gente e personalize o presente!',
+        'Surpreenda ela com algo especial, chama no direct!',
+        'Corre no link da bio antes que acabe!',
+        'Garanta a entrega antes do dia 12!',
+      ],
+    },
+    'Dia dos Pais': {
+      legendas: [
+        'Ele também merece um mimo — presentes especiais de Dia dos Pais chegaram 👔',
+        'Um detalhe pra fazer o dia dele ainda mais especial 👔',
+        'Presentear com carinho é sempre a melhor escolha 👔',
+        'Coleção especial pra celebrar quem também cuida com amor 👔',
+        'Um mimo simples pra dizer "obrigada por tudo, pai" 👔',
+        'Dia dos Pais pede um presente que venha do coração 👔',
+        'Celebrando os pais com um mimo feito com carinho 👔',
+        'Presente simples, carinho gigante — Dia dos Pais chegando 👔',
+        'Ele merece saber o quanto é especial nesse dia 👔',
+        'Surpreenda com algo pensado especialmente pra ele 👔',
+      ],
+      hashtags: [
+        '#diadospais #ateliedelacos #presenteespecial',
+        '#diadospais2026 #presenteparapai',
+        '#feitocomamor #datacomemorativa',
+        '#atacadodelacos #mimoespecial',
+        '#presentecompai #lacosartesanais',
+      ],
+      roteiros: [
+        '1. Depoimento carinhoso sobre o pai\n2. Mostre o presente sendo embalado\n3. Reação de quem recebeu\n4. CTA final',
+        '1. Bastidor da montagem do kit especial\n2. Cartão personalizado sendo escrito\n3. Momento de entrega do presente\n4. CTA final',
+        '1. Abertura falando sobre a importância do Dia dos Pais\n2. Detalhe do presente sendo preparado\n3. Cena de carinho entre pai e filho(a)\n4. CTA final',
+        '1. Mostre as opções disponíveis pro presente\n2. Processo de personalização\n3. Combo pronto pra entrega\n4. CTA final',
+      ],
+      ctas: [
+        'Peça o seu mimo hoje mesmo!',
+        'Frete rápido pra chegar a tempo!',
+        'Fale com a gente e personalize o presente!',
+        'Surpreenda ele com algo especial, chama no direct!',
+        'Corre no link da bio antes que acabe!',
+        'Garanta a entrega antes do Dia dos Pais!',
+      ],
+    },
+    'Chá de Bebê': {
+      legendas: [
+        'A chegada de um bebê merece um detalhe cheio de carinho 🍼✨',
+        'Lembrancinhas de chá de bebê feitas à mão, com todo o carinho 🍼',
+        'Cada detalhe do chá de bebê importa — conheça nossas lembrancinhas 🍼',
+        'Um mimo pequeno pra celebrar uma chegada tão grande 🍼✨',
+        'Lembrancinhas fofas pra deixar o chá de bebê ainda mais especial 🍼',
+        'A espera pelo bebê fica ainda mais doce com esses detalhes 🍼',
+        'Combine as lembrancinhas com o tema do chá de bebê 🍼✨',
+        'Um carinho a mais pra quem tá chegando 🍼',
+        'Lembrancinhas personalizadas pra cada convidada levar pra casa 🍼',
+        'Celebre essa fase especial com detalhes feitos com amor 🍼✨',
+      ],
+      hashtags: [
+        '#chadebebe #lacosartesanais #ateliedelacos',
+        '#lembrancinhas #chadebebe2026 #maternidade',
+        '#personalizado #feitoamao #babyshower',
+        '#atacadodelacos #presenteparabebe',
+        '#chadebebefofo #lembrancinhaspersonalizadas',
+      ],
+      roteiros: [
+        '1. Mostre a decoração do chá de bebê\n2. Detalhe das lembrancinhas sendo montadas\n3. Convidadas recebendo o mimo\n4. CTA final',
+        '1. Bastidor da produção em lote das lembrancinhas\n2. Personalização com o tema escolhido\n3. Lembrancinhas prontas pra entrega\n4. CTA final',
+        '1. Abertura com a barriga de grávida e a decoração\n2. Detalhe das lembrancinhas por tema\n3. Momento da festa com as lembrancinhas distribuídas\n4. CTA final',
+        '1. Mostre os temas disponíveis (ursinho, nuvem, estrelinha)\n2. Processo de personalização com nome do bebê\n3. Combo pronto pra entrega\n4. CTA final',
+      ],
+      ctas: [
+        'Peça as suas lembrancinhas hoje mesmo!',
+        'Personalize com o tema do seu chá de bebê!',
+        'Fale com a gente e monte o combo perfeito!',
+        'Encomende com antecedência pra garantir o prazo!',
+        'Corre no link da bio e escolhe o tema!',
+        'Chama no direct pra tirar todas as dúvidas!',
+      ],
+    },
+    'Formatura': {
+      legendas: [
+        'Um detalhe pra celebrar essa conquista tão especial 🎓✨',
+        'Formatura chegando e o look merece um capricho a mais 🎓',
+        'Cada laço aqui celebra uma conquista — parabéns, formanda! 🎓',
+        'O dia é dela, e o laço combina perfeitamente com a ocasião 🎓✨',
+        'Um mimo pra marcar essa data tão importante 🎓',
+        'Celebre a formatura com um detalhe feito especialmente pra você 🎓',
+        'Look de formatura pede um laço à altura da conquista 🎓✨',
+        'Parabéns pela formatura — que tal um mimo pra guardar de lembrança? 🎓',
+        'Um detalhe delicado pra brilhar no dia da colação de grau 🎓',
+        'Formatura é conquista — celebre com estilo 🎓✨',
+      ],
+      hashtags: [
+        '#formatura #ateliedelacos #presenteespecial',
+        '#colaçãodegrau #formatura2026 #parabensformanda',
+        '#feitocomamor #atacadodelacos',
+        '#mimodeformatura #lacosartesanais',
+        '#conquista #presenteparaformatura',
+      ],
+      roteiros: [
+        '1. Depoimento sobre a conquista da formatura\n2. Mostre o presente sendo embalado\n3. Reação de quem recebeu\n4. CTA final',
+        '1. Bastidor da montagem do mimo personalizado\n2. Detalhe do acabamento delicado\n3. Momento da entrega do presente\n4. CTA final',
+        '1. Abertura com o clima de formatura (beca, diploma)\n2. Detalhe do laço ou mimo no look\n3. Cena de celebração\n4. CTA final',
+        '1. Mostre as opções disponíveis de presente\n2. Personalização com nome ou curso\n3. Combo pronto pra presentear\n4. CTA final',
+      ],
+      ctas: [
+        'Peça o seu mimo hoje mesmo!',
+        'Personalize com o nome da formanda!',
+        'Fale com a gente e garanta a tempo da formatura!',
+        'Corre no link da bio antes que acabe!',
+        'Chama no direct pra montar o presente perfeito!',
+        'Celebre essa conquista com a gente!',
+      ],
+    },
+    'Ano Novo': {
+      legendas: [
+        'Ano novo, laços novos ✨🎆 Comece o ano com um detalhe especial.',
+        'Virada de ano pede brilho — coleção de Ano Novo chegou ✨',
+        'Renovando as energias e o guarda-roupa com um laço novo 🎆',
+        'Que tal começar o ano com um mimo pra você ou pra presentear? ✨',
+        'Ano Novo é sobre recomeços — e também sobre se cuidar 🎆',
+        'Brilho, esperança e um laço combinando com a virada ✨',
+        'O detalhe perfeito pra fechar o ano com estilo 🎆',
+        'Ano novo chegando — bora renovar os acessórios? ✨',
+        'Comece o ano se sentindo especial, com um mimo pra você 🎆',
+        'Réveillon com estilo: nossa coleção de Ano Novo chegou ✨',
+      ],
+      hashtags: [
+        '#anonovo #reveillon #ateliedelacos',
+        '#anonovo2027 #lacosartesanais #virada',
+        '#feitocomamor #atacadodelacos',
+        '#recomeço #brilho #lacosdefita',
+        '#modaacessorios #coleçãodeanonovo',
+      ],
+      roteiros: [
+        '1. Mostre a coleção com brilho de Ano Novo\n2. Montagem do laço com detalhes dourados/prateados\n3. Look completo pra virada\n4. CTA final',
+        '1. Bastidor da produção em lote\n2. Detalhe do acabamento brilhante\n3. Combo pronto pra presentear ou usar\n4. CTA final',
+        '1. Abertura com contagem regressiva de fim de ano\n2. Detalhe do laço no look de réveillon\n3. Celebração da virada\n4. CTA final',
+        '1. Mostre as cores disponíveis (branco, dourado, prateado)\n2. Processo de montagem\n3. Peça pronta pra usar na virada\n4. CTA final',
+      ],
+      ctas: [
+        'Garanta o seu antes da virada!',
+        'Combine com o look de réveillon!',
+        'Corre no link da bio!',
+        'Coleção limitada, não fica de fora!',
+        'Chama no direct e escolhe o seu!',
+        'Comece o ano novo com estilo!',
+      ],
     },
   };
 
+  function migrarPostCampanhasAntigo(){
+    // Se existir o formato antigo de banco fixo salvo por engano, ignora — sempre parte do padrão novo na primeira vez.
+    return JSON.parse(JSON.stringify(DEFAULT_POST_CAMPANHAS));
+  }
+
+  let postCampanhas = lsGet('post-campanhas', null);
+  if(!postCampanhas || typeof postCampanhas !== 'object' || Object.keys(postCampanhas).length === 0){
+    postCampanhas = migrarPostCampanhasAntigo();
+    lsSet('post-campanhas', postCampanhas);
+  }
+
+  function salvarPostCampanhas(){ lsSet('post-campanhas', postCampanhas); }
+
+  function populateCampanhaSel(manterSelecao){
+    const sel = document.getElementById('campanhaSel');
+    const prev = manterSelecao ? sel.value : null;
+    const nomes = Object.keys(postCampanhas);
+    sel.innerHTML = nomes.map(n => `<option${n===prev?' selected':''}>${n}</option>`).join('');
+    if(prev && nomes.includes(prev)) sel.value = prev;
+  }
+  populateCampanhaSel(false);
+
   let lastPostCombo = null;
   function pickDifferent(arr, lastIdx){
+    if(!arr || arr.length === 0) return { val: '', idx: -1 };
     if(arr.length === 1) return { val: arr[0], idx: 0 };
     let idx;
     do{ idx = Math.floor(Math.random()*arr.length); } while(idx === lastIdx);
@@ -2039,7 +2551,13 @@
 
   function gerarConteudoPost(){
     const camp = document.getElementById('campanhaSel').value;
-    const banco = POST_BANKS[camp];
+    const banco = postCampanhas[camp];
+    if(!banco){ return; }
+    const semIdeias = (!banco.legendas || !banco.legendas.length) && (!banco.hashtags || !banco.hashtags.length) && (!banco.roteiros || !banco.roteiros.length) && (!banco.ctas || !banco.ctas.length);
+    if(semIdeias){
+      document.getElementById('postResult').innerHTML = `<div class="card" style="margin:0;"><p class="hint">Essa campanha ainda não tem ideias cadastradas. Toque em "🗂 Gerenciar ideias desta campanha" pra adicionar.</p></div>`;
+      return;
+    }
     const last = lastPostCombo && lastPostCombo.camp === camp ? lastPostCombo : { legIdx:-1, hashIdx:-1, rotIdx:-1, ctaIdx:-1 };
     const leg = pickDifferent(banco.legendas, last.legIdx);
     const hash = pickDifferent(banco.hashtags, last.hashIdx);
@@ -2062,6 +2580,134 @@
   }
   document.getElementById('genPostBtn').addEventListener('click', gerarConteudoPost);
   document.getElementById('campanhaSel').addEventListener('change', () => { lastPostCombo = null; });
+
+  // ---------- GERENCIAR CAMPANHAS (criar / renomear / excluir) ----------
+  document.getElementById('campNovaBtn').addEventListener('click', () => {
+    const nome = prompt('Nome da nova campanha (ex.: Dia dos Avós, Inauguração, etc.):');
+    if(!nome || !nome.trim()) return;
+    const nomeFinal = nome.trim();
+    if(postCampanhas[nomeFinal]){ alert('Já existe uma campanha com esse nome.'); return; }
+    postCampanhas[nomeFinal] = { legendas: [], hashtags: [], roteiros: [], ctas: [] };
+    salvarPostCampanhas();
+    populateCampanhaSel(false);
+    document.getElementById('campanhaSel').value = nomeFinal;
+    lastPostCombo = null;
+    abrirModalCampanha();
+  });
+
+  document.getElementById('campRenomearBtn').addEventListener('click', () => {
+    const sel = document.getElementById('campanhaSel');
+    const atual = sel.value;
+    if(!atual) return;
+    const novo = prompt('Renomear campanha:', atual);
+    if(novo === null || !novo.trim() || novo.trim() === atual) return;
+    const nomeFinal = novo.trim();
+    if(postCampanhas[nomeFinal]){ alert('Já existe uma campanha com esse nome.'); return; }
+    postCampanhas[nomeFinal] = postCampanhas[atual];
+    delete postCampanhas[atual];
+    salvarPostCampanhas();
+    populateCampanhaSel(false);
+    sel.value = nomeFinal;
+    lastPostCombo = null;
+  });
+
+  document.getElementById('campExcluirBtn').addEventListener('click', () => {
+    const sel = document.getElementById('campanhaSel');
+    const atual = sel.value;
+    if(!atual) return;
+    if(Object.keys(postCampanhas).length <= 1){ alert('Não dá pra excluir a única campanha que existe.'); return; }
+    if(!confirm(`Excluir a campanha "${atual}" e todas as ideias dela? Não tem como desfazer.`)) return;
+    delete postCampanhas[atual];
+    salvarPostCampanhas();
+    populateCampanhaSel(false);
+    document.getElementById('postResult').innerHTML = '';
+    lastPostCombo = null;
+  });
+
+  // ---------- MODAL: GERENCIAR IDEIAS DA CAMPANHA ----------
+  const campModalOverlay = document.getElementById('campModalOverlay');
+  const CATEGORIAS_IDEIA = [
+    { key:'legendas', label:'Legendas', placeholder:'Ex.: Um mimo especial pra essa data 🎀' },
+    { key:'hashtags', label:'Hashtags', placeholder:'Ex.: #lacosartesanais #ateliedelacos' },
+    { key:'roteiros', label:'Roteiros para Reels', placeholder:'Ex.: 1. Mostre o bastidor\\n2. Detalhe do acabamento\\n3. CTA final' },
+    { key:'ctas', label:'CTAs', placeholder:'Ex.: Corre garantir o seu!' },
+  ];
+
+  function renderCampModal(){
+    const camp = document.getElementById('campanhaSel').value;
+    document.getElementById('campModalTitulo').textContent = `Ideias — ${camp}`;
+    const banco = postCampanhas[camp] || { legendas:[], hashtags:[], roteiros:[], ctas:[] };
+    const wrap = document.getElementById('campCategorias');
+    wrap.innerHTML = CATEGORIAS_IDEIA.map(cat => {
+      const itens = banco[cat.key] || [];
+      const linhas = itens.map((texto, idx) => `
+        <div style="display:flex; gap:8px; align-items:flex-start; padding:8px 0; border-bottom:1px solid var(--line);">
+          <div style="flex:1; font-size:12.5px; white-space:pre-wrap; line-height:1.4;">${texto.replace(/</g,'&lt;')}</div>
+          <button type="button" class="btn-ghost" data-cat-editar="${cat.key}" data-idx="${idx}" style="font-size:11px; padding:4px 9px; flex-shrink:0;">Editar</button>
+          <button type="button" class="btn-ghost" data-cat-excluir="${cat.key}" data-idx="${idx}" style="font-size:11px; padding:4px 9px; flex-shrink:0;">✕</button>
+        </div>`).join('') || '<p class="hint" style="padding:6px 0;">Nenhuma ideia ainda nessa categoria.</p>';
+      return `
+        <div style="margin-bottom:20px;">
+          <h3 style="font-size:14px; margin-bottom:8px;">${cat.label} <span style="color:var(--ink-soft); font-weight:400;">(${itens.length})</span></h3>
+          <div>${linhas}</div>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <textarea data-cat-input="${cat.key}" placeholder="${cat.placeholder}" style="flex:1; min-height:44px; border:1px solid var(--line); border-radius:9px; padding:8px; font-family:Inter; font-size:12.5px;"></textarea>
+            <button type="button" class="btn-primary" data-cat-adicionar="${cat.key}" style="align-self:flex-start;">+ Adicionar</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function abrirModalCampanha(){
+    renderCampModal();
+    campModalOverlay.classList.add('show');
+  }
+  document.getElementById('campGerenciarBtn').addEventListener('click', abrirModalCampanha);
+  document.getElementById('campModalCloseBtn').addEventListener('click', () => campModalOverlay.classList.remove('show'));
+  campModalOverlay.addEventListener('click', (e) => { if(e.target === campModalOverlay) campModalOverlay.classList.remove('show'); });
+
+  document.getElementById('campCategorias').addEventListener('click', (e) => {
+    const camp = document.getElementById('campanhaSel').value;
+    const banco = postCampanhas[camp];
+    if(!banco) return;
+
+    const addKey = e.target.dataset.catAdicionar;
+    if(addKey){
+      const input = document.querySelector(`[data-cat-input="${addKey}"]`);
+      const texto = input.value.trim();
+      if(!texto) return;
+      if(!banco[addKey]) banco[addKey] = [];
+      banco[addKey].push(texto);
+      salvarPostCampanhas();
+      renderCampModal();
+      lastPostCombo = null;
+      return;
+    }
+
+    const editKey = e.target.dataset.catEditar;
+    if(editKey !== undefined && editKey !== null && e.target.dataset.idx !== undefined){
+      const idx = Number(e.target.dataset.idx);
+      const atual = banco[editKey][idx];
+      const editado = prompt('Editar ideia:', atual);
+      if(editado === null || !editado.trim()) return;
+      banco[editKey][idx] = editado.trim();
+      salvarPostCampanhas();
+      renderCampModal();
+      lastPostCombo = null;
+      return;
+    }
+
+    const delKey = e.target.dataset.catExcluir;
+    if(delKey !== undefined && delKey !== null && e.target.dataset.idx !== undefined){
+      const idx = Number(e.target.dataset.idx);
+      if(!confirm('Excluir essa ideia?')) return;
+      banco[delKey].splice(idx, 1);
+      salvarPostCampanhas();
+      renderCampModal();
+      lastPostCombo = null;
+      return;
+    }
+  });
 
   // ---------- AGENDA COMERCIAL ----------
   const MESES_NOME = ['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -2683,7 +3329,9 @@
       document.getElementById('novidadeTitulo').value = n.titulo;
       document.getElementById('novidadeTexto').value = n.texto;
       document.getElementById('novidadeLink').value = n.link || '';
-      document.getElementById('novidadeDias').value = '14';
+      // mostra os dias que realmente faltam pra expirar (não reseta sempre pra 14)
+      const diasRestantes = n.expiraEm ? Math.max(1, Math.ceil((new Date(n.expiraEm) - new Date()) / 86400000)) : 14;
+      document.getElementById('novidadeDias').value = String(diasRestantes);
       document.getElementById('novidadeModoEdicao').style.display = 'block';
       document.getElementById('cancelarEdicaoNovidadeBtn').style.display = 'inline-block';
       document.getElementById('postarNovidadeBtn').textContent = 'Salvar alterações';
@@ -2797,6 +3445,14 @@
 
   renderDashboard();
   atualizarSaudacao();
+
+  // Reavalia novidades expiradas mesmo se ninguém mexer em nada na tela —
+  // sem isso, uma novidade só "sumia" quando algo mais disparava um novo render.
+  setInterval(() => { if(typeof renderDashboard === 'function') renderDashboard(); }, 5 * 60 * 1000); // a cada 5 min
+
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && typeof renderDashboard === 'function') renderDashboard();
+  });
 })();
 </script>
 </body>
