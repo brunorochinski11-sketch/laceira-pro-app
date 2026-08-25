@@ -79,6 +79,23 @@
   .quick-actions{display:flex; flex-direction:column; gap:9px; margin-top:16px;}
   .qbtn{border:1px solid var(--line); background:var(--bg-soft); color:var(--ink); font:600 12.5px 'Inter',sans-serif; padding:10px 12px; border-radius:10px; cursor:pointer; text-align:left; display:flex; align-items:center; gap:8px;}
   .qbtn:hover{border-color:var(--pink-deep); color:var(--pink-dark);}
+  .duv-card{background:var(--bg); border:1px solid var(--line); border-radius:14px; margin-bottom:10px; overflow:hidden;}
+  .duv-head{display:flex; align-items:center; gap:12px; padding:15px 16px; cursor:pointer; user-select:none;}
+  .duv-head .ic{font-size:19px; flex-shrink:0;}
+  .duv-head .ttl{flex:1; font-weight:700; font-size:14.5px; color:var(--ink);}
+  .duv-head .arrow{color:var(--ink-soft); font-size:13px; transition:transform .25s;}
+  .duv-card.open .duv-head .arrow{ transform:rotate(180deg); }
+  .duv-card.open .duv-head{ border-bottom:1px solid var(--line); }
+  .duv-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .duv-card.open .duv-body{ max-height:2400px; }
+  .duv-inner{padding:16px 18px 20px; font-size:13.5px; line-height:1.65; color:var(--ink);}
+  .duv-inner h4{font-size:13px; font-weight:700; color:var(--pink-dark); margin:14px 0 5px;}
+  .duv-inner h4:first-child{margin-top:0;}
+  .duv-inner p{margin-bottom:8px;}
+  .duv-inner ul{margin:4px 0 10px 18px;}
+  .duv-inner li{margin-bottom:4px;}
+  .duv-inner code{background:var(--bg-soft); border:1px solid var(--line); border-radius:6px; padding:1px 6px; font-family:'IBM Plex Mono',monospace; font-size:12px;}
+  .duv-none{padding:20px; text-align:center; color:var(--ink-soft); font-size:13px;}
 
   /* Forms */
   .grid-inputs{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px;}
@@ -255,6 +272,8 @@
   <div class="nav-sep"></div>
   <button class="nav-item" data-panel="perfil"><span class="ic">👤</span>Perfil</button>
   <div class="nav-sep"></div>
+  <button class="nav-item" data-panel="duvidas"><span class="ic">❓</span>Dúvidas</button>
+  <div class="nav-sep"></div>
   <button class="nav-item" id="abrirAdminBtn" type="button" style="opacity:.55; font-size:11.5px;"><span class="ic">⚙️</span>Painel Admin</button>
 </nav>
 
@@ -410,7 +429,17 @@
       </table></div>
       <button class="btn-ghost" style="margin-top:12px;" id="addCustoItemBtn">＋ Adicionar item de custo</button>
 
-      <div class="field" style="max-width:220px; margin-top:20px;"><label>Multiplicador de venda</label><input type="number" id="cMult" value="8" step="0.5"></div>
+      <div class="grid-inputs" style="max-width:460px; margin-top:20px;">
+        <div class="field"><label>Multiplicador de venda</label><input type="number" id="cMult" value="8" step="0.5"></div>
+        <div class="field">
+          <label>Multiplicador do preço mínimo <span style="font-weight:400; color:var(--ink-soft);">(margem de segurança sobre o custo)</span></label>
+          <input type="number" id="cMultMin" value="1.3" step="0.05" min="1">
+          <p class="hint" id="cMultMinHint" style="margin-top:4px;"></p>
+        </div>
+      </div>
+
+      <button type="button" class="btn-ghost" id="cAjudaBtn" style="margin-top:12px;">💡 Me ajuda a escolher esses números</button>
+      <div id="cAjudaBox" style="display:none; margin-top:12px; background:var(--bg-soft); border:1px solid var(--line); border-radius:14px; padding:16px 18px;"></div>
 
       <div class="result-strip" id="cResult"></div>
       <div class="hero-tag"><span class="k">Preço de venda sugerido</span><span class="v" id="cPreco">R$ 0,00</span></div>
@@ -730,6 +759,16 @@
       </div>
     </div>
   </section>
+
+  <!-- DÚVIDAS -->
+  <section class="panel" data-p="duvidas">
+    <div class="card">
+      <h2>Central de Dúvidas</h2>
+      <p class="sub">Escolha a aba sobre a qual você está com dúvida e a gente te explica tudo: pra que serve, como usar e — nas calculadoras — o porquê de cada resultado.</p>
+      <input type="text" id="duvidasBusca" placeholder="Buscar por palavra-chave (ex.: margem, estoque baixo, sincronizar...)" style="width:100%; margin-top:12px; border:1px solid var(--line); background:var(--bg-soft); border-radius:10px; padding:11px 14px; font:500 13.5px 'Inter',sans-serif;">
+    </div>
+    <div id="duvidasLista"></div>
+  </section>
 </main>
 
 <!-- PAINEL ADMIN -->
@@ -885,7 +924,7 @@
   const SYNC_KEYS = ['perfil','meta-mensal','pedidos','pedido-seq','estoque','clientes',
     'fornecedores','agenda-comercial','agenda-mute-global','medidas-salvas','custos-salvos','modelos-biblioteca',
     'opcoes-modelo','opcoes-acabamento','opcoes-fixacao','opcoes-estoque-categoria',
-    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas'];
+    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas','preco-minimo-mult'];
 
   function gerarCodigoSync(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem caracteres ambíguos (0/O, 1/I)
@@ -1290,13 +1329,28 @@
     if(delId){ custoItens = custoItens.filter(x=>x.id!==delId); renderCustoItens(); calcCustos(); }
   });
 
+  // Multiplicador do preço mínimo (antes fixo em 1.3 direto no código) — agora é
+  // uma configuração da usuária, salva e sincronizada entre aparelhos.
+  const PRECO_MINIMO_MULT_KEY = 'preco-minimo-mult';
+  let precoMinimoMult = lsGet(PRECO_MINIMO_MULT_KEY, 1.3);
+  document.getElementById('cMultMin').value = precoMinimoMult;
+  document.getElementById('cMultMin').addEventListener('input', (e) => {
+    const v = NUM(e.target.value);
+    precoMinimoMult = v > 1 ? v : 1;
+    lsSet(PRECO_MINIMO_MULT_KEY, precoMinimoMult);
+    calcCustos();
+  });
+
   function calcCustos(){
     const soma = custoItens.reduce((acc, it) => acc + NUM(it.valor), 0);
     const mult = NUM(document.getElementById('cMult').value);
-    const precoMinimo = soma * 1.3;
+    const precoMinimo = soma * precoMinimoMult;
     const precoSugerido = soma * mult;
     const lucro = precoSugerido - soma;
     const margem = precoSugerido > 0 ? (lucro/precoSugerido)*100 : 0;
+    const markupMinimoPct = Math.round((precoMinimoMult - 1) * 100);
+    const margemMinimaPct = precoMinimo > 0 ? Math.round(((precoMinimo - soma) / precoMinimo) * 100) : 0;
+    document.getElementById('cMultMinHint').textContent = `= ${markupMinimoPct}% de acréscimo sobre o custo (equivale a ${margemMinimaPct}% de margem sobre o preço)`;
     document.getElementById('cResult').innerHTML = `
       <div class="stat"><div class="k">Custo por unidade</div><div class="v">${BRL(soma)}</div></div>
       <div class="stat"><div class="k">Preço mínimo</div><div class="v">${BRL(precoMinimo)}</div></div>
@@ -1309,6 +1363,73 @@
   document.getElementById('cMult').addEventListener('input', calcCustos);
   renderCustoItens();
   calcCustos();
+
+  // ---------- BOTÃO DE AJUDA (sugestão de números seguros pra Calculadora de Custos) ----------
+  // Regra de ouro: nunca sugerir um número que faça a pessoa vender no prejuízo ou
+  // sem lucro de verdade. Toda sugestão aqui garante uma margem saudável.
+  document.getElementById('cAjudaBtn').addEventListener('click', () => {
+    const box = document.getElementById('cAjudaBox');
+    const soma = custoItens.reduce((acc, it) => acc + NUM(it.valor), 0);
+
+    if(soma <= 0){
+      box.style.display = 'block';
+      box.innerHTML = `<p class="hint" style="margin:0;">Adiciona pelo menos um item de custo ali em cima (nem que seja um valor aproximado) que eu calculo a sugestão certinha pra você, em cima do seu custo de verdade. 🎀</p>`;
+      return;
+    }
+
+    // multiplicador mínimo sugerido: quanto mais barato o produto, maior a margem de
+    // segurança precisa ser (porque gastos pequenos — embalagem, tempo, taxa de
+    // maquininha — pesam proporcionalmente mais em produtos baratos).
+    let minSugerido = 1.3;
+    let minMotivo = 'Com esse custo, 1,3 já é uma rede de segurança tranquila.';
+    if(soma < 3){ minSugerido = 1.5; minMotivo = 'Como o custo desse produto é bem baixinho, gastos pequenos (embalagem, tempo, taxa da maquininha) pesam mais — por isso a rede de segurança precisa ser um pouco maior.'; }
+    else if(soma < 8){ minSugerido = 1.4; minMotivo = 'Pra esse custo, uma rede de segurança um pouco mais folgada evita sustos com gastos que às vezes esquecemos de contar.'; }
+
+    const precoMinSugerido = soma * minSugerido;
+
+    // três opções de multiplicador de venda, todas com margem saudável (nunca perto do prejuízo)
+    const opcoes = [
+      { mult: 3, label: 'Econômico' },
+      { mult: 4, label: 'Equilibrado' },
+      { mult: 5, label: 'Valorizado' },
+    ];
+    const linhasOpcoes = opcoes.map((o, idx) => {
+      const preco = soma * o.mult;
+      const lucro = preco - soma;
+      const margem = preco > 0 ? (lucro/preco)*100 : 0;
+      return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); gap:10px;">
+        <div><b>${o.label}</b> <span style="color:var(--ink-soft); font-size:12px;">(× ${o.mult})</span></div>
+        <div style="text-align:right; flex:1;">
+          <div style="font-weight:700;">${BRL(preco)}</div>
+          <div style="font-size:11.5px; color:var(--ink-soft);">lucro ${BRL(lucro)} · margem ${margem.toFixed(0)}%</div>
+        </div>
+        <button type="button" class="btn-ghost" data-ajuda-usar="${idx}" style="flex-shrink:0; font-size:12px; padding:7px 11px;">Usar</button>
+      </div>`;
+    }).join('');
+
+    box.style.display = 'block';
+    box.innerHTML = `
+      <p style="margin:0 0 10px; font-weight:700; font-size:13.5px;">💡 Sugestão pra esse produto (custo atual: ${BRL(soma)})</p>
+      <p class="hint" style="margin-bottom:12px;">
+        <b>Multiplicador do preço mínimo sugerido: ${minSugerido}</b> → nunca venda abaixo de <b>${BRL(precoMinSugerido)}</b>. ${minMotivo}
+      </p>
+      <p class="hint" style="margin-bottom:6px;"><b>Multiplicador de venda — três caminhos, todos com lucro garantido:</b></p>
+      ${linhasOpcoes}
+      <p class="hint" style="margin-top:10px; margin-bottom:0;">Se o seu laço tem um diferencial (acabamento nobre, alta demanda, modelo exclusivo), pode ir tranquila pro "Valorizado" ou até além. Se está começando a testar o mercado, o "Equilibrado" já garante uma boa margem sem fugir muito do preço que as clientes esperam pagar.</p>
+    `;
+
+    box.querySelectorAll('[data-ajuda-usar]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const opcaoEscolhida = opcoes[Number(btn.dataset.ajudaUsar)];
+        document.getElementById('cMultMin').value = minSugerido;
+        document.getElementById('cMult').value = opcaoEscolhida.mult;
+        precoMinimoMult = minSugerido;
+        lsSet(PRECO_MINIMO_MULT_KEY, precoMinimoMult);
+        calcCustos();
+        box.style.display = 'none';
+      });
+    });
+  });
 
   // foto do produto (redimensiona para caber no localStorage)
   function resizePhoto(file){
@@ -3117,7 +3238,10 @@
       pedidosCount++;
       if(p.status !== 'Cancelado'){
         faturado += NUM(p.valor);
-        produzidos += NUM(p.qtd);
+        // "Produzidos" só conta pedidos que já passaram pela produção de verdade
+        // (Pronto ou Entregue) — antes contava também "Aguardando pagamento" e
+        // "Em produção", inflando o número com peças que ainda nem existiam.
+        if(p.status === 'Pronto' || p.status === 'Entregue') produzidos += NUM(p.qtd);
         if(p.status === 'Entregue') vendidos += NUM(p.qtd);
       }
     });
@@ -3363,7 +3487,7 @@
   document.getElementById('fecharAdminBtn').addEventListener('click', () => adminOverlay.classList.remove('show'));
   adminOverlay.addEventListener('click', (e) => { if(e.target === adminOverlay) adminOverlay.classList.remove('show'); });
 
-  const CODIGO_CONFIRMACAO_ADMIN = '@Beatriz2025';
+  const CODIGO_CONFIRMACAO_ADMIN = 'LAC-Q8PU4JW6XK';
   const ADMIN_EMAIL_INTERNO = 'admin@laceirapro.internal';
 
   document.getElementById('adminEntrarBtn').addEventListener('click', async () => {
@@ -3442,6 +3566,226 @@
     mostrarViewAdmin(false);
     adminOverlay.classList.remove('show');
   });
+
+  // ---------- DÚVIDAS (central de ajuda por aba) ----------
+  const DUVIDAS_TOPICOS = [
+    {
+      id:'dashboard', icon:'◆', titulo:'Dashboard',
+      palavras:'dashboard início painel resumo faturamento pedidos produzidos vendidos meta gráfico novidades tendência',
+      html:`
+        <p>Pensa no Dashboard como o <b>painel do carro</b>. Você não precisa abrir o motor pra saber se está tudo bem — só de olhar os mostradores, já sabe como está indo o passeio. Aqui é a mesma coisa: uma olhada rápida já te conta como está o seu mês.</p>
+        <h4>Os 4 números do topo</h4>
+        <ul>
+          <li><b>Pedidos no mês</b> — quantos pedidos entraram nesse mês. Se chegaram 10 pedidos, o número é <code>10</code>, simples assim.</li>
+          <li><b>Faturamento</b> — é a soma de tudo. Imagina 3 potinhos de moeda: um de R$ 50, outro de R$ 30 e outro de R$ 20. Juntando tudo, o faturamento é <code>R$ 100</code>.</li>
+          <li><b>Produzidos</b> — quantas peças você já <i>terminou de fazer</i> de verdade (status Pronto ou Entregue). Se um pedido ainda está "esperando pagamento" ou "em produção", ele ainda não conta aqui — porque a peça ainda não existe pronta na sua mão.</li>
+          <li><b>Vendidos</b> — quantas peças já foram entregues pra cliente. Do lado, aparece uma porcentagem: é quanto do que você produziu já foi de fato entregue.</li>
+        </ul>
+        <h4>As setinhas (↑ ↓)</h4>
+        <p>É tipo comparar sua altura de um ano pro outro numa parede de marcação. Se o faturamento desse mês é maior que o do mês passado, a seta aponta pra cima (↑) e mostra quanto por cento você cresceu.</p>
+        <h4>O aro (anel) da meta</h4>
+        <p>Imagina uma pizza redonda. Se sua meta é R$ 1.000 e você já faturou R$ 500, metade da pizza fica "comida" (colorida) — ou seja, o aro mostra <code>50%</code>. Quando a pizza fica toda colorida, você bateu a meta! 🎉</p>
+        <h4>O gráfico de barrinhas</h4>
+        <p>São 6 barrinhas, uma pra cada um dos últimos 6 meses. Quanto mais alta a barrinha, mais você faturou naquele mês — é só olhar se as barras estão crescendo ou encolhendo da esquerda pra direita.</p>
+        <h4>Bloco de Novidades</h4>
+        <p>É tipo um bilhetinho na geladeira que alguém deixa pra te lembrar de coisas. Aqui, três "alguéns" deixam bilhetes sozinhos: um avisa quando o estoque de algo está acabando, outro lembra de datas importantes chegando, e outro traz avisos da equipe.</p>
+      `,
+    },
+    {
+      id:'medidas', icon:'📐', titulo:'Calculadora de Medidas',
+      palavras:'medidas calculadora fita comprimento metros bico de pato manta cola tempo produção tamanho quantidade',
+      html:`
+        <p>Pensa nela como uma <b>receita de bolo</b>, só que em vez de farinha e ovos, ela te diz quanta fita, cola e tempo você vai precisar pra fazer os laços.</p>
+        <h4>O que você conta pra ela</h4>
+        <p>O tamanho do laço, quantos você quer fazer, o acabamento e o tipo de fixação.</p>
+        <h4>Como ela calcula (com números de verdade)</h4>
+        <p>Vamos fingir que você quer fazer <b>10 laços de 8 cm</b>:</p>
+        <ul>
+          <li><b>Comprimento por fita</b> — a receita usa sempre <code>2,6×</code> o tamanho do laço, porque a fita precisa dobrar e amarrar. Então: <code>8 cm × 2,6 = 20,8 cm</code> de fita pra cada laço.</li>
+          <li><b>Total em metros</b> — junta a fita de todos os laços: <code>20,8 cm × 10 laços = 208 cm</code>, e como metro é mais fácil de comprar, ela divide por 100: <code>2,08 metros</code> no total.</li>
+          <li><b>Cola estimada</b> — pra cada laço, gasta-se mais ou menos <code>0,8 grama</code> de cola. Com 10 laços: <code>10 × 0,8 = 8 gramas</code>.</li>
+          <li><b>Tempo médio</b> — cada laço leva, em média, <code>4,5 minutos</code> pra ficar pronto. Com 10 laços: <code>10 × 4,5 = 45 minutos</code> de produção.</li>
+        </ul>
+        <p>É como se a calculadora fizesse as contas de "quanto vou gastar" antes de você nem começar a cortar a fita — assim não corre o risco de faltar material no meio do caminho.</p>
+        <h4>Salvar um cálculo</h4>
+        <p>Depois de calcular, dá pra guardar aquela receita específica pra usar de novo mais tarde, sem ter que digitar tudo outra vez.</p>
+      `,
+    },
+    {
+      id:'calculos-salvos', icon:'💾', titulo:'Cálculos Salvos',
+      palavras:'calculos salvos historico medidas editar excluir',
+      html:`
+        <p>É como um <b>caderninho de receitas</b> — cada página é uma receita de laço que você já calculou antes e guardou, pra não ter que inventar tudo de novo toda vez que for repetir um modelo.</p>
+        <h4>Editar e excluir</h4>
+        <p><b>Editar</b> é como pegar aquela receita e riscar/corrigir alguma coisa nela. <b>Excluir</b> é arrancar a página do caderno — só some aquela, as outras continuam do jeitinho que estavam.</p>
+      `,
+    },
+    {
+      id:'custos', icon:'💰', titulo:'Calculadora de Custos',
+      palavras:'custos calculadora preço mínimo lucro margem multiplicador venda markup',
+      html:`
+        <p>Ela te ajuda a responder uma pergunta importante: <b>"por quanto eu devo vender esse laço?"</b> Pra isso, ela usa o que você gastou pra fazer ele.</p>
+        <h4>Vamos usar um exemplo com números de verdade</h4>
+        <p>Imagina que você gastou <b>R$ 5,00</b> em material pra fazer um laço (fita + bico + cola, tudo somado). Esse é o seu <b>custo</b> — é tipo o preço dos ingredientes de um bolo.</p>
+        <h4>Multiplicador do preço mínimo (a rede de segurança)</h4>
+        <p>É a pergunta: <b>"qual o preço mais baixo que eu nunca posso vender, pra não perder dinheiro?"</b> Se você colocar <code>1,3</code>: <code>R$ 5,00 × 1,3 = R$ 6,50</code>. Esse é tipo uma cerquinha no quintal — você nunca deveria vender abaixo dela, senão começa a perder dinheiro em vez de ganhar.</p>
+        <h4>Multiplicador de venda (o preço de verdade)</h4>
+        <p>É a pergunta: <b>"por quanto eu realmente QUERO vender?"</b> Se você colocar <code>3</code>: <code>R$ 5,00 × 3 = R$ 15,00</code>. Esse é o preço de tabela, bem mais alto que a cerquinha de segurança — é aí que mora o seu lucro de verdade.</p>
+        <h4>Lucro e Margem</h4>
+        <ul>
+          <li><b>Lucro por unidade</b> — quanto sobra depois de pagar o custo: <code>R$ 15,00 − R$ 5,00 = R$ 10,00</code>.</li>
+          <li><b>Margem</b> — é quanto desse R$ 15,00 é realmente lucro, em porcentagem: <code>R$ 10,00 ÷ R$ 15,00 = 66,7%</code>. Ou seja, de cada R$ 15,00 que entra, R$ 10,00 fica de lucro pra você.</li>
+        </ul>
+        <p>💡 Não sabe que números usar? Tem um botão de <b>ajuda</b> bem ali na calculadora que sugere números seguros pra você, calculados em cima do seu custo real.</p>
+        <h4>Foto do produto</h4>
+        <p>Dá pra tirar uma fotinho do laço e grudar junto do cálculo, pra reconhecer rapidinho depois lá em Custos Salvos.</p>
+      `,
+    },
+    {
+      id:'custos-salvos', icon:'🧷', titulo:'Custos Salvos',
+      palavras:'custos salvos historico preco produtos editar excluir',
+      html:`
+        <p>É o álbum de fotos com preço colado atrás de cada uma — todo cálculo de custo que você já salvou fica guardado aqui, com foto e tudo, pra você lembrar rapidinho quanto cobrar por cada produto.</p>
+        <h4>Editar e excluir</h4>
+        <p>Funciona igualzinho aos Cálculos Salvos: editar reabre pra ajustar, excluir tira só aquele item, sem mexer nos outros.</p>
+      `,
+    },
+    {
+      id:'lucro', icon:'📈', titulo:'Calculadora de Lucro (Metas)',
+      palavras:'lucro metas calculadora meta diaria semanal mensal capacidade quantidade necessaria',
+      html:`
+        <p>Ela pega um sonho grande (tipo "quero ganhar R$ 3.000 esse mês") e quebra ele em pedacinhos pequenos e fáceis de fazer todo dia — tipo dividir uma pizza gigante em fatias.</p>
+        <h4>Exemplo com números de verdade</h4>
+        <p>Digamos que sua meta é <b>R$ 3.000</b> no mês, você vende cada laço por <b>R$ 15,00</b>, e trabalha <b>20 dias</b> no mês.</p>
+        <ul>
+          <li><b>Quantidade necessária/mês</b> — meta dividida pelo preço: <code>R$ 3.000 ÷ R$ 15,00 = 200 laços</code> no mês inteiro.</li>
+          <li><b>Meta diária</b> — os 200 laços divididos pelos dias que você trabalha: <code>200 ÷ 20 = 10 laços por dia</code>.</li>
+          <li><b>Meta semanal</b> — a meta diária vezes 6 dias de trabalho por semana: <code>10 × 6 = 60 laços por semana</code>.</li>
+          <li><b>Sua capacidade diária</b> — quantos laços você <i>consegue mesmo</i> fazer por dia, considerando quantas horas você tem e quanto tempo cada laço leva. Se você tem 4 horas por dia e cada laço leva 15 minutos: <code>(4 × 60) ÷ 15 = 16 laços por dia</code> que você é capaz de produzir.</li>
+        </ul>
+        <p>No nosso exemplo, você precisa de 10 laços por dia e consegue fazer até 16 — ou seja, a meta é totalmente possível, e ainda sobra um tempinho de folga! Se a meta diária fosse maior que a sua capacidade, seria hora de repensar o preço, o prazo ou pedir uma ajudinha na produção.</p>
+      `,
+    },
+    {
+      id:'estoque', icon:'📦', titulo:'Controle de Estoque',
+      palavras:'estoque materiais quantidade minimo alerta baixo categoria foto',
+      html:`
+        <p>Pensa numa caixa de brinquedos: você sabe que quando sobrarem só 2 blocos de montar, é hora de comprar mais. O Estoque funciona assim, mas pra fita, cola, bico e tudo mais que você usa.</p>
+        <h4>Quantidade e mínimo</h4>
+        <p>Você diz pro app: "eu tenho 8 rolos de fita" (quantidade) e "eu nunca quero ter menos que 15" (mínimo). Assim que a quantidade cair abaixo do mínimo — tipo <code>8 é menor que 15</code> — o item pisca um aviso de "estoque baixo" sozinho, sem você precisar ficar checando item por item.</p>
+        <h4>Categoria e foto</h4>
+        <p>Dá pra organizar tudo por gaveta (categoria) e colar uma fotinho em cada item, pra reconhecer rapidinho na lista.</p>
+      `,
+    },
+    {
+      id:'pedidos', icon:'🧾', titulo:'Pedidos',
+      palavras:'pedidos clientes status em produção novo aguardando pagamento pronto concluido entregue cancelado valor',
+      html:`
+        <p>É a sua lista de "tarefas de encomenda" — cada pedido é um bilhetinho que mostra quem pediu, o quê, quanto custa, e em que fase da fila ele está.</p>
+        <h4>As fases (status) de um pedido</h4>
+        <p>É tipo um semáforo com várias cores, cada uma contando uma parte da história:</p>
+        <ul>
+          <li><b>Aguardando pagamento</b> — o pedido chegou, mas ainda não foi pago.</li>
+          <li><b>Em produção</b> — você já está com a mão na massa, fazendo o laço.</li>
+          <li><b>Pronto</b> — a peça já está terminada, esperando ser entregue.</li>
+          <li><b>Entregue</b> — chegou nas mãos da cliente. Missão cumprida!</li>
+          <li><b>Cancelado</b> — o pedido não vai mais acontecer, e por isso não conta em nada no Dashboard.</li>
+        </ul>
+        <h4>Por que isso importa</h4>
+        <p>Os números lá do Dashboard ("Pedidos", "Faturamento", "Produzidos", "Vendidos") vêm todos daqui. Manter o status certinho de cada pedido é como manter o placar do jogo atualizado — se você esquecer de marcar um pedido como "Entregue", ele não vai aparecer certo no resumo.</p>
+      `,
+    },
+    {
+      id:'clientes', icon:'👥', titulo:'Clientes',
+      palavras:'clientes cadastro contato historico compras',
+      html:`
+        <p>É a sua agendinha de telefone, só que feita pra quem compra de você — em vez de depender da memória ou de mensagens espalhadas no WhatsApp, cada cliente tem uma "fichinha" própria aqui.</p>
+        <h4>Pra que serve na prática</h4>
+        <p>Ajuda a lembrar quem compra mais de você, achar o telefone rapidinho quando precisar avisar de uma novidade, e ligar os pedidos à pessoa certa.</p>
+      `,
+    },
+    {
+      id:'biblioteca', icon:'🎀', titulo:'Biblioteca de Modelos',
+      palavras:'biblioteca modelos fotos catalogo referencia',
+      html:`
+        <p>É o seu álbum de figurinhas dos laços que você já fez — cada modelo vira uma figurinha com foto, guardada num só lugar, pra você olhar depois ou mostrar pra uma cliente sem precisar procurar em mil lugares diferentes.</p>
+      `,
+    },
+    {
+      id:'posts', icon:'✨', titulo:'Gerador de Posts',
+      palavras:'gerador posts campanhas legenda hashtag roteiro cta ideias gerenciar nova campanha',
+      html:`
+        <p>Pensa numa caixinha de surpresa cheia de fichas escritas: legenda, hashtags, roteiro de vídeo e frase de chamada. Você escolhe a campanha (tipo "Natal" ou "Black Friday") e sorteia uma combinação prontinha pra postar.</p>
+        <h4>Gerar conteúdo</h4>
+        <p>Toca em "Gerar conteúdo" e ele sorteia uma combinação da caixinha daquela campanha. Se não gostar, é só tocar em "Gerar mais ideias diferentes" que ele tenta sortear outra, sem repetir a de antes.</p>
+        <h4>Criar suas próprias campanhas</h4>
+        <p>Você não precisa usar só as campanhas que já vêm prontas — dá pra criar caixinhas novas do zero, dar nome pra elas, e encher de fichas suas.</p>
+        <h4>Gerenciar as fichas de uma campanha</h4>
+        <p>Dentro de "Gerenciar ideias desta campanha" dá pra adicionar quantas fichas quiser em cada categoria, editar uma que já existe, ou jogar fora a que não serve mais. Quanto mais fichas na caixinha, mais surpresas diferentes ela consegue sortear.</p>
+      `,
+    },
+    {
+      id:'agenda', icon:'📅', titulo:'Agenda Comercial',
+      palavras:'agenda comercial datas comemorativas compromissos avisos',
+      html:`
+        <p>É tipo um calendário na parede com bolinhas vermelhas marcando os dias importantes (Dia das Mães, Natal, Dia das Crianças...), pra você se planejar com antecedência em vez de ser pega de surpresa em cima da hora.</p>
+        <h4>Relação com o Dashboard</h4>
+        <p>As datas que estão chegando também aparecem sozinhas lá no bloco de Novidades do Dashboard, como um lembrete gentil.</p>
+      `,
+    },
+    {
+      id:'fornecedores', icon:'🚚', titulo:'Fornecedores',
+      palavras:'fornecedores contatos materiais compra estado categoria',
+      html:`
+        <p>É a sua lista telefônica de quem vende material pra você — organizada por cidade/estado e por tipo de material — pra você achar rapidinho quem procurar na hora de repor o estoque.</p>
+      `,
+    },
+    {
+      id:'perfil', icon:'👤', titulo:'Perfil e Sincronizar entre aparelhos',
+      palavras:'perfil nome email meta mensal sincronizar codigo aparelho conectar desconectar nuvem',
+      html:`
+        <p>Aqui ficam seus dados básicos, a meta do mês, e a mágica que faz o app funcionar igual em mais de um celular.</p>
+        <h4>Meta mensal</h4>
+        <p>É o número que você sonha alcançar de faturamento no mês — é em cima dele que a "pizza" (o aro) do Dashboard é desenhada.</p>
+        <h4>Sincronizar entre aparelhos</h4>
+        <p>Pensa em dois cadernos mágicos: tudo que você escreve num, aparece sozinho no outro. Cada aparelho tem um <b>código</b> só dele. Pra ligar dois aparelhos, é só copiar o código de um e colar no outro — pronto, os dois cadernos ficam sempre iguaizinhos, sem senha, sem complicação.</p>
+        <h4>Desconectar este aparelho</h4>
+        <p>É como fechar um dos cadernos mágicos — os dados que já estavam escritos continuam aí, só que ele para de "conversar" com o outro caderno.</p>
+      `,
+    },
+  ];
+
+  function renderDuvidas(filtro){
+    const wrap = document.getElementById('duvidasLista');
+    if(!wrap) return;
+    const termo = (filtro||'').trim().toLowerCase();
+    const lista = DUVIDAS_TOPICOS.filter(t => !termo || t.titulo.toLowerCase().includes(termo) || t.palavras.includes(termo) || t.html.toLowerCase().includes(termo));
+    if(!lista.length){
+      wrap.innerHTML = `<div class="duv-none">Nenhum resultado pra "${filtro}". Tenta outra palavra, ou dá uma olhada em todas as abas abaixo.</div>`;
+      return;
+    }
+    wrap.innerHTML = lista.map(t => `
+      <div class="duv-card" data-duv-id="${t.id}">
+        <div class="duv-head" data-duv-toggle="${t.id}">
+          <span class="ic">${t.icon}</span>
+          <span class="ttl">${t.titulo}</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="duv-body"><div class="duv-inner">${t.html}</div></div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('duvidasBusca').addEventListener('input', (e) => renderDuvidas(e.target.value));
+  document.getElementById('duvidasLista').addEventListener('click', (e) => {
+    const toggleId = e.target.closest('[data-duv-toggle]');
+    if(!toggleId) return;
+    const card = toggleId.closest('.duv-card');
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.duv-card.open').forEach(c => { if(c !== card) c.classList.remove('open'); });
+    card.classList.toggle('open', !wasOpen);
+  });
+  renderDuvidas('');
 
   renderDashboard();
   atualizarSaudacao();
