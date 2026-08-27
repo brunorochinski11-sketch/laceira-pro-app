@@ -362,8 +362,12 @@
             <button type="button" class="del-opt-btn" data-target="mModelo">✕ Remover</button>
           </div>
         </div>
-        <div class="field"><label>Tamanho (cm)</label><input type="number" id="mTamanho" value="12" step="0.5"></div>
-        <div class="field"><label>Largura da fita (mm)</label><input type="number" id="mLargura" value="22" step="1"></div>
+        <div class="field">
+          <label>Comprimento da fita do laço (cm)</label>
+          <input type="number" id="mTamanho" value="12" step="0.5">
+          <p class="hint" style="margin-top:4px;">Corte um pedaço de fita pra esse laço, meça com a régua e coloca aqui o tamanho real que deu.</p>
+        </div>
+        <div class="field"><label>Largura da fita do laço (mm)</label><input type="number" id="mLargura" value="22" step="1"></div>
         <div class="field text">
           <label>Acabamento</label>
           <div class="editable-select" data-storage-key="opcoes-acabamento">
@@ -373,6 +377,12 @@
             <button type="button" class="del-opt-btn" data-target="mAcabamento">✕ Remover</button>
           </div>
         </div>
+        <div class="field">
+          <label>Comprimento da fita do acabamento (cm)</label>
+          <input type="number" id="mAcabComp" value="0" step="0.5">
+          <p class="hint" style="margin-top:4px;">Se o acabamento usa um pedaço de fita à parte, meça e coloca aqui. Se não usar, deixa 0.</p>
+        </div>
+        <div class="field"><label>Largura da fita do acabamento (mm)</label><input type="number" id="mAcabLargura" value="0" step="1"></div>
         <div class="field text">
           <label>Fixação</label>
           <div class="editable-select" data-storage-key="opcoes-fixacao">
@@ -1184,27 +1194,39 @@
     });
   });
 
+  // Formata número no padrão brasileiro (vírgula) e sem casas decimais falsas —
+  // 320 aparece como "320", e só mostra decimal quando o valor realmente tem (ex.: "20,8").
+  function fmtNum(v, casasMax){
+    return (isFinite(v) ? v : 0).toLocaleString('pt-BR', { maximumFractionDigits: casasMax !== undefined ? casasMax : 2 });
+  }
+
   function calcMedidas(){
-    const tamanho = NUM(document.getElementById('mTamanho').value);
+    const compLaco = NUM(document.getElementById('mTamanho').value);      // medido de verdade pela laceira
+    const compAcab = NUM(document.getElementById('mAcabComp').value);     // medido de verdade, se houver acabamento à parte
     const qtd = NUM(document.getElementById('mQtd').value);
     const fixacao = document.getElementById('mFixacao').value;
-    const compFita = tamanho * 2.6; // cm de fita por laço, estimado
-    const totalMetros = (compFita * qtd) / 100;
+    const compFitaPorPeca = compLaco + compAcab; // soma tudo: laço + acabamento
+    const totalMetrosLaco = (compLaco * qtd) / 100;
+    const totalMetrosAcab = (compAcab * qtd) / 100;
+    const totalMetros = (compFitaPorPeca * qtd) / 100;
     const bicos = fixacao === 'Bico de Pato' ? qtd : 0;
-    const mantas = qtd;
-    const cola = (qtd * 0.8).toFixed(1);
+    const cola = qtd * 0.8;
     const tempoMin = qtd * 4.5;
     document.getElementById('mResult').innerHTML = `
-      <div class="stat"><div class="k">Fitas necessárias</div><div class="v">${qtd} un.</div></div>
-      <div class="stat"><div class="k">Comprimento por fita</div><div class="v">${compFita.toFixed(1)} cm</div></div>
-      <div class="stat"><div class="k">Total em metros</div><div class="v">${totalMetros.toFixed(2)} m</div></div>
-      <div class="stat"><div class="k">Bicos de pato</div><div class="v">${bicos} un.</div></div>
-      <div class="stat"><div class="k">Mantas</div><div class="v">${mantas} un.</div></div>
-      <div class="stat"><div class="k">Cola estimada</div><div class="v">${cola} g</div></div>
+      <div class="stat"><div class="k">Fitas necessárias</div><div class="v">${fmtNum(qtd,0)} un.</div></div>
+      <div class="stat"><div class="k">Fita do laço — por peça</div><div class="v">${fmtNum(compLaco)} cm</div></div>
+      <div class="stat"><div class="k">Fita do laço — total a comprar</div><div class="v">${fmtNum(totalMetrosLaco,2)} m</div></div>
+      ${compAcab > 0 ? `
+      <div class="stat"><div class="k">Fita do acabamento — por peça</div><div class="v">${fmtNum(compAcab)} cm</div></div>
+      <div class="stat"><div class="k">Fita do acabamento — total a comprar</div><div class="v">${fmtNum(totalMetrosAcab,2)} m</div></div>
+      ` : ''}
+      <div class="stat"><div class="k">Total geral em metros</div><div class="v">${fmtNum(totalMetros,2)} m</div></div>
+      <div class="stat"><div class="k">Bicos de pato</div><div class="v">${fmtNum(bicos,0)} un.</div></div>
+      <div class="stat"><div class="k">Cola estimada</div><div class="v">${fmtNum(cola,1)} g</div></div>
       <div class="stat"><div class="k">Tempo médio de produção</div><div class="v">${Math.round(tempoMin)} min</div></div>
     `;
   }
-  ['mTamanho','mQtd','mAcabamento','mModelo','mLargura','mFixacao'].forEach(id => document.getElementById(id).addEventListener('input', calcMedidas));
+  ['mTamanho','mQtd','mAcabamento','mModelo','mLargura','mAcabComp','mAcabLargura','mFixacao'].forEach(id => document.getElementById(id).addEventListener('input', calcMedidas));
 
   // ---------- CÁLCULOS SALVOS (salvar / editar / excluir) ----------
   let editingMedidaId = null;
@@ -1236,6 +1258,9 @@
       acabamento: document.getElementById('mAcabamento').value,
       fixacao: document.getElementById('mFixacao').value,
       tamanho: document.getElementById('mTamanho').value,
+      largura: document.getElementById('mLargura').value,
+      acabComp: document.getElementById('mAcabComp').value,
+      acabLargura: document.getElementById('mAcabLargura').value,
       qtd: document.getElementById('mQtd').value,
     };
     if(editingMedidaId){
@@ -1265,6 +1290,9 @@
       document.getElementById('mAcabamento').value = c.acabamento || '';
       document.getElementById('mFixacao').value = c.fixacao || '';
       document.getElementById('mTamanho').value = c.tamanho || '';
+      document.getElementById('mLargura').value = c.largura || '22';
+      document.getElementById('mAcabComp').value = c.acabComp || '0';
+      document.getElementById('mAcabLargura').value = c.acabLargura || '0';
       document.getElementById('mQtd').value = c.qtd || '';
       editingMedidaId = c.id;
       mSaveBtn.textContent = 'Salvar alterações';
@@ -3593,22 +3621,23 @@
     },
     {
       id:'medidas', icon:'📐', titulo:'Calculadora de Medidas',
-      palavras:'medidas calculadora fita comprimento metros bico de pato manta cola tempo produção tamanho quantidade',
+      palavras:'medidas calculadora fita comprimento metros bico de pato cola tempo produção tamanho quantidade acabamento largura',
       html:`
-        <p>Pensa nela como uma <b>receita de bolo</b>, só que em vez de farinha e ovos, ela te diz quanta fita, cola e tempo você vai precisar pra fazer os laços.</p>
-        <h4>O que você conta pra ela</h4>
-        <p>O tamanho do laço, quantos você quer fazer, o acabamento e o tipo de fixação.</p>
+        <p>Pensa nela como uma <b>receita de bolo</b>, só que em vez de farinha e ovos, ela te diz quanta fita, cola e tempo você vai precisar pra fazer os laços — usando o tamanho <i>real</i> que você mesma mede, não um chute.</p>
+        <h4>O primeiro passo é sempre medir</h4>
+        <p>Corte um pedaço de fita pra fazer <b>um</b> laço, do jeitinho que você sempre faz. Meça esse pedaço com a régua e coloca esse número no campo <b>"Comprimento da fita do laço"</b>. Se o seu modelo também usa um pedacinho separado pro acabamento (aquele laçinho pequeno no centro, por exemplo), meça ele também e coloca em <b>"Comprimento da fita do acabamento"</b> — se não usar, é só deixar 0.</p>
         <h4>Como ela calcula (com números de verdade)</h4>
-        <p>Vamos fingir que você quer fazer <b>10 laços de 8 cm</b>:</p>
+        <p>Vamos fingir que você mediu <b>20 cm</b> pro laço principal e <b>8 cm</b> pro acabamento, e quer fazer <b>10 laços</b>:</p>
         <ul>
-          <li><b>Comprimento por fita</b> — a receita usa sempre <code>2,6×</code> o tamanho do laço, porque a fita precisa dobrar e amarrar. Então: <code>8 cm × 2,6 = 20,8 cm</code> de fita pra cada laço.</li>
-          <li><b>Total em metros</b> — junta a fita de todos os laços: <code>20,8 cm × 10 laços = 208 cm</code>, e como metro é mais fácil de comprar, ela divide por 100: <code>2,08 metros</code> no total.</li>
+          <li><b>Fita do laço</b> — mostra separado: <code>20 cm</code> por peça, e o total pra comprar: <code>20 cm × 10 laços = 200 cm</code>, ou seja <code>2 metros</code>.</li>
+          <li><b>Fita do acabamento</b> — também separado (só aparece se você colocar um valor maior que 0): <code>8 cm</code> por peça, total de <code>8 cm × 10 laços = 80 cm</code>, ou seja <code>0,8 metro</code>.</li>
+          <li><b>Total geral em metros</b> — a soma dos dois, pra você saber a metragem inteira da encomenda: <code>2 m + 0,8 m = 2,8 metros</code>.</li>
           <li><b>Cola estimada</b> — pra cada laço, gasta-se mais ou menos <code>0,8 grama</code> de cola. Com 10 laços: <code>10 × 0,8 = 8 gramas</code>.</li>
           <li><b>Tempo médio</b> — cada laço leva, em média, <code>4,5 minutos</code> pra ficar pronto. Com 10 laços: <code>10 × 4,5 = 45 minutos</code> de produção.</li>
         </ul>
-        <p>É como se a calculadora fizesse as contas de "quanto vou gastar" antes de você nem começar a cortar a fita — assim não corre o risco de faltar material no meio do caminho.</p>
+        <p>Separar a fita do laço da fita do acabamento ajuda bastante na hora de comprar — às vezes são fitas de larguras diferentes, e você precisa saber exatamente quanto de cada uma pedir, sem ter que fazer conta de cabeça em cima do total somado.</p>
         <h4>Salvar um cálculo</h4>
-        <p>Depois de calcular, dá pra guardar aquela receita específica pra usar de novo mais tarde, sem ter que digitar tudo outra vez.</p>
+        <p>Depois de calcular, dá pra guardar aquela receita específica (com as medidas, modelo e acabamento) pra usar de novo mais tarde, sem ter que medir tudo outra vez.</p>
       `,
     },
     {
