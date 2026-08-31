@@ -126,6 +126,8 @@
   .btn-primary{background:var(--pink-deep); color:#fff; border:none; font:600 13px 'Inter',sans-serif; padding:10px 18px; border-radius:9px; cursor:pointer;}
   .btn-primary:hover{background:var(--pink-dark);}
   .btn-ghost{background:none; border:1px solid var(--line); color:var(--ink); font:600 12px 'Inter',sans-serif; padding:7px 12px; border-radius:8px; cursor:pointer;}
+  .link-azul{background:none; border:none; color:#2563EB; font:600 12.5px 'Inter',sans-serif; cursor:pointer; text-decoration:underline; padding:0; white-space:nowrap;}
+  .link-azul:hover{color:#1D4ED8;}
   .btn-ghost:hover{border-color:var(--pink-deep); color:var(--pink-dark);}
 
   table{width:100%; border-collapse:collapse;}
@@ -535,34 +537,100 @@
         <div class="field"><label>Valor total (R$)</label><input type="number" id="pValor" value="0" step="1"></div>
         <div class="field text"><label>Status</label><select id="pStatus"><option>Aguardando pagamento</option><option>Em produção</option><option>Pronto</option><option>Entregue</option><option>Cancelado</option></select></div>
         <div class="field"><label>Data do pedido</label><input type="date" id="pData"></div>
+        <div class="field"><label>Data prevista de entrega</label><input type="date" id="pDataEntrega"></div>
+        <div class="field"><label>Avisar com quantos dias de antecedência</label><input type="number" id="pAvisoDias" value="2" min="0" step="1"></div>
       </div>
+
+      <div class="field text" style="margin-bottom:14px;">
+        <label>Cores escolhidas</label>
+        <div class="editable-select" data-storage-key="opcoes-cores-pedido">
+          <select id="pCorSelect"></select>
+          <button type="button" class="add-opt-btn" data-target="pCorSelect">+ Adicionar</button>
+          <button type="button" class="edit-opt-btn" data-target="pCorSelect">✎ Editar</button>
+          <button type="button" class="del-opt-btn" data-target="pCorSelect">✕ Remover</button>
+        </div>
+        <button type="button" class="btn-ghost" id="pCorAddBtn" style="margin-top:8px;">+ Adicionar essa cor ao pedido</button>
+        <div id="pCoresChips" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;"></div>
+        <p class="hint" style="margin-top:4px;">Escolha a cor na lista e toque em "+ Adicionar essa cor ao pedido" — pode adicionar quantas quiser. Os botões "Adicionar/Editar/Remover" ali em cima gerenciam a lista de cores disponível pra qualquer pedido.</p>
+      </div>
+
       <button class="btn-primary" id="addPedidoBtn">＋ Novo pedido</button>
       <p class="hint" id="pSavedHint"></p>
-      <div class="table-scroll" style="margin-top:18px;"><table>
-        <thead><tr><th>#</th><th>Cliente</th><th>Telefone</th><th>Produto</th><th>Qtd</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+      <div class="field text" style="margin-top:18px; max-width:360px;">
+        <label>Buscar cliente</label>
+        <input type="text" id="pBusca" placeholder="Nome ou telefone da cliente...">
+      </div>
+      <div class="table-scroll" style="margin-top:10px;"><table>
+        <thead><tr><th>#</th><th>Cliente</th><th>Telefone</th><th>Produto</th><th>Cores</th><th>Qtd</th><th>Valor</th><th>Entrega</th><th>Status</th><th></th></tr></thead>
         <tbody id="pedidosBody"></tbody>
       </table></div>
     </div>
   </section>
 
+  <!-- CARTÃO FLUTUANTE DE CORES DO PEDIDO -->
+  <div class="modal-overlay" id="pCoresModalOverlay">
+    <div class="modal-card" style="max-width:380px;">
+      <div class="modal-head">
+        <h2 id="pCoresModalTitulo" style="font-size:18px;">Cores do pedido</h2>
+        <button class="drawer-close" id="pCoresModalCloseBtn" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <select id="pCoresModalSelect" style="flex:1;"></select>
+        <button type="button" class="btn-ghost" id="pCoresModalAddBtn">+ Adicionar</button>
+      </div>
+      <div id="pCoresModalChips" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+      <p class="hint" style="margin-top:12px; margin-bottom:0;">As alterações são salvas na hora, sem precisar de mais nada.</p>
+    </div>
+  </div>
+
   <!-- CLIENTES -->
   <section class="panel" data-p="clientes">
     <div class="card">
       <h2>Clientes</h2>
-      <div class="grid-inputs" style="margin-bottom:14px;">
-        <div class="field text"><label>Nome</label><input type="text" id="clNome" placeholder="Nome da cliente"></div>
-        <div class="field text"><label>Telefone</label><input type="text" id="clTelefone" placeholder="(00) 00000-0000"></div>
-        <div class="field text"><label>Cidade</label><input type="text" id="clCidade" placeholder="Cidade"></div>
-        <div class="field text"><label>Instagram</label><input type="text" id="clInsta" placeholder="@usuario"></div>
+      <p class="sub">Cadastre suas clientes com o máximo de detalhe — endereço, avaliação, observações e mais.</p>
+      <div class="filters-row" style="justify-content:space-between;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <input type="text" id="clBusca" placeholder="Buscar por nome, telefone ou cidade..." style="min-width:220px;">
+        </div>
+        <button class="btn-primary" id="clNovoBtn">＋ Nova cliente</button>
       </div>
-      <button class="btn-primary" id="addClienteBtn">＋ Nova cliente</button>
-      <p class="hint" id="clSavedHint"></p>
-      <div class="table-scroll" style="margin-top:18px;"><table>
-        <thead><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>Instagram</th><th>Total comprado</th><th></th></tr></thead>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>Avaliação</th><th>Total comprado</th><th></th></tr></thead>
         <tbody id="clientesBody"></tbody>
       </table></div>
     </div>
   </section>
+
+  <!-- MODAL DETALHE DA CLIENTE -->
+  <div class="modal-overlay" id="clModalOverlay">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="clModalTitulo">Nova cliente</h2>
+        <button class="drawer-close" id="clModalCloseBtn" type="button" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="grid-inputs" style="margin-bottom:14px;">
+        <div class="field text"><label>Nome</label><input type="text" id="clNome" placeholder="Nome da cliente"></div>
+        <div class="field text"><label>Telefone</label><input type="text" id="clTelefone" placeholder="(00) 00000-0000"></div>
+        <div class="field text"><label>Cidade</label><input type="text" id="clCidade" placeholder="Cidade"></div>
+        <div class="field text"><label>Endereço / Local</label><input type="text" id="clEndereco" placeholder="Rua, bairro, referência..."></div>
+        <div class="field"><label>Avaliação (0 a 5)</label><input type="number" id="clAvaliacao" min="0" max="5" step="0.1" value="5"></div>
+        <div class="field text"><label>Instagram</label><input type="text" id="clInsta" placeholder="@usuario"></div>
+        <div class="field"><label>Total comprado (R$)</label><input type="number" id="clTotal" value="0" step="1"></div>
+      </div>
+      <div class="field text" style="margin-bottom:16px;">
+        <label>Observações (opcional)</label>
+        <textarea id="clObs" style="width:100%; min-height:60px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;" placeholder="Preferências de cor/modelo, datas especiais, forma de pagamento preferida..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button class="btn-primary" id="clSalvarBtn" style="flex:1;">Salvar cliente</button>
+        <button class="btn-ghost" id="clExcluirBtn" style="display:none;">Excluir</button>
+      </div>
+      <button class="btn-ghost" id="clPedidoBtn" style="display:none; margin-top:10px; width:100%;">🧾 Montar pedido pra essa cliente</button>
+      <p class="hint" id="clSavedHint"></p>
+    </div>
+  </div>
 
   <!-- BIBLIOTECA -->
   <section class="panel" data-p="biblioteca">
@@ -934,7 +1002,7 @@
   const SYNC_KEYS = ['perfil','meta-mensal','pedidos','pedido-seq','estoque','clientes',
     'fornecedores','agenda-comercial','agenda-mute-global','medidas-salvas','custos-salvos','modelos-biblioteca',
     'opcoes-modelo','opcoes-acabamento','opcoes-fixacao','opcoes-estoque-categoria',
-    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas','preco-minimo-mult'];
+    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas','preco-minimo-mult','opcoes-cores-pedido'];
 
   function gerarCodigoSync(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem caracteres ambíguos (0/O, 1/I)
@@ -1133,6 +1201,7 @@
     'opcoes-estoque-categoria': { select: 'eCategoria', defaults: ['Fita', 'Bico', 'Manta', 'Strass', 'Cola', 'Embalagem'] },
     'opcoes-fornecedor-estado': { select: 'fNovoEstado', defaults: ['PR', 'SC', 'SP', 'RJ', 'MG', 'RS'] },
     'opcoes-fornecedor-categoria': { select: 'fNovaCategoria', defaults: ['Fitas', 'Aviamentos', 'Embalagens', 'Mantas', 'Cola'] },
+    'opcoes-cores-pedido': { select: 'pCorSelect', defaults: ['Rosa', 'Branco', 'Dourado', 'Prata', 'Vermelho', 'Azul', 'Lilás', 'Preto', 'Vinho'] },
   };
   function populateEditableSelect(key){
     const cfg = OPCOES_PADRAO[key];
@@ -1754,11 +1823,12 @@
 
   // ---------- PEDIDOS ----------
   let pedidos = lsGet('pedidos', [
-    {id:uid(), n:128, cliente:'Marina Alves', telefone:'', produto:'Laço Boutique M', qtd:6, valor:120, status:'Em produção', data: new Date().toISOString().slice(0,10)},
-    {id:uid(), n:127, cliente:'Juliana Costa', telefone:'', produto:'Kit Butterfly', qtd:12, valor:260, status:'Entregue', data: new Date(Date.now()-5*86400000).toISOString().slice(0,10)},
+    {id:uid(), n:128, cliente:'Marina Alves', telefone:'', produto:'Laço Boutique M', cores:['Rosa'], qtd:6, valor:120, status:'Em produção', data: new Date().toISOString().slice(0,10), dataEntrega:'', avisoDias:2},
+    {id:uid(), n:127, cliente:'Juliana Costa', telefone:'', produto:'Kit Butterfly', cores:['Lilás','Dourado'], qtd:12, valor:260, status:'Entregue', data: new Date(Date.now()-5*86400000).toISOString().slice(0,10), dataEntrega:'', avisoDias:2},
   ]);
   let pedidoSeq = lsGet('pedido-seq', 129);
   let editingPedidoId = null;
+  let pCoresAtual = [];
   const addPedidoBtn = document.getElementById('addPedidoBtn');
 
   function statusBadgeClass(status){
@@ -1767,12 +1837,113 @@
     return 'pink';
   }
 
+  // ---------- chips de cores do formulário (seleciona da paleta, fácil de usar) ----------
+  function renderCoresChips(){
+    const wrap = document.getElementById('pCoresChips');
+    wrap.innerHTML = pCoresAtual.map((cor, idx) => `
+      <span class="badge pink" style="display:inline-flex; align-items:center; gap:6px;">
+        ${cor}
+        <button type="button" data-cor-remover="${idx}" style="background:none; border:none; color:inherit; cursor:pointer; font-weight:700; padding:0; line-height:1;">✕</button>
+      </span>
+    `).join('') || '<span class="hint" style="margin:0;">Nenhuma cor adicionada ainda.</span>';
+  }
+  function adicionarCorAtual(){
+    const sel = document.getElementById('pCorSelect');
+    const val = sel.value;
+    if(!val) return;
+    pCoresAtual.push(val);
+    renderCoresChips();
+  }
+  document.getElementById('pCorAddBtn').addEventListener('click', adicionarCorAtual);
+  document.getElementById('pCoresChips').addEventListener('click', (e) => {
+    const idx = e.target.dataset.corRemover;
+    if(idx === undefined) return;
+    pCoresAtual.splice(Number(idx), 1);
+    renderCoresChips();
+  });
+
+  // ---------- cartão flutuante: editar as cores de um pedido já existente ----------
+  const pCoresModalOverlay = document.getElementById('pCoresModalOverlay');
+  let pCoresModalPedidoId = null;
+
+  function preencherSelectPaleta(selectEl){
+    const opcoes = lsGet('opcoes-cores-pedido', OPCOES_PADRAO['opcoes-cores-pedido'].defaults);
+    const prev = selectEl.value;
+    selectEl.innerHTML = opcoes.map(o => `<option${o===prev?' selected':''}>${o}</option>`).join('');
+  }
+
+  function renderCoresModalChips(){
+    const p = pedidos.find(x => x.id === pCoresModalPedidoId);
+    if(!p) return;
+    if(!p.cores) p.cores = [];
+    const wrap = document.getElementById('pCoresModalChips');
+    wrap.innerHTML = p.cores.map((cor, idx) => `
+      <span class="badge pink" style="display:inline-flex; align-items:center; gap:6px;">
+        ${cor}
+        <button type="button" data-cor-modal-remover="${idx}" style="background:none; border:none; color:inherit; cursor:pointer; font-weight:700; padding:0; line-height:1;">✕</button>
+      </span>
+    `).join('') || '<span class="hint" style="margin:0;">Nenhuma cor nesse pedido ainda.</span>';
+  }
+
+  function abrirCoresModal(pedidoId){
+    const p = pedidos.find(x => x.id === pedidoId);
+    if(!p) return;
+    pCoresModalPedidoId = pedidoId;
+    document.getElementById('pCoresModalTitulo').textContent = `Cores do pedido #${p.n} — ${p.cliente}`;
+    preencherSelectPaleta(document.getElementById('pCoresModalSelect'));
+    renderCoresModalChips();
+    pCoresModalOverlay.classList.add('show');
+  }
+  function fecharCoresModal(){
+    pCoresModalOverlay.classList.remove('show');
+    pCoresModalPedidoId = null;
+    renderPedidos(); // atualiza a contagem de cores na tabela
+  }
+  document.getElementById('pCoresModalCloseBtn').addEventListener('click', fecharCoresModal);
+  pCoresModalOverlay.addEventListener('click', (e) => { if(e.target === pCoresModalOverlay) fecharCoresModal(); });
+
+  document.getElementById('pCoresModalAddBtn').addEventListener('click', () => {
+    const p = pedidos.find(x => x.id === pCoresModalPedidoId);
+    if(!p) return;
+    const val = document.getElementById('pCoresModalSelect').value;
+    if(!val) return;
+    if(!p.cores) p.cores = [];
+    p.cores.push(val);
+    lsSet('pedidos', pedidos);
+    renderCoresModalChips();
+  });
+
+  document.getElementById('pCoresModalChips').addEventListener('click', (e) => {
+    const idx = e.target.dataset.corModalRemover;
+    if(idx === undefined) return;
+    const p = pedidos.find(x => x.id === pCoresModalPedidoId);
+    if(!p) return;
+    p.cores.splice(Number(idx), 1);
+    lsSet('pedidos', pedidos);
+    renderCoresModalChips();
+  });
+
   function renderPedidos(){
     const body = document.getElementById('pedidosBody');
     body.innerHTML = '';
-    pedidos.forEach(p => {
+    const buscaEl = document.getElementById('pBusca');
+    const termo = buscaEl ? buscaEl.value.trim().toLowerCase() : '';
+    const termoDigitos = termo.replace(/\D/g, '');
+    const lista = pedidos.filter(p => {
+      if(!termo) return true;
+      const nomeBate = (p.cliente || '').toLowerCase().includes(termo);
+      // busca por telefone ignora tudo que não é número, pra funcionar digitando com ou sem parênteses/traço
+      const telBate = termoDigitos.length > 0 && (p.telefone || '').replace(/\D/g, '').includes(termoDigitos);
+      return nomeBate || telBate;
+    });
+    lista.forEach(p => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>#${p.n}</td><td>${p.cliente}</td><td>${p.telefone||'—'}</td><td>${p.produto}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td>
+      const qtdCores = (p.cores && p.cores.length) ? p.cores.length : 0;
+      const coresLink = qtdCores > 0
+        ? `<button type="button" class="link-azul" data-cores-ver="${p.id}">🎨 ${qtdCores} cor${qtdCores>1?'es':''}</button>`
+        : `<button type="button" class="link-azul" data-cores-ver="${p.id}">+ adicionar cores</button>`;
+      const entregaTxt = p.dataEntrega ? new Date(p.dataEntrega+'T00:00:00').toLocaleDateString('pt-BR') : '—';
+      tr.innerHTML = `<td>#${p.n}</td><td>${p.cliente}</td><td>${p.telefone||'—'}</td><td>${p.produto}</td><td>${coresLink}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td><td>${entregaTxt}</td>
         <td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td>
         <td style="white-space:nowrap;">
           <button class="btn-ghost" data-ped-edit="${p.id}">Editar</button>
@@ -1781,6 +1952,7 @@
       body.appendChild(tr);
     });
   }
+  document.getElementById('pBusca').addEventListener('input', renderPedidos);
 
   function resetPedidoForm(){
     editingPedidoId = null;
@@ -1792,6 +1964,10 @@
     document.getElementById('pValor').value='0';
     document.getElementById('pStatus').value='Aguardando pagamento';
     document.getElementById('pData').value = new Date().toISOString().slice(0,10);
+    document.getElementById('pDataEntrega').value = '';
+    document.getElementById('pAvisoDias').value = '2';
+    pCoresAtual = [];
+    renderCoresChips();
   }
   resetPedidoForm();
 
@@ -1802,10 +1978,13 @@
       cliente,
       telefone: document.getElementById('pTelefone').value.trim(),
       produto: document.getElementById('pProduto').value || '—',
+      cores: [...pCoresAtual],
       qtd: NUM(document.getElementById('pQtd').value),
       valor: NUM(document.getElementById('pValor').value),
       status: document.getElementById('pStatus').value,
       data: document.getElementById('pData').value || new Date().toISOString().slice(0,10),
+      dataEntrega: document.getElementById('pDataEntrega').value || '',
+      avisoDias: NUM(document.getElementById('pAvisoDias').value),
     };
     if(editingPedidoId){
       const idx = pedidos.findIndex(x => x.id === editingPedidoId);
@@ -1826,6 +2005,11 @@
   document.addEventListener('click', e => {
     const editId = e.target.dataset.pedEdit;
     const delId = e.target.dataset.pedDel;
+    const coresVerId = e.target.dataset.coresVer;
+    if(coresVerId){
+      abrirCoresModal(coresVerId);
+      return;
+    }
     if(editId){
       const p = pedidos.find(x => x.id === editId);
       if(!p) return;
@@ -1836,6 +2020,10 @@
       document.getElementById('pValor').value = p.valor;
       document.getElementById('pStatus').value = p.status;
       document.getElementById('pData').value = p.data || new Date().toISOString().slice(0,10);
+      document.getElementById('pDataEntrega').value = p.dataEntrega || '';
+      document.getElementById('pAvisoDias').value = p.avisoDias != null ? p.avisoDias : 2;
+      pCoresAtual = p.cores ? [...p.cores] : [];
+      renderCoresChips();
       editingPedidoId = p.id;
       addPedidoBtn.textContent = 'Salvar alterações';
       goTo('pedidos');
@@ -1850,73 +2038,145 @@
   });
   renderPedidos();
 
+
   // ---------- CLIENTES ----------
   let clientes = lsGet('clientes', [
-    {id:uid(), nome:'Marina Alves', tel:'(41) 98888-1234', cidade:'Curitiba', insta:'@marina.alves', total:840},
-    {id:uid(), nome:'Juliana Costa', tel:'(41) 97777-5678', cidade:'Rio Azul', insta:'@ju.costa', total:1260},
+    {id:uid(), nome:'Marina Alves', tel:'(41) 98888-1234', cidade:'Curitiba', endereco:'', nota:5, insta:'@marina.alves', obs:'', total:840},
+    {id:uid(), nome:'Juliana Costa', tel:'(41) 97777-5678', cidade:'Rio Azul', endereco:'', nota:5, insta:'@ju.costa', obs:'', total:1260},
   ]);
   let editingClienteId = null;
-  const addClienteBtn = document.getElementById('addClienteBtn');
+  const clBody = document.getElementById('clientesBody');
 
   function renderClientes(){
-    const body = document.getElementById('clientesBody');
-    body.innerHTML = '';
-    clientes.forEach(c => {
+    const termo = document.getElementById('clBusca').value.trim().toLowerCase();
+    const termoDigitos = termo.replace(/\D/g, '');
+    clBody.innerHTML = '';
+    const lista = clientes.filter(c => {
+      if(!termo) return true;
+      const nomeBate = (c.nome || '').toLowerCase().includes(termo);
+      const cidadeBate = (c.cidade || '').toLowerCase().includes(termo);
+      const telBate = termoDigitos.length > 0 && (c.tel || '').replace(/\D/g, '').includes(termoDigitos);
+      return nomeBate || cidadeBate || telBate;
+    });
+    lista.forEach(c => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel}</td><td>${c.cidade}</td><td>${c.insta}</td><td>${BRL(c.total)}</td>
+      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel||'—'}</td><td>${c.cidade||'—'}</td><td>⭐ ${c.nota||0}</td><td>${BRL(c.total||0)}</td>
         <td style="white-space:nowrap;">
           <button class="btn-ghost" data-cl-edit="${c.id}">Editar</button>
-          <button class="btn-ghost" data-cl-del="${c.id}">Excluir</button>
+          <button class="btn-ghost" data-cl-pedido="${c.id}">🧾 Montar pedido</button>
         </td>`;
-      body.appendChild(tr);
+      clBody.appendChild(tr);
     });
   }
+  document.getElementById('clBusca').addEventListener('input', renderClientes);
+
+  // ---------- Modal de cliente ----------
+  const clModalOverlay = document.getElementById('clModalOverlay');
+  function openClienteModal(){ clModalOverlay.classList.add('show'); }
+  function closeClienteModal(){ clModalOverlay.classList.remove('show'); }
 
   function resetClienteForm(){
     editingClienteId = null;
-    addClienteBtn.textContent = '＋ Nova cliente';
-    ['clNome','clTelefone','clCidade','clInsta'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('clModalTitulo').textContent = 'Nova cliente';
+    document.getElementById('clExcluirBtn').style.display = 'none';
+    document.getElementById('clPedidoBtn').style.display = 'none';
+    document.getElementById('clNome').value = '';
+    document.getElementById('clTelefone').value = '';
+    document.getElementById('clCidade').value = '';
+    document.getElementById('clEndereco').value = '';
+    document.getElementById('clAvaliacao').value = '5';
+    document.getElementById('clInsta').value = '';
+    document.getElementById('clTotal').value = '0';
+    document.getElementById('clObs').value = '';
   }
 
-  addClienteBtn.addEventListener('click', () => {
+  document.getElementById('clNovoBtn').addEventListener('click', () => {
+    resetClienteForm();
+    openClienteModal();
+  });
+  document.getElementById('clModalCloseBtn').addEventListener('click', closeClienteModal);
+  clModalOverlay.addEventListener('click', (e) => { if(e.target === clModalOverlay) closeClienteModal(); });
+
+  document.getElementById('clSalvarBtn').addEventListener('click', () => {
     const nome = document.getElementById('clNome').value.trim();
-    if(!nome) return;
-    const dados = { nome, tel:document.getElementById('clTelefone').value, cidade:document.getElementById('clCidade').value, insta:document.getElementById('clInsta').value };
+    if(!nome){ alert('Digite o nome da cliente.'); return; }
+    const dados = {
+      nome,
+      tel: document.getElementById('clTelefone').value.trim(),
+      cidade: document.getElementById('clCidade').value.trim(),
+      endereco: document.getElementById('clEndereco').value.trim(),
+      nota: NUM(document.getElementById('clAvaliacao').value),
+      insta: document.getElementById('clInsta').value.trim(),
+      total: NUM(document.getElementById('clTotal').value),
+      obs: document.getElementById('clObs').value.trim(),
+    };
     if(editingClienteId){
       const idx = clientes.findIndex(x => x.id === editingClienteId);
       if(idx !== -1) clientes[idx] = { ...clientes[idx], ...dados };
       document.getElementById('clSavedHint').textContent = 'Alterações salvas ✓';
     } else {
-      clientes.unshift({ id: uid(), ...dados, total: 0 });
+      clientes.unshift({ id: uid(), ...dados });
       document.getElementById('clSavedHint').textContent = 'Cliente adicionada ✓';
     }
     lsSet('clientes', clientes);
     setTimeout(() => document.getElementById('clSavedHint').textContent = '', 2000);
-    resetClienteForm();
     renderClientes();
+    closeClienteModal();
+  });
+
+  document.getElementById('clExcluirBtn').addEventListener('click', () => {
+    if(!editingClienteId) return;
+    if(!confirm('Excluir esta cliente?')) return;
+    clientes = clientes.filter(x => x.id !== editingClienteId);
+    lsSet('clientes', clientes);
+    renderClientes();
+    closeClienteModal();
   });
 
   document.addEventListener('click', e => {
     const editId = e.target.dataset.clEdit;
-    const delId = e.target.dataset.clDel;
-    if(editId){
-      const c = clientes.find(x => x.id === editId);
-      if(!c) return;
-      document.getElementById('clNome').value = c.nome;
-      document.getElementById('clTelefone').value = c.tel || '';
-      document.getElementById('clCidade').value = c.cidade || '';
-      document.getElementById('clInsta').value = c.insta || '';
-      editingClienteId = c.id;
-      addClienteBtn.textContent = 'Salvar alterações';
-      goTo('clientes');
-    }
-    if(delId){
-      if(!confirm('Excluir esta cliente?')) return;
-      clientes = clientes.filter(x=>x.id!==delId); lsSet('clientes', clientes);
-      if(editingClienteId === delId) resetClienteForm();
-      renderClientes();
-    }
+    if(!editId) return;
+    const c = clientes.find(x => x.id === editId);
+    if(!c) return;
+    resetClienteForm();
+    document.getElementById('clModalTitulo').textContent = c.nome;
+    document.getElementById('clExcluirBtn').style.display = 'inline-block';
+    document.getElementById('clPedidoBtn').style.display = 'block';
+    document.getElementById('clPedidoBtn').dataset.clienteId = c.id;
+    document.getElementById('clNome').value = c.nome;
+    document.getElementById('clTelefone').value = c.tel || '';
+    document.getElementById('clCidade').value = c.cidade || '';
+    document.getElementById('clEndereco').value = c.endereco || '';
+    document.getElementById('clAvaliacao').value = c.nota != null ? c.nota : 5;
+    document.getElementById('clInsta').value = c.insta || '';
+    document.getElementById('clTotal').value = c.total || 0;
+    document.getElementById('clObs').value = c.obs || '';
+    editingClienteId = c.id;
+    openClienteModal();
   });
+
+  // ---------- Montar pedido direto a partir de uma cliente ----------
+  function montarPedidoParaCliente(clienteId){
+    const c = clientes.find(x => x.id === clienteId);
+    if(!c) return;
+    resetPedidoForm();
+    document.getElementById('pCliente').value = c.nome;
+    document.getElementById('pTelefone').value = c.tel || '';
+    closeClienteModal();
+    goTo('pedidos');
+    setTimeout(() => document.getElementById('pProduto').focus(), 200);
+  }
+
+  document.getElementById('clPedidoBtn').addEventListener('click', (e) => {
+    montarPedidoParaCliente(e.target.dataset.clienteId);
+  });
+
+  document.addEventListener('click', e => {
+    const pedidoClienteId = e.target.dataset.clPedido;
+    if(!pedidoClienteId) return;
+    montarPedidoParaCliente(pedidoClienteId);
+  });
+
   renderClientes();
 
   // ---------- BIBLIOTECA DE MODELOS ----------
@@ -3350,6 +3610,21 @@
     estoque.forEach(it => {
       if(it.qtd < it.min) novidades.push({ warn:true, txt: `Estoque baixo: <b>${it.item}</b> (${it.qtd} de ${it.min} mín.)` });
     });
+    // Entregas de pedido chegando (cada pedido usa o próprio "avisar com quantos dias de antecedência")
+    pedidos.forEach(p => {
+      if(!p.dataEntrega) return;
+      if(p.status === 'Cancelado' || p.status === 'Entregue') return;
+      const dias = diasAte(p.dataEntrega);
+      const aviso = p.avisoDias != null ? p.avisoDias : 2;
+      if(dias <= aviso){
+        const dataFmt = new Date(p.dataEntrega+'T00:00:00').toLocaleDateString('pt-BR');
+        if(dias < 0){
+          novidades.push({ warn:true, txt: `Pedido de <b>${p.cliente}</b> (#${p.n}) está atrasado — entrega prevista era ${dataFmt}` });
+        } else {
+          novidades.push({ warn:true, txt: `Pedido de <b>${p.cliente}</b> (#${p.n}) ${dias===0?'entrega hoje':'entrega em '+dias+' dia(s)'} (${dataFmt}) — ${p.produto}` });
+        }
+      }
+    });
     agenda.forEach(item => {
       if(item.silenciado) return;
       if(lsGet('agenda-mute-global', false)) return;
@@ -3616,7 +3891,7 @@
         <h4>O gráfico de barrinhas</h4>
         <p>São 6 barrinhas, uma pra cada um dos últimos 6 meses. Quanto mais alta a barrinha, mais você faturou naquele mês — é só olhar se as barras estão crescendo ou encolhendo da esquerda pra direita.</p>
         <h4>Bloco de Novidades</h4>
-        <p>É tipo um bilhetinho na geladeira que alguém deixa pra te lembrar de coisas. Aqui, três "alguéns" deixam bilhetes sozinhos: um avisa quando o estoque de algo está acabando, outro lembra de datas importantes chegando, e outro traz avisos da equipe.</p>
+        <p>É tipo um bilhetinho na geladeira que alguém deixa pra te lembrar de coisas. Aqui, quatro "alguéns" deixam bilhetes sozinhos: um avisa quando o estoque de algo está acabando, outro lembra de datas importantes chegando na Agenda Comercial, outro avisa quando a entrega de um pedido está próxima (ou atrasada), e o último traz avisos da equipe.</p>
       `,
     },
     {
@@ -3722,15 +3997,28 @@
         </ul>
         <h4>Por que isso importa</h4>
         <p>Os números lá do Dashboard ("Pedidos", "Faturamento", "Produzidos", "Vendidos") vêm todos daqui. Manter o status certinho de cada pedido é como manter o placar do jogo atualizado — se você esquecer de marcar um pedido como "Entregue", ele não vai aparecer certo no resumo.</p>
+        <h4>Buscar cliente</h4>
+        <p>Tem uma única busca em cima da lista, que funciona dos dois jeitos ao mesmo tempo: digite o nome da cliente OU o telefone dela (mesmo que seja só um pedacinho do número) que a lista já filtra sozinha, sem precisar escolher "buscar por nome" ou "buscar por telefone" separadamente.</p>
+        <h4>Cores escolhidas</h4>
+        <p>Em vez de digitar a cor toda vez, você escolhe numa lista (paleta) que fica salva — é só selecionar e tocar em "+ Adicionar essa cor ao pedido". Os botões "+ Adicionar / ✎ Editar / ✕ Remover" ali do lado gerenciam essa lista de cores disponíveis pra sempre, então você monta a paleta uma vez só e reaproveita em todos os pedidos.</p>
+        <p>Depois que o pedido já foi salvo, as cores dele aparecem na tabela como uma <b>palavrinha azul clicável</b> (tipo "🎨 3 cores"). Tocando nela, abre um cartãozinho flutuante só com as cores daquele pedido específico, onde dá pra adicionar, trocar ou remover — e some sozinho, sem precisar de nenhum botão de salvar.</p>
+        <h4>Data prevista de entrega e aviso antecipado</h4>
+        <p>Além da data em que o pedido foi feito, dá pra marcar quando ele precisa estar pronto pra entregar. E do lado tem "Avisar com quantos dias de antecedência" — se você colocar <code>2</code>, o app te lembra lá no Dashboard 2 dias antes da entrega chegar (e também avisa se ela já passou e o pedido continua em aberto).</p>
       `,
     },
     {
       id:'clientes', icon:'👥', titulo:'Clientes',
-      palavras:'clientes cadastro contato historico compras',
+      palavras:'clientes cadastro contato historico compras endereço avaliação observações buscar',
       html:`
-        <p>É a sua agendinha de telefone, só que feita pra quem compra de você — em vez de depender da memória ou de mensagens espalhadas no WhatsApp, cada cliente tem uma "fichinha" própria aqui.</p>
-        <h4>Pra que serve na prática</h4>
-        <p>Ajuda a lembrar quem compra mais de você, achar o telefone rapidinho quando precisar avisar de uma novidade, e ligar os pedidos à pessoa certa.</p>
+        <p>É a sua agendinha de telefone, só que feita pra quem compra de você — em vez de depender da memória ou de mensagens espalhadas no WhatsApp, cada cliente tem uma "fichinha" própria aqui, parecida com a de Fornecedores: nome, telefone, cidade, endereço, avaliação, Instagram e observações.</p>
+        <h4>Avaliação (0 a 5)</h4>
+        <p>É uma notinha que só você vê, pra lembrar como é comprar/vender pra aquela cliente — se ela paga certinho, se indica outras pessoas, se costuma pedir mais. Uma cliente nota 5 é aquela que você adoraria clonar!</p>
+        <h4>Observações</h4>
+        <p>Um espacinho livre pra anotar o que for útil: cor favorita dela, o modelo que ela sempre pede, datas especiais, forma de pagamento preferida — tudo que ajuda a atender melhor da próxima vez.</p>
+        <h4>Buscar cliente</h4>
+        <p>Tem uma busca no topo da lista — digite parte do nome, do telefone ou da cidade que ela já filtra sozinha. Não precisa saber o nome certinho: digitando só um pedaço do número de telefone também acha.</p>
+        <h4>Montar pedido pra essa cliente</h4>
+        <p>Toda cliente tem um botão "🧾 Montar pedido" — toca nele e o app já leva você direto pra aba de Pedidos com o nome e telefone dela preenchidos sozinhos, sem precisar digitar tudo de novo do zero.</p>
       `,
     },
     {
