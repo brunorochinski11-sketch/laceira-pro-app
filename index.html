@@ -836,6 +836,13 @@
         <p class="hint" id="conectarCodigoHint"></p>
       </div>
     </div>
+
+    <div class="card">
+      <h2>Backup completo</h2>
+      <p class="sub">Baixa um arquivo com tudo que está salvo neste aparelho: pedidos, clientes, estoque, fornecedores, agenda, modelos, custos — tudo. Útil antes de qualquer mudança grande, pra garantir que nada se perde.</p>
+      <button class="btn-primary" id="baixarBackupBtn" type="button">📥 Baixar backup completo</button>
+      <p class="hint" id="baixarBackupHint"></p>
+    </div>
   </section>
 
   <!-- DÚVIDAS -->
@@ -3507,6 +3514,39 @@
     }catch(e){ console.error('Falha ao desconectar aparelho:', e); }
     if(hintEl){ hintEl.style.color = 'var(--success)'; hintEl.textContent = 'Desconectado ✓ Recarregando...'; }
     setTimeout(() => location.reload(), 600);
+  });
+
+  // ---------- BACKUP COMPLETO (baixar tudo num arquivo) ----------
+  document.getElementById('baixarBackupBtn').addEventListener('click', () => {
+    const hintEl = document.getElementById('baixarBackupHint');
+    try{
+      const backup = {};
+      SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) backup[k] = v; });
+      const pacote = {
+        app: 'Laceira PRO',
+        exportadoEm: new Date().toISOString(),
+        codigoDoAparelho: syncCode || null,
+        dados: backup,
+      };
+      const blob = new Blob([JSON.stringify(pacote, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const nomePerfil = (lsGet('perfil', {}).nome || '').trim();
+      const sufixo = nomePerfil ? '-' + nomePerfil.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') : '';
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `laceira-pro-backup${sufixo}-${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      hintEl.style.color = 'var(--success)';
+      hintEl.textContent = 'Backup baixado ✓';
+    }catch(e){
+      console.error('Falha ao gerar backup:', e);
+      hintEl.style.color = '#B4453C';
+      hintEl.textContent = 'Não consegui gerar o backup. Tenta de novo.';
+    }
+    setTimeout(() => hintEl.textContent = '', 4000);
   });
 
   // ---------- DASHBOARD (dados reais) ----------
