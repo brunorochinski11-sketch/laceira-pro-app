@@ -591,11 +591,16 @@
       <div class="filters-row" style="justify-content:space-between;">
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <input type="text" id="clBusca" placeholder="Buscar por nome, telefone ou cidade..." style="min-width:220px;">
+          <select id="clFiltroAniversario" style="min-width:200px;">
+            <option value="">Todas as clientes</option>
+            <option value="mes">🎂 Aniversariantes deste mês</option>
+            <option value="proximo">🎂 Aniversariantes do mês que vem</option>
+          </select>
         </div>
         <button class="btn-primary" id="clNovoBtn">＋ Nova cliente</button>
       </div>
       <div class="table-scroll"><table>
-        <thead><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>Avaliação</th><th>Total comprado</th><th></th></tr></thead>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Cidade</th><th>🎂 Aniversário</th><th>Avaliação</th><th>Total comprado</th><th></th></tr></thead>
         <tbody id="clientesBody"></tbody>
       </table></div>
     </div>
@@ -613,6 +618,7 @@
         <div class="field text"><label>Nome</label><input type="text" id="clNome" placeholder="Nome da cliente"></div>
         <div class="field text"><label>Telefone</label><input type="text" id="clTelefone" placeholder="(00) 00000-0000"></div>
         <div class="field text"><label>Cidade</label><input type="text" id="clCidade" placeholder="Cidade"></div>
+        <div class="field"><label>🎂 Aniversário</label><input type="date" id="clAniversario"></div>
         <div class="field text"><label>Endereço / Local</label><input type="text" id="clEndereco" placeholder="Rua, bairro, referência..."></div>
         <div class="field"><label>Avaliação (0 a 5)</label><input type="number" id="clAvaliacao" min="0" max="5" step="0.1" value="5"></div>
         <div class="field text"><label>Instagram</label><input type="text" id="clInsta" placeholder="@usuario"></div>
@@ -1176,7 +1182,14 @@
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.p===name));
     const t = panelTitles[name];
     if(t){ document.getElementById('panelTitle').textContent = t[0]; document.getElementById('panelSub').textContent = t[1]; }
+    try{ sessionStorage.setItem('laceira-ultimo-painel', name); }catch(e){}
   }
+  // Se a página recarregar sozinha (ex.: sincronização com outro aparelho), volta pra aba
+  // que a laceira estava usando, em vez de jogar sempre pro Dashboard.
+  try{
+    const painelSalvo = sessionStorage.getItem('laceira-ultimo-painel');
+    if(painelSalvo && painelSalvo !== 'dashboard' && panelTitles[painelSalvo]) goTo(painelSalvo);
+  }catch(e){}
 
   // ---------- MOSTRAR/OCULTAR SENHA ----------
   document.querySelectorAll('.pw-toggle').forEach(btn => {
@@ -2048,26 +2061,58 @@
 
   // ---------- CLIENTES ----------
   let clientes = lsGet('clientes', [
-    {id:uid(), nome:'Marina Alves', tel:'(41) 98888-1234', cidade:'Curitiba', endereco:'', nota:5, insta:'@marina.alves', obs:'', total:840},
-    {id:uid(), nome:'Juliana Costa', tel:'(41) 97777-5678', cidade:'Rio Azul', endereco:'', nota:5, insta:'@ju.costa', obs:'', total:1260},
+    {id:uid(), nome:'Marina Alves', tel:'(41) 98888-1234', cidade:'Curitiba', endereco:'', nota:5, insta:'@marina.alves', obs:'', total:840, aniversario:''},
+    {id:uid(), nome:'Juliana Costa', tel:'(41) 97777-5678', cidade:'Rio Azul', endereco:'', nota:5, insta:'@ju.costa', obs:'', total:1260, aniversario:''},
   ]);
   let editingClienteId = null;
   const clBody = document.getElementById('clientesBody');
 
+  // Formata "YYYY-MM-DD" pra "DD/MM", ignorando o ano (o ano cadastrado não importa pra recorrência anual)
+  function aniversarioFmt(aniversario){
+    if(!aniversario) return '—';
+    const [, m, d] = aniversario.split('-');
+    return `${d}/${m}`;
+  }
+  // Próxima ocorrência do aniversário (dia/mês), no ano atual ou no que vem se já passou
+  function proximoAniversario(aniversario){
+    if(!aniversario) return null;
+    const [, m, d] = aniversario.split('-').map(Number);
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    let data = new Date(hoje.getFullYear(), m - 1, d);
+    if(data < hoje) data = new Date(hoje.getFullYear() + 1, m - 1, d);
+    return data;
+  }
+  function clienteMesAniversario(c, offsetMeses){
+    if(!c.aniversario) return false;
+    const mesAniv = Number(c.aniversario.split('-')[1]);
+    const alvo = new Date(); alvo.setDate(1); alvo.setMonth(alvo.getMonth() + offsetMeses);
+    return mesAniv === (alvo.getMonth() + 1);
+  }
+
   function renderClientes(){
     const termo = document.getElementById('clBusca').value.trim().toLowerCase();
     const termoDigitos = termo.replace(/\D/g, '');
+    const filtroAniv = document.getElementById('clFiltroAniversario').value;
     clBody.innerHTML = '';
     const lista = clientes.filter(c => {
-      if(!termo) return true;
-      const nomeBate = (c.nome || '').toLowerCase().includes(termo);
-      const cidadeBate = (c.cidade || '').toLowerCase().includes(termo);
-      const telBate = termoDigitos.length > 0 && (c.tel || '').replace(/\D/g, '').includes(termoDigitos);
-      return nomeBate || cidadeBate || telBate;
+      if(termo){
+        const nomeBate = (c.nome || '').toLowerCase().includes(termo);
+        const cidadeBate = (c.cidade || '').toLowerCase().includes(termo);
+        const telBate = termoDigitos.length > 0 && (c.tel || '').replace(/\D/g, '').includes(termoDigitos);
+        if(!nomeBate && !cidadeBate && !telBate) return false;
+      }
+      if(filtroAniv === 'mes' && !clienteMesAniversario(c, 0)) return false;
+      if(filtroAniv === 'proximo' && !clienteMesAniversario(c, 1)) return false;
+      return true;
     });
     lista.forEach(c => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel||'—'}</td><td>${c.cidade||'—'}</td><td>⭐ ${c.nota||0}</td><td>${BRL(c.total||0)}</td>
+      const prox = proximoAniversario(c.aniversario);
+      const diasAniv = prox ? diasAte(prox) : null;
+      const avisoAniv = diasAniv != null && diasAniv <= 14;
+      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel||'—'}</td><td>${c.cidade||'—'}</td>
+        <td>${aniversarioFmt(c.aniversario)}${avisoAniv ? ` <span class="badge low" title="Aniversário chegando">${diasAniv===0?'hoje 🎉':'em '+diasAniv+'d'}</span>` : ''}</td>
+        <td>⭐ ${c.nota||0}</td><td>${BRL(c.total||0)}</td>
         <td style="white-space:nowrap;">
           <button class="btn-ghost" data-cl-edit="${c.id}">Editar</button>
           <button class="btn-ghost" data-cl-pedido="${c.id}">🧾 Montar pedido</button>
@@ -2076,6 +2121,7 @@
     });
   }
   document.getElementById('clBusca').addEventListener('input', renderClientes);
+  document.getElementById('clFiltroAniversario').addEventListener('change', renderClientes);
 
   // ---------- Modal de cliente ----------
   const clModalOverlay = document.getElementById('clModalOverlay');
@@ -2090,6 +2136,7 @@
     document.getElementById('clNome').value = '';
     document.getElementById('clTelefone').value = '';
     document.getElementById('clCidade').value = '';
+    document.getElementById('clAniversario').value = '';
     document.getElementById('clEndereco').value = '';
     document.getElementById('clAvaliacao').value = '5';
     document.getElementById('clInsta').value = '';
@@ -2111,6 +2158,7 @@
       nome,
       tel: document.getElementById('clTelefone').value.trim(),
       cidade: document.getElementById('clCidade').value.trim(),
+      aniversario: document.getElementById('clAniversario').value,
       endereco: document.getElementById('clEndereco').value.trim(),
       nota: NUM(document.getElementById('clAvaliacao').value),
       insta: document.getElementById('clInsta').value.trim(),
@@ -2153,6 +2201,7 @@
     document.getElementById('clNome').value = c.nome;
     document.getElementById('clTelefone').value = c.tel || '';
     document.getElementById('clCidade').value = c.cidade || '';
+    document.getElementById('clAniversario').value = c.aniversario || '';
     document.getElementById('clEndereco').value = c.endereco || '';
     document.getElementById('clAvaliacao').value = c.nota != null ? c.nota : 5;
     document.getElementById('clInsta').value = c.insta || '';
@@ -3673,6 +3722,16 @@
       if(item.feitoAno === prox.getFullYear()) return;
       if(dias >= 0 && dias <= 14){
         novidades.push({ warn:false, txt: `<b>${item.titulo}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira a Agenda Comercial` });
+      }
+    });
+    // Aniversários de clientes chegando perto
+    clientes.forEach(c => {
+      if(!c.aniversario) return;
+      const prox = proximoAniversario(c.aniversario);
+      if(!prox) return;
+      const dias = diasAte(prox);
+      if(dias >= 0 && dias <= 14){
+        novidades.push({ warn:false, txt: `🎂 Aniversário de <b>${c.nome}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira em Clientes` });
       }
     });
     const novList = document.getElementById('novidadesList');
