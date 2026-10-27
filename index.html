@@ -248,12 +248,284 @@
     .grid-inputs{grid-template-columns:1fr;}
     .stat-grid{grid-template-columns:1fr;}
   }
+
+  /* ---------- PRODUÇÃO INTELIGENTE ---------- */
+  .pi-tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;}
+  .pi-tab{border:1px solid var(--line); background:var(--bg); color:var(--ink-soft); font:600 12.5px 'Inter',sans-serif; padding:8px 14px; border-radius:999px; cursor:pointer;}
+  .pi-tab:hover{border-color:var(--pink-deep); color:var(--pink-dark);}
+  .pi-tab[aria-selected="true"]{background:var(--pink); border-color:var(--pink-deep); color:var(--pink-dark);}
+  [data-theme="dark"] .pi-tab[aria-selected="true"]{background:rgba(247,214,230,.14); color:var(--pink);}
+  .pi-view{display:none;}
+  .pi-view.active{display:block;}
+  .pi-summary{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px;}
+  .pi-summary .stat-card .v{font-size:23px;}
+  .pi-filters{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
+  .pi-chip{border:1px solid var(--line); background:var(--bg-soft); color:var(--ink); font:600 12px 'Inter',sans-serif; padding:6px 11px; border-radius:999px; cursor:pointer;}
+  .pi-chip[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink);}
+  [data-theme="dark"] .pi-chip[aria-pressed="true"]{background:var(--pink); color:#2B2530; border-color:var(--pink);}
+  .pi-list{display:flex; flex-direction:column; gap:12px;}
+  .pi-card{background:var(--bg); border:1px solid var(--line); border-radius:14px; padding:14px 16px;}
+  .pi-card.late{border-left:4px solid var(--danger);}
+  .pi-card.soon{border-left:4px solid var(--warning);}
+  .pi-card-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;}
+  .pi-card-head b{font-size:14.5px;}
+  .pi-meta{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .pi-reasons{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .pi-reason{font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:999px; background:var(--bg-soft); color:var(--ink);}
+  .pi-reason.danger{background:#F7E3E1; color:#9E3A32;}
+  .pi-reason.warn{background:var(--warning-bg); color:#8A5420;}
+  .pi-item{border-top:1px solid var(--line); margin-top:12px; padding-top:12px;}
+  .pi-item-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:13px;}
+  .pi-progress{height:8px; border-radius:99px; background:var(--line); overflow:hidden; margin:8px 0 6px;}
+  .pi-progress > span{display:block; height:100%; background:linear-gradient(90deg,var(--pink-deep),var(--gold));}
+  .pi-qty{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:8px;}
+  .pi-qty input{width:86px; border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:8px; padding:7px 8px; font:600 13px 'IBM Plex Mono',monospace;}
+  .pi-qty label{font-size:12px; font-weight:600; color:var(--ink-soft);}
+  .pi-actions{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px;}
+  .pi-actions .btn-ghost, .pi-qty .btn-ghost{min-height:34px;}
+  .pi-note{font-size:12px; border-radius:9px; padding:8px 10px; margin-top:8px; background:var(--bg-soft); color:var(--ink);}
+  .pi-note.warn{background:var(--warning-bg); color:#7A4A1B;}
+  .pi-note.danger{background:#F7E3E1; color:#8E342D;}
+  .pi-note.ok{background:var(--success-bg); color:#3F6B4B;}
+  [data-theme="dark"] .pi-note.warn, [data-theme="dark"] .pi-note.danger, [data-theme="dark"] .pi-note.ok, [data-theme="dark"] .pi-reason.danger, [data-theme="dark"] .pi-reason.warn{color:#2B2530;}
+  .pi-mat{display:grid; grid-template-columns:1.4fr repeat(3,1fr) auto; gap:10px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:13px;}
+  .pi-mat:last-child{border-bottom:none;}
+  .pi-mat .k{display:block; font-size:10.5px; color:var(--ink-soft); font-weight:700; text-transform:uppercase; letter-spacing:.03em;}
+  .pi-mat .v{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .pi-mat .sub{font-size:11.5px; color:var(--ink-soft);}
+  .pi-orders-pick{display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto; border:1px solid var(--line); border-radius:10px; padding:10px; margin-bottom:12px;}
+  .pi-orders-pick label{display:flex; gap:8px; align-items:center; font-size:12.5px;}
+  .pi-rec-line{display:grid; grid-template-columns:1.6fr .8fr .8fr .7fr auto; gap:8px; align-items:end; padding:10px 0; border-bottom:1px solid var(--line);}
+  .pi-rec-line .field label{font-size:11px;}
+  .pi-field-err{color:#B4453C; font-size:12px; font-weight:600; margin-top:4px;}
+  .pi-buy{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px; flex-wrap:wrap;}
+  .pi-buy.done .pi-buy-name{text-decoration:line-through; color:var(--ink-soft);}
+  .pi-buy-name{flex:1; min-width:150px;}
+  .pi-toast{position:fixed; left:50%; bottom:calc(18px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:#fff; padding:11px 16px; border-radius:11px; font-size:13px; font-weight:600; z-index:90; max-width:92vw; box-shadow:0 14px 30px -12px rgba(0,0,0,.5); display:none;}
+  .pi-toast.show{display:block;}
+  .pi-toast.erro{background:#9E3A32;}
+  [data-theme="dark"] .pi-toast{background:#F3EDF1; color:#2B2530;}
+  .pi-empty{border:1px dashed var(--line); border-radius:14px; padding:22px 18px; text-align:center; color:var(--ink-soft); font-size:13px; line-height:1.55;}
+  .btn-ghost:disabled, .btn-primary:disabled{opacity:.5; cursor:not-allowed;}
+  /* ---- guia "Como funciona" ---- */
+  .pi-tab-ajuda{border-style:dashed;}
+  .pi-guia-intro{display:flex; gap:16px; align-items:flex-start;}
+  .pi-guia-intro p{font-size:14px; line-height:1.65; margin:6px 0 0; max-width:68ch;}
+  .pi-guia-intro-emoji{font-size:40px; line-height:1; flex:0 0 auto;}
+  .pi-guia-dica{color:var(--ink-soft); font-weight:600;}
+  .pi-guia{list-style:none; margin:0 0 16px; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .pi-guia-passo{display:flex; gap:14px; align-items:flex-start; background:var(--bg); border:1px solid var(--line); border-radius:16px; padding:16px 18px;}
+  .pi-guia-num{flex:0 0 48px; height:48px; border-radius:50%; background:var(--bg-soft); border:2px solid var(--pink-deep); display:flex; align-items:center; justify-content:center; font-size:22px;}
+  .pi-guia-passo h3{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:19px; margin:2px 0 6px; color:var(--ink);}
+  html.natal .pi-guia-passo h3{color:var(--pinheiro);}
+  .pi-guia-passo p{font-size:13.5px; line-height:1.65; margin:0 0 8px; max-width:70ch;}
+  .pi-guia-passo ul{margin:0 0 10px 18px; padding:0; font-size:13.5px; line-height:1.7;}
+  .pi-guia-exemplo{background:var(--pink); color:var(--ink); border-radius:10px; padding:9px 12px; font-size:13px; margin:0 0 8px;}
+  [data-theme="dark"] .pi-guia-exemplo{background:rgba(247,214,230,.12);}
+  .pi-guia-obs{color:var(--ink-soft); font-size:12.5px !important;}
+  .pi-guia-conta{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:4px 0 10px; font-size:13px;}
+  .pi-guia-conta span{background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:6px 12px;}
+  .pi-guia-conta .op{background:none; border:none; padding:0 2px; font-weight:700; font-size:16px; color:var(--pink-deep);}
+  .pi-guia-conta .res{background:var(--success-bg); border-color:transparent; color:var(--success); font-weight:600;}
+  .pi-guia-faq p{font-size:13.5px; line-height:1.6; margin:0 0 12px; max-width:70ch;}
+  @media (max-width:520px){
+    .pi-guia-passo{padding:14px; gap:10px;}
+    .pi-guia-num{flex-basis:38px; height:38px; font-size:18px;}
+    .pi-guia-intro-emoji{font-size:30px;}
+  }
+  @media (max-width:980px){ .pi-summary{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){
+    .pi-mat{grid-template-columns:1fr 1fr 1fr; }
+    .pi-mat > :first-child{grid-column:1 / -1;}
+    .pi-mat > :last-child{grid-column:1 / -1;}
+    .pi-rec-line{grid-template-columns:1fr 1fr;}
+    .pi-rec-line > :first-child{grid-column:1 / -1;}
+  }
+  @media (max-width:380px){ .pi-summary{grid-template-columns:1fr 1fr;} .pi-mat{grid-template-columns:1fr 1fr;} }
+
+  /* ---------- TEMA DE NATAL (classe "natal" no <html>; liga/desliga no botão 🎄) ---------- */
+  html.natal{
+    --bg:#FFFFFF; --bg-soft:#F5F8F5; --line:#E3EAE5; --ink:#24302A; --ink-soft:#6B7A71;
+    --pink:#F7E4E7; --pink-deep:#A3203A; --pink-dark:#8A1A30; --gold:#C29A3B;
+    --pinheiro:#1E4D3A; --pinheiro-soft:#E4EFE8; --fita:#A3203A; --fita-escura:#7E1629;
+    --sidebar-w:258px;
+    --success:#2F6B4A; --success-bg:#E4EFE8;
+  }
+  html.natal[data-theme="dark"]{
+    --bg:#16201B; --bg-soft:#101813; --line:#2A3A31; --ink:#F1EEE7; --ink-soft:#A9B5AD;
+    --pink:#F2C9D0; --pink-deep:#B52A43; --pink-dark:#F2A7B3;
+    --pinheiro:#9FD3B4; --pinheiro-soft:rgba(159,211,180,.13); --success:#8BC9A3; --success-bg:rgba(139,201,163,.13);
+  }
+  html.natal[data-theme="dark"] .badge.pink{background:rgba(242,167,179,.16); color:#F2A7B3;}
+  html.natal .greeting h1{color:var(--pinheiro);}
+  html.natal .card h2, html.natal .modal-head h2{color:var(--pinheiro);}
+  html.natal .nav-item.active, html.natal[data-theme="dark"] .nav-item.active{background:var(--pinheiro-soft); color:var(--pinheiro);}
+  html.natal .nav-item:hover{color:var(--pinheiro);}
+  html.natal .btn-primary:hover{background:var(--fita-escura);}
+  html.natal[data-theme="dark"] .btn-primary:hover{background:#8F1F34;}
+  html.natal .brand .dot{background:var(--fita); box-shadow:0 0 0 2px var(--bg), 0 0 0 3px var(--gold);}
+  html.natal .avatar{background:linear-gradient(135deg,#F7E4E7,#E9D6A6); color:var(--pink-dark);}
+  html.natal[data-theme="dark"] .avatar{color:#7E1629;}
+  html.natal .hero-tag{background:var(--pinheiro);}
+  html.natal[data-theme="dark"] .hero-tag{background:#0B120E; border:1px solid var(--line);}
+  html.natal .bar{background:linear-gradient(180deg,var(--fita),#D9737F);}
+  html.natal #metaRing{stroke:var(--fita);}
+  html.natal #metaPct{fill:var(--pink-dark);}
+  html.natal .ribbon-progress circle:first-child{stroke:var(--line);}
+  html.natal .pi-progress > span{background:linear-gradient(90deg,var(--pinheiro),var(--gold));}
+
+  /* a fita do presente: desce pela lateral do menu e termina no laço lá em cima */
+  html.natal .sidebar{
+    padding-right:42px; overflow-x:hidden;
+    background:
+      linear-gradient(90deg, transparent calc(100% - 35px), var(--gold) calc(100% - 35px), var(--gold) calc(100% - 34px),
+        var(--fita) calc(100% - 34px), #B9324C calc(100% - 28px), var(--fita) calc(100% - 22px),
+        var(--gold) calc(100% - 22px), var(--gold) calc(100% - 21px), transparent calc(100% - 21px)),
+      var(--bg);
+  }
+  .natal-laco{display:none;}
+  html.natal .natal-laco{display:block; position:absolute; top:4px; right:0; width:56px; height:47px; pointer-events:none; filter:drop-shadow(0 2px 2px rgba(60,10,20,.25));}
+  html.natal .brand{flex-wrap:wrap; row-gap:2px; padding-right:4px;}
+  html.natal .brand::after{content:'Edição de Natal'; flex-basis:100%; padding-left:20px; font:600 11px 'Inter',sans-serif; color:var(--fita); letter-spacing:.01em;}
+  html.natal[data-theme="dark"] .brand::after{color:var(--pink-dark);}
+
+  /* neve: só no fundo, atrás do conteúdo */
+  .natal-neve{display:none;}
+  html.natal .natal-neve{display:block; position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+  html.natal .main{position:relative; z-index:1;}
+  html.natal .sidebar{z-index:1;}  /* continua sticky no computador */
+  @media (max-width:980px){ html.natal .sidebar{z-index:30;} }  /* menu do celular fica por cima da sombra */
+  .natal-neve i{position:absolute; top:-12px; color:#B3C6BA; font-style:normal; animation:natal-cair linear infinite; will-change:transform;}
+  html.natal[data-theme="dark"] .natal-neve i{color:#3E5446;}
+  @keyframes natal-cair{ from{transform:translate3d(0,-12px,0);} to{transform:translate3d(var(--deriva,20px),105vh,0);} }
+  @media (prefers-reduced-motion: reduce){ .natal-neve i{animation:none; top:var(--y,50%);} }
+
+  /* ---- pisca-pisca no topo ---- */
+  .natal-luzes{display:none;}
+  html.natal .natal-luzes{display:block; position:absolute; left:0; right:0; top:0; height:46px; pointer-events:none; z-index:2; overflow:hidden;}
+  html.natal .main{padding-top:66px;}
+  @media (max-width:980px){ html.natal .main{padding-top:calc(58px + env(safe-area-inset-top, 0px));} html.natal .natal-luzes{top:env(safe-area-inset-top, 0px);} }
+  /* cada lâmpada: halo de luz + vidro + "apagador" escuro. Acesa = halo forte e apagador invisível;
+     apagada = sem halo e vidro escurecido. Grupos A e B alternam, igual pisca-pisca de árvore. */
+  .natal-luzes .halo{animation:natal-halo 1.2s steps(1, end) infinite;}
+  .natal-luzes .apagador{animation:natal-apaga 1.2s steps(1, end) infinite;}
+  .natal-luzes .b .halo, .natal-luzes .b .apagador{animation-delay:-.6s;}
+  .natal-luzes .r .halo, .natal-luzes .r .apagador{animation-duration:.45s;}
+  @keyframes natal-halo{ 0%{opacity:.95;} 50%{opacity:0;} }
+  @keyframes natal-apaga{ 0%{opacity:0;} 50%{opacity:.62;} }
+  @keyframes natal-pisca{ 0%,100%{opacity:1; filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor);} 50%{opacity:.28; filter:none;} }
+  /* neve acumulada no fio */
+  .natal-luzes .neve-fio{fill:#fff; filter:drop-shadow(0 1px 1px rgba(70,100,85,.45));}
+
+  /* ---- partículas de neve (canvas por cima de tudo, sem pegar cliques) ---- */
+  .natal-canvas{display:none;}
+  html.natal .natal-canvas{display:block; position:fixed; inset:0; width:100vw; height:100vh; z-index:60; pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){ html.natal .natal-canvas{display:none;} }
+
+  /* ---- neve acumulada em cima dos cartões ---- */
+  html.natal .card, html.natal .stat-card, html.natal .goal-card{position:relative;}
+  html.natal .card::after, html.natal .stat-card::after, html.natal .goal-card::after{
+    content:''; position:absolute; top:-10px; left:12px; right:12px; height:19px; pointer-events:none; z-index:1;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M0 15 Q6 8 14 11 Q22 3 34 8 Q44 1 58 7 Q68 3 78 9 Q90 0 104 7 Q116 2 126 9 Q138 4 150 8 Q162 1 174 8 Q186 5 200 14 L200 17 Q192 20 182 16 Q172 20 162 16 Q150 19 140 16 Q128 20 116 16 Q104 19 92 16 Q80 20 68 16 Q56 19 44 16 Q32 20 22 16 Q10 19 0 17 Z' fill='white'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+    filter:drop-shadow(0 1.5px 1.5px rgba(70,105,88,.32));
+  }
+  /* variações pra neve não ficar igual em todo cartão */
+  html.natal .stat-card:nth-child(2n)::after, html.natal .card:nth-of-type(2n)::after{left:30%; right:8px; top:-9px; height:17px;}
+  html.natal .stat-card:nth-child(3n)::after{left:8px; right:36%;}
+  html.natal .card .card::after{display:none;}
+  html.natal .modal-card .card::after{display:none;}
+  /* neve no topo do painel da árvore */
+  html.natal .natal-banner::before{
+    content:''; position:absolute; left:0; right:0; top:-1px; height:16px; z-index:2; pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H200 V5 Q192 12 184 7 Q176 14 166 8 Q158 15 150 8 Q140 13 130 7 Q122 16 112 8 Q104 13 94 7 Q86 15 76 8 Q66 13 58 7 Q50 15 40 8 Q30 13 22 7 Q12 14 0 6 Z' fill='white'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+    opacity:.96;
+  }
+  /* montinho de neve com boneco de neve no fim do menu */
+  html.natal .sidebar::after{
+    content:''; display:block; flex:0 0 auto; height:96px; margin:18px -42px -24px -16px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 96'%3E%3Cpath d='M0 70 Q40 52 86 62 Q130 46 176 60 Q220 50 260 64 V96 H0 Z' fill='%23ffffff'/%3E%3Cpath d='M0 70 Q40 52 86 62 Q130 46 176 60 Q220 50 260 64' fill='none' stroke='%23CFDDD5' stroke-width='2'/%3E%3Ccircle cx='70' cy='60' r='17' fill='%23fff' stroke='%23CFDDD5' stroke-width='1.6'/%3E%3Ccircle cx='70' cy='34' r='12' fill='%23fff' stroke='%23CFDDD5' stroke-width='1.6'/%3E%3Crect x='60' y='18' width='20' height='4' rx='1.5' fill='%2324302A'/%3E%3Crect x='63' y='6' width='14' height='13' rx='2' fill='%2324302A'/%3E%3Crect x='63' y='14' width='14' height='3' fill='%23A3203A'/%3E%3Ccircle cx='66' cy='32' r='1.4' fill='%2324302A'/%3E%3Ccircle cx='74' cy='32' r='1.4' fill='%2324302A'/%3E%3Cpath d='M70 35 L78 37 L70 38 Z' fill='%23E8892E'/%3E%3Cpath d='M58 43 Q70 49 82 43 L83 47 Q70 53 57 47 Z' fill='%23A3203A'/%3E%3Cpath d='M76 46 L80 58 L75 57 Z' fill='%23A3203A'/%3E%3Ccircle cx='70' cy='55' r='1.6' fill='%2324302A'/%3E%3Ccircle cx='70' cy='62' r='1.6' fill='%2324302A'/%3E%3Cpath d='M54 54 L40 44 M43 46 L39 40 M43 46 L37 47' stroke='%236B4226' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3Cpath d='M86 54 L100 44 M97 46 L101 40 M97 46 L103 47' stroke='%236B4226' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3Cg transform='translate(150 42)'%3E%3Crect x='0' y='6' width='26' height='20' rx='2' fill='%23C8243F'/%3E%3Crect x='11' y='6' width='4' height='20' fill='%23F3D07A'/%3E%3Cpath d='M13 6 C8 -1 2 2 6 6 Z M13 6 C18 -1 24 2 20 6 Z' fill='%23F3D07A'/%3E%3C/g%3E%3Cg transform='translate(182 50)'%3E%3Crect x='0' y='4' width='20' height='14' rx='2' fill='%232E7D55'/%3E%3Crect x='8' y='4' width='4' height='14' fill='%23E53950'/%3E%3C/g%3E%3C/svg%3E") no-repeat center bottom/100% auto;
+  }
+  @media (min-width:981px){ html.natal .sidebar::after{margin-top:auto;} }
+
+  /* ---- painel com a árvore no Dashboard ---- */
+  .natal-banner{display:none;}
+  html.natal .natal-banner{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:18px; position:relative; overflow:hidden;
+    margin:0 0 18px; padding:24px 24px 0 28px; border-radius:20px; color:#FFF8EE;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(255,255,255,.16) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 38% 62%, rgba(255,255,255,.12) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 64% 24%, rgba(255,255,255,.14) 0 1.5px, transparent 2px),
+      radial-gradient(ellipse at 85% 110%, #2C7A55 0%, transparent 60%),
+      linear-gradient(135deg, #123B2B 0%, #1B5440 55%, #14412F 100%);
+    background-size:90px 70px, 110px 90px, 130px 80px, auto, auto;
+    box-shadow:0 18px 36px -22px rgba(18,59,43,.8);
+  }
+  html.natal .natal-banner::after{ /* chão de neve */
+    content:''; position:absolute; left:-4%; right:-4%; bottom:-30px; height:58px; border-radius:50% 50% 0 0;
+    background:#F7FBF8; box-shadow:0 -2px 0 rgba(255,255,255,.4);
+  }
+  html.natal[data-theme="dark"] .natal-banner::after{background:#DCE7E0;}
+  .natal-banner-texto{position:relative; z-index:1; padding-bottom:42px; max-width:520px;}
+  .natal-banner-texto .linha{font-size:13px; color:#F3D88E; font-weight:600; margin:0 0 6px;}
+  .natal-banner-texto h2{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:34px; line-height:1.08; margin:0 0 10px; color:#FFFFFF;}
+  .natal-banner-texto p{margin:0 0 16px; font-size:13.5px; line-height:1.55; color:#E3EEE7;}
+  .natal-banner-botoes{display:flex; gap:8px; flex-wrap:wrap;}
+  .natal-banner-botoes button{border:none; border-radius:999px; padding:10px 16px; font:700 12.5px 'Inter',sans-serif; cursor:pointer;}
+  .natal-banner-botoes .b1{background:#C8243F; color:#fff; box-shadow:0 0 0 2px #E9C46A inset;}
+  .natal-banner-botoes .b1:hover{background:#A51B33;}
+  .natal-banner-botoes .b2{background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.35);}
+  .natal-banner-botoes .b2:hover{background:rgba(255,255,255,.24);}
+  .natal-arvore{position:relative; z-index:1; width:232px; flex:0 0 auto; margin:-10px 6px -6px 0;}
+  .natal-arvore .estrela{transform-origin:90px 20px; animation:natal-estrela 2.4s ease-in-out infinite;}
+  @keyframes natal-estrela{ 0%,100%{transform:scale(1); filter:drop-shadow(0 0 4px #FFE08A);} 50%{transform:scale(1.12) rotate(6deg); filter:drop-shadow(0 0 12px #FFE08A);} }
+  .natal-arvore .luz{animation:natal-pisca 1.4s ease-in-out infinite;}
+  @media (max-width:640px){
+    html.natal .natal-banner{padding:18px 16px 0 18px; gap:6px;}
+    .natal-banner-texto h2{font-size:26px;}
+    .natal-banner-texto p{font-size:12.5px;}
+    .natal-arvore{width:118px; margin-right:-6px;}
+  }
+  @media (max-width:420px){
+    html.natal .natal-banner{flex-direction:column-reverse; align-items:center; text-align:center;}
+    .natal-banner-texto{padding-bottom:40px;}
+    .natal-banner-botoes{justify-content:center;}
+    .natal-arvore{width:136px; margin:0 0 8px;}
+  }
+
+  /* ---- azevinho nos títulos dos cartões ---- */
+  html.natal .card h2::before{
+    content:''; display:inline-block; width:21px; height:21px; margin-right:7px; vertical-align:-3px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 15c-1.6-2.9-5-4.6-9.6-3.3 1.1.7 1.4 1.7.9 2.8 1 .1 1.9.8 2 1.9 1-.7 2.1-.6 2.9.3.3-1.1 1.2-1.7 2.3-1.6z' fill='%232E7D55'/%3E%3Cpath d='M12 15c1.6-2.9 5-4.6 9.6-3.3-1.1.7-1.4 1.7-.9 2.8-1 .1-1.9.8-2 1.9-1-.7-2.1-.6-2.9.3-.3-1.1-1.2-1.7-2.3-1.6z' fill='%231B5A3E'/%3E%3Ccircle cx='10.3' cy='11.2' r='2.3' fill='%23D7263D'/%3E%3Ccircle cx='13.9' cy='11.4' r='2.3' fill='%23B81D32'/%3E%3Ccircle cx='12.1' cy='8.3' r='2.3' fill='%23E53950'/%3E%3Ccircle cx='11.4' cy='7.6' r='.7' fill='%23fff' opacity='.7'/%3E%3C/svg%3E") no-repeat center/contain;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .natal-luzes .lamp, .natal-arvore .luz, .natal-arvore .estrela{animation:none;}
+  }
+
+  .natal-toggle{border:1px solid var(--line); background:var(--bg); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px;}
+  html.natal .natal-toggle{border-color:var(--fita); background:var(--pink);}
+  .theme-toggle:focus-visible, .natal-toggle:focus-visible, .nav-item:focus-visible, .pi-tab:focus-visible, .pi-chip:focus-visible{outline:2px solid var(--pinheiro, var(--pink-deep)); outline-offset:2px;}
 </style>
+<script>
+  // aplica o tema de Natal antes de desenhar a página (evita "piscar" sem tema). Vale só pra este aparelho.
+  try{ if(localStorage.getItem('laceira-pro:tema-natal') !== 'false') document.documentElement.classList.add('natal'); }catch(e){ document.documentElement.classList.add('natal'); }
+</script>
 </head>
 <body>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="natal-neve" id="natalNeve" aria-hidden="true"></div>
+<canvas class="natal-canvas" id="natalNeveCanvas" aria-hidden="true"></canvas>
 <nav class="sidebar" id="sidebar">
+  <svg class="natal-laco" viewBox="0 0 64 54" aria-hidden="true" focusable="false">
+    <path d="M29 27 L18 52 L24 48.5 L27.5 53 L33 29 Z" fill="#7E1629"/>
+    <path d="M35 27 L46 52 L40 48.5 L36.5 53 L31 29 Z" fill="#8A1A30"/>
+    <path d="M32 24 C24 8, 6 5, 5 17 C4 28, 20 31, 32 24 Z" fill="#A3203A" stroke="#C29A3B" stroke-width="1.2"/>
+    <path d="M32 24 C40 8, 58 5, 59 17 C60 28, 44 31, 32 24 Z" fill="#A3203A" stroke="#C29A3B" stroke-width="1.2"/>
+    <path d="M30 23 C23 13, 12 11, 11 17 C10 22, 20 25, 30 23 Z" fill="#7E1629" opacity=".55"/>
+    <path d="M34 23 C41 13, 52 11, 53 17 C54 22, 44 25, 34 23 Z" fill="#7E1629" opacity=".55"/>
+    <rect x="26.5" y="17.5" width="11" height="12" rx="3.5" fill="#B9324C" stroke="#C29A3B" stroke-width="1.2"/>
+  </svg>
   <div class="brand"><span class="dot"></span><span>Laceira <em style="font-style:italic;">PRO</em></span></div>
   <button class="nav-item active" data-panel="dashboard"><span class="ic">◆</span>Dashboard</button>
   <button class="nav-item" data-panel="medidas"><span class="ic">📐</span>Calc. de Medidas</button>
@@ -264,6 +536,7 @@
   <div class="nav-sep"></div>
   <button class="nav-item" data-panel="estoque"><span class="ic">📦</span>Controle de Estoque</button>
   <button class="nav-item" data-panel="pedidos"><span class="ic">🧾</span>Pedidos</button>
+  <button class="nav-item" data-panel="producao"><span class="ic">🧵</span>Produção Inteligente</button>
   <button class="nav-item" data-panel="clientes"><span class="ic">👥</span>Clientes</button>
   <div class="nav-sep"></div>
   <button class="nav-item" data-panel="biblioteca"><span class="ic">🎀</span>Biblioteca de Modelos</button>
@@ -280,12 +553,14 @@
 </nav>
 
 <main class="main">
+  <div class="natal-luzes" id="natalLuzes" aria-hidden="true"></div>
   <div class="topbar">
     <div style="display:flex; align-items:center; gap:12px;">
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">☰</button>
       <div class="greeting"><h1 id="panelTitle">Boa tarde, Camila ✨</h1><p id="panelSub">Aqui está o resumo do seu ateliê hoje, 30 de julho</p></div>
     </div>
     <div class="top-actions">
+      <button class="natal-toggle" id="natalToggle" type="button" title="Tema de Natal" aria-label="Tema de Natal" aria-pressed="true">🎄</button>
       <button class="theme-toggle" id="themeToggle" type="button" title="Alternar tema">🌙</button>
       <div class="avatar" id="topAvatar">–</div>
     </div>
@@ -293,6 +568,82 @@
 
   <!-- DASHBOARD -->
   <section class="panel active" data-p="dashboard">
+    <div class="natal-banner" id="natalBanner">
+      <div class="natal-banner-texto">
+        <p class="linha" id="natalBannerLinha">Natal no ateliê</p>
+        <h2 id="natalBannerTitulo">Feliz Natal!</h2>
+        <p id="natalBannerTexto">A época com mais encomendas do ano chegou. Adiante a produção natalina e confira se as fitas vermelhas e douradas dão conta.</p>
+        <div class="natal-banner-botoes">
+          <button type="button" class="b1" data-goto="producao">🧵 Planejar a produção</button>
+          <button type="button" class="b2" data-goto="agenda">📅 Agenda de Natal</button>
+        </div>
+      </div>
+      <svg class="natal-arvore" viewBox="0 0 180 214" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="natalPinho" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3B9A68"/><stop offset="1" stop-color="#16573A"/>
+          </linearGradient>
+          <linearGradient id="natalOuro" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE7A0"/><stop offset="1" stop-color="#D9A93B"/>
+          </linearGradient>
+        </defs>
+        <!-- tronco -->
+        <rect x="80" y="166" width="20" height="22" rx="3" fill="#6B4226"/>
+        <!-- camadas do pinheiro -->
+        <path d="M90 104 L160 168 Q90 180 20 168 Z" fill="url(#natalPinho)"/>
+        <path d="M90 66 L146 128 Q90 140 34 128 Z" fill="url(#natalPinho)"/>
+        <path d="M90 30 L128 86 Q90 96 52 86 Z" fill="url(#natalPinho)"/>
+        <!-- neve nas pontas -->
+        <path d="M52 86 Q60 82 66 88 Q74 83 80 89 Q86 84 92 90 Q99 84 106 89 Q114 83 120 88 Q125 83 128 86 Q90 96 52 86 Z" fill="#fff" opacity=".85"/>
+        <path d="M34 128 Q44 123 52 130 Q62 124 70 131 Q80 125 90 132 Q100 125 110 131 Q120 124 128 130 Q138 123 146 128 Q90 140 34 128 Z" fill="#fff" opacity=".85"/>
+        <path d="M20 168 Q32 162 42 170 Q54 163 66 171 Q78 164 90 172 Q102 164 114 171 Q126 163 138 170 Q150 162 160 168 Q90 180 20 168 Z" fill="#fff" opacity=".85"/>
+        <!-- festão dourado (contas) -->
+        <path d="M62 70 Q90 84 116 64" fill="none" stroke="#F3D07A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.1 6"/>
+        <path d="M46 112 Q92 130 134 106" fill="none" stroke="#F3D07A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.1 6"/>
+        <path d="M32 152 Q92 172 150 146" fill="none" stroke="#F3D07A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="0.1 6"/>
+        <!-- bolas -->
+        <g>
+          <circle cx="76" cy="80" r="5.5" fill="#D7263D"/><circle cx="74.4" cy="78.2" r="1.6" fill="#fff" opacity=".6"/>
+          <circle cx="106" cy="76" r="5" fill="url(#natalOuro)"/><circle cx="104.6" cy="74.4" r="1.4" fill="#fff" opacity=".6"/>
+          <circle cx="60" cy="122" r="6" fill="url(#natalOuro)"/><circle cx="58.3" cy="120.2" r="1.7" fill="#fff" opacity=".6"/>
+          <circle cx="94" cy="124" r="6" fill="#4C8DF6"/><circle cx="92.3" cy="122.2" r="1.7" fill="#fff" opacity=".6"/>
+          <circle cx="124" cy="116" r="5.5" fill="#D7263D"/><circle cx="122.4" cy="114.2" r="1.6" fill="#fff" opacity=".6"/>
+          <circle cx="46" cy="160" r="6" fill="#F07CC1"/><circle cx="44.3" cy="158.2" r="1.7" fill="#fff" opacity=".6"/>
+          <circle cx="78" cy="162" r="6.5" fill="#D7263D"/><circle cx="76.2" cy="160.1" r="1.8" fill="#fff" opacity=".6"/>
+          <circle cx="112" cy="158" r="6" fill="url(#natalOuro)"/><circle cx="110.3" cy="156.2" r="1.7" fill="#fff" opacity=".6"/>
+          <circle cx="140" cy="154" r="5.5" fill="#4C8DF6"/><circle cx="138.4" cy="152.2" r="1.6" fill="#fff" opacity=".6"/>
+        </g>
+        <!-- luzinhas piscando -->
+        <g>
+          <circle class="luz" cx="90" cy="56" r="2.6" fill="#FFD166" color="#FFD166"/>
+          <circle class="luz" cx="68" cy="94" r="2.6" fill="#FF5C7A" color="#FF5C7A" style="animation-delay:-.4s"/>
+          <circle class="luz" cx="114" cy="96" r="2.6" fill="#7CE3A9" color="#7CE3A9" style="animation-delay:-.9s"/>
+          <circle class="luz" cx="78" cy="108" r="2.6" fill="#7FB2FF" color="#7FB2FF" style="animation-delay:-.2s"/>
+          <circle class="luz" cx="110" cy="138" r="2.6" fill="#FFD166" color="#FFD166" style="animation-delay:-1.1s"/>
+          <circle class="luz" cx="54" cy="140" r="2.6" fill="#7CE3A9" color="#7CE3A9" style="animation-delay:-.6s"/>
+          <circle class="luz" cx="128" cy="140" r="2.6" fill="#FF5C7A" color="#FF5C7A" style="animation-delay:-1.3s"/>
+          <circle class="luz" cx="96" cy="150" r="2.6" fill="#F7A8D8" color="#F7A8D8" style="animation-delay:-.8s"/>
+          <circle class="luz" cx="62" cy="104" r="2.2" fill="#FFD166" color="#FFD166" style="animation-delay:-1.5s"/>
+          <circle class="luz" cx="98" cy="102" r="2.2" fill="#F7A8D8" color="#F7A8D8" style="animation-delay:-.3s"/>
+        </g>
+        <!-- estrela -->
+        <path class="estrela" d="M90 6 L94.4 15.6 L104.8 16.8 L97 23.8 L99.2 34 L90 28.8 L80.8 34 L83 23.8 L75.2 16.8 L85.6 15.6 Z" fill="url(#natalOuro)" stroke="#FFF2C4" stroke-width="1"/>
+        <!-- presentes -->
+        <g>
+          <rect x="22" y="178" width="38" height="30" rx="3" fill="#C8243F"/>
+          <rect x="38" y="178" width="6" height="30" fill="#F3D07A"/>
+          <rect x="22" y="189" width="38" height="6" fill="#F3D07A"/>
+          <path d="M41 178 C34 168 26 172 32 178 Z M41 178 C48 168 56 172 50 178 Z" fill="#F3D07A"/>
+          <rect x="116" y="184" width="34" height="24" rx="3" fill="#2E7D55"/>
+          <rect x="130" y="184" width="6" height="24" fill="#E53950"/>
+          <path d="M133 184 C127 176 120 179 125 184 Z M133 184 C139 176 146 179 141 184 Z" fill="#E53950"/>
+          <rect x="64" y="192" width="26" height="16" rx="2.5" fill="#F3D07A"/>
+          <rect x="74.5" y="192" width="5" height="16" fill="#4C8DF6"/>
+          <rect x="94" y="196" width="18" height="12" rx="2" fill="#F07CC1"/>
+          <rect x="101" y="196" width="4" height="12" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
       <div style="display:flex; align-items:center; gap:10px;">
         <button class="btn-ghost" id="mesAnteriorBtn" type="button" aria-label="Mês anterior">◀</button>
@@ -504,8 +855,30 @@
             <button type="button" class="del-opt-btn" data-target="eCategoria">✕ Remover</button>
           </div>
         </div>
-        <div class="field"><label>Quantidade atual</label><input type="number" id="eQtd" value="0" step="1"></div>
-        <div class="field"><label>Mínimo</label><input type="number" id="eMin" value="10" step="1"></div>
+        <div class="field"><label>Quantidade atual</label><input type="number" id="eQtd" value="0" step="any" min="0"></div>
+        <div class="field text"><label for="eUnidade">Unidade da quantidade</label>
+          <select id="eUnidade">
+            <option value="">Não informada</option>
+            <option value="un">Unidade (un.)</option>
+            <option value="cm">Centímetro (cm)</option>
+            <option value="m">Metro (m)</option>
+            <option value="ml">Mililitro (ml)</option>
+            <option value="l">Litro (L)</option>
+            <option value="g">Grama (g)</option>
+            <option value="kg">Quilograma (kg)</option>
+          </select>
+        </div>
+        <div class="field"><label>Mínimo</label><input type="number" id="eMin" value="10" step="any"></div>
+        <div class="field text" id="eConteudoWrap" style="display:none;">
+          <label for="eConteudoValor">Cada unidade (rolo, pacote...) tem <span style="font-weight:400;">(opcional)</span></label>
+          <div style="display:flex; gap:6px;">
+            <input type="number" id="eConteudoValor" step="any" min="0" placeholder="Ex.: 10" style="flex:1; min-width:0;">
+            <select id="eConteudoUnidade" style="flex:0 0 74px;">
+              <option value="">—</option><option value="cm">cm</option><option value="m">m</option><option value="ml">ml</option><option value="l">L</option><option value="g">g</option><option value="kg">kg</option>
+            </select>
+          </div>
+          <p class="hint" style="margin-top:4px;">Ex.: 1 rolo = 10 m. Assim a Produção Inteligente converte a receita em rolos.</p>
+        </div>
         <div class="field text">
           <label>Foto (opcional)</label>
           <input type="file" id="eFoto" accept="image/*" capture="environment">
@@ -519,7 +892,7 @@
       <p class="hint" id="eSavedHint"></p>
 
       <div class="table-scroll" style="margin-top:20px;"><table>
-        <thead><tr><th></th><th>Item</th><th>Categoria</th><th>Qtd atual</th><th>Mínimo</th><th>Status</th><th></th></tr></thead>
+        <thead><tr><th></th><th>Item</th><th>Categoria</th><th>Qtd atual</th><th>Unidade</th><th>Mínimo</th><th>Status</th><th></th></tr></thead>
         <tbody id="estoqueBody"></tbody>
       </table></div>
     </div>
@@ -566,6 +939,258 @@
       </table></div>
     </div>
   </section>
+
+  <!-- PRODUÇÃO INTELIGENTE -->
+  <section class="panel" data-p="producao">
+    <div class="pi-tabs" role="tablist" aria-label="Seções da Produção Inteligente">
+      <button class="pi-tab" role="tab" data-pi-tab="encomendas" aria-selected="true">🗓️ Encomendas</button>
+      <button class="pi-tab" role="tab" data-pi-tab="materiais" aria-selected="false">🧮 Materiais necessários</button>
+      <button class="pi-tab" role="tab" data-pi-tab="receitas" aria-selected="false">📋 Receitas de produção</button>
+      <button class="pi-tab" role="tab" data-pi-tab="compras" aria-selected="false">🛒 Lista de compras</button>
+      <button class="pi-tab pi-tab-ajuda" role="tab" data-pi-tab="ajuda" aria-selected="false">❓ Como funciona</button>
+    </div>
+
+    <!-- ENCOMENDAS (resumo do dia + planejamento) -->
+    <div class="pi-view active" data-pi-view="encomendas">
+      <div class="pi-summary" id="piResumo"></div>
+      <div class="card">
+        <h2>O que produzir primeiro</h2>
+        <p class="sub">A ordem segue o prazo de entrega: atrasados, depois os mais próximos, e por último os pedidos sem prazo. Cada cartão mostra o motivo. Primeira vez aqui? <button type="button" class="link-azul" data-pi-ir="ajuda">Veja como funciona, passo a passo</button></p>
+        <div class="pi-filters" role="group" aria-label="Filtrar encomendas">
+          <button type="button" class="pi-chip" data-pi-filtro="pendentes" aria-pressed="true">Todas pendentes</button>
+          <button type="button" class="pi-chip" data-pi-filtro="hoje" aria-pressed="false">Entrega hoje</button>
+          <button type="button" class="pi-chip" data-pi-filtro="proximos" aria-pressed="false">Próximos 7 dias</button>
+          <button type="button" class="pi-chip" data-pi-filtro="atrasados" aria-pressed="false">Atrasados</button>
+          <button type="button" class="pi-chip" data-pi-filtro="em-producao" aria-pressed="false">Em produção</button>
+          <button type="button" class="pi-chip" data-pi-filtro="nao-iniciados" aria-pressed="false">Não iniciados</button>
+          <button type="button" class="pi-chip" data-pi-filtro="concluidos" aria-pressed="false">Concluídos</button>
+        </div>
+        <div class="field text" style="max-width:360px; margin-bottom:14px;">
+          <label for="piBusca">Buscar cliente ou nº do pedido</label>
+          <input type="text" id="piBusca" placeholder="Ex.: Marina ou 128">
+        </div>
+        <div class="pi-list" id="piLista"></div>
+      </div>
+      <div class="card">
+        <h2>Capacidade de produção</h2>
+        <p class="sub">Opcional. Com quantos minutos por dia você conta pra produzir, o app estima quantos dias de trabalho as encomendas pendentes ocupam.</p>
+        <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+          <div class="field" style="max-width:220px;"><label for="piCapacidade">Minutos de produção por dia</label><input type="number" id="piCapacidade" min="0" step="10" placeholder="Ex.: 240"></div>
+          <button class="btn-ghost" type="button" id="piCapacidadeSalvar">Salvar</button>
+        </div>
+        <p class="hint" id="piCapacidadeInfo"></p>
+      </div>
+    </div>
+
+    <!-- MATERIAIS NECESSÁRIOS -->
+    <div class="pi-view" data-pi-view="materiais">
+      <div class="card">
+        <h2>Materiais necessários</h2>
+        <p class="sub">Calculado pelas receitas dos modelos × quantidade dos pedidos selecionados, comparado com o seu Controle de Estoque. Nada é baixado do estoque aqui.</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+          <b style="font-size:13px;">Pedidos incluídos no cálculo</b>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn-ghost" id="piMatTodos">Marcar todos</button>
+            <button type="button" class="btn-ghost" id="piMatNenhum">Desmarcar todos</button>
+          </div>
+        </div>
+        <div class="pi-orders-pick" id="piMatPedidos"></div>
+        <div id="piMatAvisos"></div>
+        <div id="piMatLista"></div>
+        <p class="hint" id="piMatCriterio"></p>
+      </div>
+    </div>
+
+    <!-- RECEITAS -->
+    <div class="pi-view" data-pi-view="receitas">
+      <div class="card">
+        <h2>Receitas de produção</h2>
+        <p class="sub">Quanto de cada material um modelo consome por unidade. As receitas ficam guardadas no próprio modelo da Biblioteca de Modelos.</p>
+        <div class="pi-list" id="piReceitasLista"></div>
+      </div>
+    </div>
+
+    <!-- LISTA DE COMPRAS -->
+    <div class="pi-view" data-pi-view="compras">
+      <div class="card">
+        <h2>Lista de compras</h2>
+        <p class="sub">Materiais que faltam pra produção. Nada é comprado sozinho — é só a sua lista pra levar na loja ou mandar pro fornecedor.</p>
+        <div class="grid-inputs" style="margin-bottom:10px;">
+          <div class="field text"><label for="piCompraNome">Item</label><input type="text" id="piCompraNome" placeholder="Ex.: Fita gorgurão azul"></div>
+          <div class="field"><label for="piCompraQtd">Quantidade</label><input type="number" id="piCompraQtd" min="0" step="any"></div>
+          <div class="field text"><label for="piCompraUn">Unidade</label>
+            <select id="piCompraUn"><option value="un">un.</option><option value="cm">cm</option><option value="m">m</option><option value="ml">ml</option><option value="l">L</option><option value="g">g</option><option value="kg">kg</option></select>
+          </div>
+        </div>
+        <button class="btn-ghost" type="button" id="piCompraAdd">＋ Adicionar à lista</button>
+        <p class="pi-field-err" id="piCompraErro"></p>
+        <div id="piComprasLista" style="margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <!-- COMO FUNCIONA (explicação bem simples, passo a passo) -->
+    <div class="pi-view" data-pi-view="ajuda">
+      <div class="card pi-guia-intro">
+        <div class="pi-guia-intro-emoji" aria-hidden="true">🧚‍♀️</div>
+        <div>
+          <h2>Como funciona a Produção Inteligente</h2>
+          <p>Pensa nela como uma <b>ajudante bem organizada</b> sentada do seu lado na mesa de trabalho. Você conta pra ela <b>o que vai em cada laço</b> e <b>quais pedidos chegaram</b>, e ela faz todas as contas por você: o que fazer primeiro, quanto falta e quanto material vai gastar.</p>
+          <p class="pi-guia-dica">É só seguir os passos abaixo, um de cada vez. 👇</p>
+        </div>
+      </div>
+
+      <ol class="pi-guia">
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">🧺</span>
+          <div>
+            <h3>Passo 1 · Conte pra ajudante o que tem na sua gaveta</h3>
+            <p>Antes de tudo, ela precisa saber quais materiais você tem. No <b>Controle de Estoque</b>, cadastre cada material e escolha a <b>unidade</b> certinha:</p>
+            <ul>
+              <li>fita → em <b>metros (m)</b> ou <b>centímetros (cm)</b></li>
+              <li>presilha, bico de pato, aplique → em <b>unidades (un.)</b></li>
+              <li>cola → em <b>gramas (g)</b> ou <b>mililitros (ml)</b></li>
+            </ul>
+            <div class="pi-guia-exemplo">Exemplo: <b>Fita cetim vermelha</b> · quantidade <b>20</b> · unidade <b>m</b></div>
+            <p class="pi-guia-obs">Compra a fita em rolo? Escolha <b>Unidade</b> e diga quanto vem em cada rolo (ex.: 1 rolo = 10 m). A ajudante converte sozinha.</p>
+            <button type="button" class="btn-ghost" data-goto="estoque">📦 Abrir o Controle de Estoque</button>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">📋</span>
+          <div>
+            <h3>Passo 2 · Escreva a receita de cada laço</h3>
+            <p>Sabe a receita de bolo? <i>"2 ovos, 1 xícara de farinha…"</i> O laço também tem receita! Ela diz quanto de cada material vai em <b>UM laço só</b>.</p>
+            <p>Na <b>Biblioteca de Modelos</b>, toque em <b>"📋 Receita de produção"</b> no modelo e adicione os materiais.</p>
+            <div class="pi-guia-exemplo">Receita do <b>Laço Natal</b>: <b>50 cm</b> de fita vermelha + <b>1</b> presilha</div>
+            <p class="pi-guia-obs">Sempre sobra um retalhinho? Coloque a <b>perda</b> (ex.: 5%) que ela já conta com a sobra. E se quiser, diga quantos <b>minutos</b> leva pra fazer um laço.</p>
+            <button type="button" class="btn-ghost" data-pi-ir="receitas">📋 Ver as receitas</button>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">🧾</span>
+          <div>
+            <h3>Passo 3 · Os pedidos aparecem sozinhos</h3>
+            <p>Todo pedido que você cadastra em <b>Pedidos</b> já aparece aqui, na aba <b>Encomendas</b>. Se o nome do produto for igual ao nome do modelo, a ajudante liga um ao outro sozinha. Se não for, ela pede: é só tocar em <b>"Escolher modelo"</b>.</p>
+            <p class="pi-guia-obs">Pedido com dois modelos diferentes? Toque em <b>"🎀 Modelos do pedido"</b> e diga quantos são de cada um.</p>
+            <button type="button" class="btn-ghost" data-goto="pedidos">🧾 Cadastrar um pedido</button>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">🚦</span>
+          <div>
+            <h3>Passo 4 · Quem vem primeiro na fila</h3>
+            <p>É igual fila de padaria, só que <b>quem está mais apertado no prazo passa na frente</b>:</p>
+            <ul>
+              <li>🔴 primeiro os <b>atrasados</b> (cartão com borda vermelha)</li>
+              <li>🟠 depois os que vencem <b>hoje ou amanhã</b> (borda laranja)</li>
+              <li>⚪ por último os pedidos <b>sem data de entrega</b></li>
+            </ul>
+            <p>Cada cartão conta o motivo, tipo <i>"Entrega prevista para amanhã"</i> ou <i>"Faltam 35 unidades para concluir"</i>.</p>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">✅</span>
+          <div>
+            <h3>Passo 5 · Marque os laços que já ficaram prontos</h3>
+            <p>Fez uma parte? Conta pra ajudante! Digite o número em <b>"Produzidas até agora"</b> e toque em <b>Salvar</b>, ou use os botões <b>+1</b> e <b>+10</b>.</p>
+            <div class="pi-guia-conta" aria-label="Exemplo: pedido de 100, já fez 40, faltam 60">
+              <span>Pedido de <b>100</b></span><span class="op">→</span><span>já fiz <b>40</b></span><span class="op">=</span><span class="res">faltam <b>60</b> · 40% ✓</span>
+            </div>
+            <p class="pi-guia-obs">Se a cliente pedir mais laços depois, é só mudar a quantidade no pedido: os que você já fez continuam guardadinhos.</p>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">🧮</span>
+          <div>
+            <h3>Passo 6 · Quanto material vou precisar?</h3>
+            <p>Abra <b>Materiais necessários</b> e a ajudante faz a conta de vezes pra você:</p>
+            <div class="pi-guia-conta" aria-label="100 laços vezes 50 centímetros é igual a 50 metros de fita">
+              <span><b>100</b> laços</span><span class="op">×</span><span><b>50 cm</b> de fita</span><span class="op">=</span><span class="res"><b>50 m</b> de fita</span>
+            </div>
+            <p>Depois ela espia a sua gaveta. Tem só 20 m? Então ela avisa em vermelho: <i>"Você precisa de mais 30 m de fita"</i>. Toque em <b>"🛒 Pôr na lista de compras"</b> pra não esquecer na hora de comprar.</p>
+            <button type="button" class="btn-ghost" data-pi-ir="materiais">🧮 Ver os materiais</button>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">📦</span>
+          <div>
+            <h3>Passo 7 · Tirar do estoque o que você usou</h3>
+            <p>Quando os laços ficam prontos, o material saiu da gaveta de verdade. Toque em <b>"📦 Dar baixa no estoque"</b> no cartão do pedido e a ajudante tira do estoque só o que foi gasto.</p>
+            <div class="pi-guia-exemplo">Fez 40 laços de 50 cm → ela tira <b>20 m</b> de fita e <b>40</b> presilhas do estoque.</div>
+            <p class="pi-guia-obs">Fica tranquila: ela anota tudo, então <b>nunca tira a mesma coisa duas vezes</b>. E só cadastrar um pedido <b>não</b> mexe no estoque.</p>
+          </div>
+        </li>
+
+        <li class="pi-guia-passo">
+          <span class="pi-guia-num" aria-hidden="true">🎁</span>
+          <div>
+            <h3>Passo 8 · Pedido pronto!</h3>
+            <p>Terminou tudo? Toque em <b>"✓ Concluir produção"</b>. Quando quiser, toque também em <b>"Marcar pedido como Pronto"</b> — aí o pedido muda lá na aba Pedidos. A ajudante nunca muda isso sozinha, porque quem decide é você. 💕</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="card">
+        <h2>Perguntinhas que sempre aparecem</h2>
+        <div class="pi-guia-faq">
+          <p><b>E se eu digitar errado?</b><br>Sem problema: digite o número certo e toque em Salvar de novo.</p>
+          <p><b>E se um modelo não tiver receita?</b><br>O pedido continua funcionando normalmente. Só a conta de materiais desse modelo fica de fora até você cadastrar a receita.</p>
+          <p><b>Quanto tempo vou levar?</b><br>Se a receita tiver os minutos por laço, ela calcula: <b>50 laços × 4 min = 200 min</b>, ou seja, <b>3 h 20 min</b>. É uma estimativa pra te ajudar a se organizar.</p>
+          <p><b>E se a cliente cancelar?</b><br>Mude o status do pedido pra Cancelado e ele sai da fila. O material que você já tinha tirado do estoque não volta sozinho; se sobrou, ajuste no Controle de Estoque.</p>
+        </div>
+        <button type="button" class="btn-primary" data-pi-ir="encomendas" style="margin-top:6px;">🧵 Começar a usar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: RECEITA DE PRODUÇÃO DE UM MODELO -->
+  <div class="modal-overlay" id="piReceitaOverlay">
+    <div class="modal-card" style="max-width:680px;" role="dialog" aria-modal="true" aria-labelledby="piReceitaTitulo">
+      <div class="modal-head">
+        <h2 id="piReceitaTitulo">Receita de produção</h2>
+        <button class="drawer-close" id="piReceitaFechar" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <p class="hint" style="margin:0 0 12px;">Informe quanto de cada material vai em <b>uma unidade</b> desse modelo. Os materiais vêm do seu Controle de Estoque.</p>
+      <div id="piReceitaLinhas"></div>
+      <div id="piReceitaSemMateriais" class="pi-note warn" style="display:none;">Você ainda não tem materiais no Controle de Estoque. Cadastre os materiais lá primeiro (fita, bico, cola...) e volte aqui.</div>
+      <button class="btn-ghost" type="button" id="piReceitaAddLinha" style="margin-top:10px;">＋ Adicionar material</button>
+      <div class="grid-inputs" style="margin-top:16px;">
+        <div class="field"><label for="piReceitaMin">Tempo médio por unidade (min) <span style="font-weight:400;">(opcional)</span></label><input type="number" id="piReceitaMin" min="0" step="any"></div>
+      </div>
+      <p class="hint" id="piReceitaMinDica"></p>
+      <p class="pi-field-err" id="piReceitaErro" role="alert"></p>
+      <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button class="btn-primary" type="button" id="piReceitaSalvar" style="flex:1;">Salvar receita</button>
+        <button class="btn-ghost" type="button" id="piReceitaCancelar">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MODELOS DE UM PEDIDO -->
+  <div class="modal-overlay" id="piModelosOverlay">
+    <div class="modal-card" style="max-width:560px;" role="dialog" aria-modal="true" aria-labelledby="piModelosTitulo">
+      <div class="modal-head">
+        <h2 id="piModelosTitulo">Modelos do pedido</h2>
+        <button class="drawer-close" id="piModelosFechar" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <p class="hint" id="piModelosInfo" style="margin:0 0 12px;"></p>
+      <div id="piModelosLinhas"></div>
+      <button class="btn-ghost" type="button" id="piModelosAddLinha" style="margin-top:10px;">＋ Adicionar outro modelo</button>
+      <p class="pi-field-err" id="piModelosErro" role="alert"></p>
+      <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button class="btn-primary" type="button" id="piModelosSalvar" style="flex:1;">Salvar</button>
+        <button class="btn-ghost" type="button" id="piModelosCancelar">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pi-toast" id="piToast" role="status" aria-live="polite"></div>
 
   <!-- CARTÃO FLUTUANTE DE CORES DO PEDIDO -->
   <div class="modal-overlay" id="pCoresModalOverlay">
@@ -1015,7 +1640,9 @@
   const SYNC_KEYS = ['perfil','meta-mensal','pedidos','pedido-seq','estoque','clientes',
     'fornecedores','agenda-comercial','agenda-mute-global','medidas-salvas','custos-salvos','modelos-biblioteca',
     'opcoes-modelo','opcoes-acabamento','opcoes-fixacao','opcoes-estoque-categoria',
-    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas','preco-minimo-mult','opcoes-cores-pedido'];
+    'opcoes-fornecedor-estado','opcoes-fornecedor-categoria','post-campanhas','preco-minimo-mult','opcoes-cores-pedido',
+    // Produção Inteligente (registros de produção por pedido, lista de compras e capacidade diária)
+    'producao','lista-compras','producao-config'];
 
   function gerarCodigoSync(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem caracteres ambíguos (0/O, 1/I)
@@ -1038,14 +1665,30 @@
     }
   }, 6000);
 
+  // "sync-pendente" = momento (ms) da última alteração feita neste aparelho que ainda não
+  // chegou na nuvem. Ao abrir o app, se ela existir e for mais nova que a cópia da nuvem,
+  // o aparelho ENVIA o que tem em vez de puxar — assim uma alteração feita sem internet
+  // (ou logo antes de fechar o app) não é apagada pela cópia antiga da nuvem.
+  const PENDENTE_KEY = LS + 'sync-pendente';
+  function marcarPendente(){ try{ localStorage.setItem(PENDENTE_KEY, String(Date.now())); }catch(e){} }
+
+  async function enviarNuvemAgora(){
+    if(!syncCode || !window.__firebase) return false;
+    const marcaNoEnvio = localStorage.getItem(PENDENTE_KEY);
+    const blob = {};
+    SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) blob[k] = v; });
+    ultimoBlobConhecido = JSON.stringify(blob);
+    await window.__firebase.salvarDados(syncCode, { dados: blob, atualizadoEm: new Date().toISOString() });
+    // só limpa a marca se nada novo foi alterado enquanto o envio acontecia
+    if(localStorage.getItem(PENDENTE_KEY) === marcaNoEnvio) localStorage.removeItem(PENDENTE_KEY);
+    return true;
+  }
+
   function agendarEnvioNuvem(){
     if(!syncCode || !window.__firebase) return;
     clearTimeout(cloudSyncTimer);
     cloudSyncTimer = setTimeout(async () => {
-      const blob = {};
-      SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) blob[k] = v; });
-      ultimoBlobConhecido = JSON.stringify(blob);
-      try{ await window.__firebase.salvarDados(syncCode, { dados: blob, atualizadoEm: new Date().toISOString() }); }
+      try{ await enviarNuvemAgora(); }
       catch(e){ console.error('Falha ao sincronizar com a nuvem:', e); }
     }, 1200);
   }
@@ -1054,6 +1697,7 @@
 
   const lsSet = (k,v) => {
     try{ localStorage.setItem(LS+k, JSON.stringify(v)); }catch(e){}
+    if(k !== 'sync-code') marcarPendente();
     agendarEnvioNuvem();
   };
 
@@ -1072,6 +1716,7 @@
       SYNC_KEYS.forEach(k => { if(dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados[k])); });
       const depoisSnapshot = JSON.stringify(SYNC_KEYS.map(k => lsGet(k, null)));
       ultimoBlobConhecido = JSON.stringify(dados);
+      localStorage.removeItem(PENDENTE_KEY); // o aparelho agora está igual à nuvem
       return antesSnapshot !== depoisSnapshot;
     }catch(e){ console.error('Falha ao buscar dados da nuvem:', e); return false; }
   }
@@ -1113,7 +1758,20 @@
     }
     if(syncCode){
       try{
-        await puxarDaNuvemEAtualizar(syncCode);
+        // Tem alteração deste aparelho que não chegou na nuvem? Se a nuvem for mais antiga
+        // que ela, envia primeiro; se a nuvem for mais nova (outro aparelho mexeu depois),
+        // vale a nuvem, como sempre foi.
+        let enviouPendente = false;
+        const pendente = Number(localStorage.getItem(PENDENTE_KEY) || '0');
+        if(pendente){
+          const remoto = await window.__firebase.buscarDados(syncCode);
+          const remotoEm = remoto && remoto.atualizadoEm ? Date.parse(remoto.atualizadoEm) : 0;
+          if(!remoto || !(remotoEm > pendente)){
+            await enviarNuvemAgora();
+            enviouPendente = true;
+          }
+        }
+        if(!enviouPendente) await puxarDaNuvemEAtualizar(syncCode);
         // Na primeira vez que essa aba sincroniza, recarrega uma única vez pra garantir
         // que a tela já nasça com os dados mais recentes (em vez de só atualizar depois).
         if(!sessionStorage.getItem('laceira-sync-inicial')){
@@ -1163,6 +1821,7 @@
     lucro:['Calculadora de Lucro','Transforme sua meta de ganho em metas diárias'],
     estoque:['Controle de Estoque','Fitas, bicos, mantas e mais, sempre atualizados'],
     pedidos:['Pedidos','Acompanhe tudo o que está em produção e entrega'],
+    producao:['Produção Inteligente','Organize suas encomendas, calcule os materiais necessários e acompanhe sua produção em um só lugar.'],
     clientes:['Clientes','Histórico e contato de quem compra de você'],
     biblioteca:['Biblioteca de Modelos','Seus modelos próprios, prontos para editar'],
     posts:['Gerador de Posts','Conteúdo pronto pra Instagram'],
@@ -1183,6 +1842,7 @@
     const t = panelTitles[name];
     if(t){ document.getElementById('panelTitle').textContent = t[0]; document.getElementById('panelSub').textContent = t[1]; }
     try{ sessionStorage.setItem('laceira-ultimo-painel', name); }catch(e){}
+    if(name === 'producao' && typeof window.__laceiraRenderProducao === 'function') window.__laceiraRenderProducao();
   }
   // Se a página recarregar sozinha (ex.: sincronização com outro aparelho), volta pra aba
   // que a laceira estava usando, em vez de jogar sempre pro Dashboard.
@@ -1200,6 +1860,160 @@
       else { inp.type = 'password'; btn.textContent = '👁'; }
     });
   });
+
+  // ---------- TEMA DE NATAL ----------
+  // Guardado só neste aparelho (não vai pra nuvem): cada pessoa liga/desliga no próprio celular.
+  (function temaNatal(){
+    const root = document.documentElement;
+    const btn = document.getElementById('natalToggle');
+    const neve = document.getElementById('natalNeve');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const luzes = document.getElementById('natalLuzes');
+    const CORES_LUZ = ['#E53950', '#F6C343', '#3FB37F', '#4C8DF6', '#F07CC1', '#FF8A3D'];
+    let larguraLuzes = 0;
+    // fio de pisca-pisca "caindo" entre os ganchos, com uma lâmpada no meio de cada curva
+    function montarLuzes(){
+      const w = Math.round(luzes.clientWidth);
+      if(!w || w === larguraLuzes) return;
+      larguraLuzes = w;
+      const passo = w < 640 ? 44 : 58;
+      const n = Math.ceil(w / passo) + 1;
+      let fio = 'M0 6', lampadas = '', neveFio = '';
+      for(let i = 0; i < n; i++){
+        const x = i * passo, meio = x + passo / 2;
+        fio += ` Q${meio} 26 ${x + passo} 6`;
+        const cor = CORES_LUZ[i % CORES_LUZ.length];
+        // grupos A/B alternam; de vez em quando uma lâmpada "rápida" pra dar vida
+        const grupo = (i % 7 === 3) ? 'r' : (i % 2 ? 'b' : 'a');
+        lampadas += `<g class="${grupo}" transform="translate(${meio} 16)">
+          <ellipse class="halo" cx="0" cy="13" rx="12" ry="14" fill="${cor}" filter="url(#natalHalo)"/>
+          <rect x="-3.2" y="0" width="6.4" height="5.5" rx="1.2" fill="#2E4A3A"/>
+          <ellipse cx="0" cy="13" rx="5.6" ry="8.2" fill="${cor}"/>
+          <ellipse cx="-1.8" cy="10" rx="1.6" ry="3" fill="#fff" opacity=".6"/>
+          <ellipse class="apagador" cx="0" cy="13" rx="5.7" ry="8.3" fill="#1D2A23"/>
+        </g>`;
+        // montinhos de neve em cima do fio, perto dos ganchos
+        if(i % 3 === 0) neveFio += `<path class="neve-fio" d="M${x + 4} ${8.5} q6 -6 12 -1.5 q5 -4 9 0.5 q-10 4.5 -21 1z"/>`;
+      }
+      luzes.innerHTML = `<svg width="${w}" height="46" viewBox="0 0 ${w} 46">
+        <defs><filter id="natalHalo" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="3.2"/></filter></defs>
+        <path d="${fio}" fill="none" stroke="#2E4A3A" stroke-width="2"/>${neveFio}${lampadas}</svg>`;
+    }
+    let timerLuzes = null;
+    window.addEventListener('resize', () => { clearTimeout(timerLuzes); timerLuzes = setTimeout(() => { if(root.classList.contains('natal')) montarLuzes(); }, 150); });
+
+    // contagem real até o Natal (no fuso do aparelho)
+    function atualizarBanner(){
+      const hoje = new Date(); hoje.setHours(0,0,0,0);
+      const ano = hoje.getFullYear();
+      let natal = new Date(ano, 11, 25);
+      const titulo = document.getElementById('natalBannerTitulo');
+      const linha = document.getElementById('natalBannerLinha');
+      const texto = document.getElementById('natalBannerTexto');
+      const nome = ((lsGet('perfil', {}) || {}).nome || '').split(' ')[0];
+      if(hoje > natal && hoje.getMonth() === 11){
+        linha.textContent = 'Boas festas' + (nome ? ', ' + nome : '') + '!';
+        titulo.textContent = 'Feliz Natal e um próspero Ano Novo! 🎉';
+        texto.textContent = 'Que tal revisar os pedidos entregues e já planejar o estoque pras encomendas de Volta às Aulas?';
+        return;
+      }
+      if(hoje > natal) natal = new Date(ano + 1, 11, 25);
+      const dias = Math.round((natal - hoje) / 86400000);
+      linha.textContent = 'Natal no ateliê' + (nome ? ' da ' + nome : '');
+      titulo.textContent = dias === 0 ? 'Hoje é Natal! 🎄' : (dias === 1 ? 'Falta 1 dia para o Natal' : `Faltam ${dias} dias para o Natal`);
+      texto.textContent = dias === 0
+        ? 'Obrigada por cada laço feito com carinho este ano. Feliz Natal!'
+        : 'A época com mais encomendas do ano chegou. Adiante a produção natalina e confira se as fitas vermelhas e douradas dão conta.';
+    }
+
+    function montarNeve(){
+      if(neve.childElementCount) return;
+      const flocos = window.innerWidth < 640 ? 24 : 46;
+      let html = '';
+      for(let i = 0; i < flocos; i++){
+        const x = Math.random() * 100, tam = 8 + Math.random() * 14, dur = 12 + Math.random() * 16, atraso = -Math.random() * dur;
+        const deriva = Math.round(Math.random() * 60 - 30), y = Math.round(Math.random() * 90);
+        html += `<i style="left:${x.toFixed(1)}%; font-size:${tam.toFixed(1)}px; animation-duration:${dur.toFixed(1)}s; animation-delay:${atraso.toFixed(1)}s; --deriva:${deriva}px; --y:${y}%; opacity:${(.45 + Math.random()*.45).toFixed(2)};">❄</i>`;
+      }
+      neve.innerHTML = html;
+    }
+    // ---- partículas de neve caindo (canvas leve, pausa quando a aba fica escondida) ----
+    const canvas = document.getElementById('natalNeveCanvas');
+    const ctx2d = canvas.getContext ? canvas.getContext('2d') : null;
+    const semAnimacao = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let particulas = [], rodando = false, rafId = null, ultimoT = 0;
+    function redimensionarCanvas(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(window.innerWidth * dpr);
+      canvas.height = Math.round(window.innerHeight * dpr);
+      ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const alvo = Math.round(Math.min(110, (window.innerWidth * window.innerHeight) / 11000));
+      while(particulas.length < alvo) particulas.push(novaParticula(true));
+      particulas.length = alvo;
+    }
+    function novaParticula(qualquerAltura){
+      const r = 1 + Math.random() * 2.8;
+      return { x: Math.random() * window.innerWidth, y: qualquerAltura ? Math.random() * window.innerHeight : -6,
+               r, v: 18 + r * 14 + Math.random() * 14, fase: Math.random() * 6.28, amp: 8 + Math.random() * 18, a: .55 + Math.random() * .4 };
+    }
+    function desenhar(t){
+      if(!rodando) return;
+      const dt = Math.min(.05, ultimoT ? (t - ultimoT) / 1000 : 0); ultimoT = t;
+      const W = window.innerWidth, H = window.innerHeight;
+      ctx2d.clearRect(0, 0, W, H);
+      const escuro = root.getAttribute('data-theme') === 'dark';
+      for(const p of particulas){
+        p.y += p.v * dt; p.fase += dt * .9;
+        const x = p.x + Math.sin(p.fase) * p.amp;
+        if(p.y > H + 6){ Object.assign(p, novaParticula(false)); continue; }
+        ctx2d.beginPath();
+        ctx2d.arc(x, p.y, p.r, 0, 6.2832);
+        ctx2d.fillStyle = `rgba(255,255,255,${p.a})`;
+        // no fundo claro, uma sombrinha azul-acinzentada faz o floco branco aparecer sobre os cartões brancos
+        if(!escuro){ ctx2d.shadowColor = 'rgba(80,115,100,.55)'; ctx2d.shadowBlur = 3; }
+        ctx2d.fill();
+        if(!escuro){ ctx2d.shadowBlur = 0; ctx2d.lineWidth = .6; ctx2d.strokeStyle = `rgba(110,145,128,${p.a * .5})`; ctx2d.stroke(); }
+      }
+      rafId = requestAnimationFrame(desenhar);
+    }
+    function ligarNeve(){
+      if(!ctx2d || semAnimacao || rodando) return;
+      redimensionarCanvas(); rodando = true; ultimoT = 0; rafId = requestAnimationFrame(desenhar);
+    }
+    function desligarNeve(){
+      rodando = false; if(rafId) cancelAnimationFrame(rafId); rafId = null;
+      if(ctx2d) ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', () => { if(rodando) redimensionarCanvas(); });
+    document.addEventListener('visibilitychange', () => {
+      if(!root.classList.contains('natal')) return;
+      if(document.hidden) desligarNeve(); else ligarNeve();
+    });
+
+    function aplicar(ligado){
+      root.classList.toggle('natal', ligado);
+      btn.setAttribute('aria-pressed', ligado ? 'true' : 'false');
+      btn.title = ligado ? 'Desligar o tema de Natal' : 'Ligar o tema de Natal';
+      if(meta) meta.setAttribute('content', ligado ? '#A3203A' : '#C97B99');
+      if(ligado){
+        montarNeve();
+        ligarNeve();
+        larguraLuzes = 0;
+        requestAnimationFrame(montarLuzes);
+        try{ atualizarBanner(); }catch(e){ console.error(e); }
+      } else {
+        neve.innerHTML = ''; luzes.innerHTML = ''; larguraLuzes = 0;
+        desligarNeve();
+      }
+      if(typeof atualizarSaudacao === 'function' && typeof panelTitles !== 'undefined'){ try{ atualizarSaudacao(); }catch(e){} }
+    }
+    aplicar(root.classList.contains('natal'));
+    btn.addEventListener('click', () => {
+      const ligar = !root.classList.contains('natal');
+      try{ localStorage.setItem(LS + 'tema-natal', ligar ? 'true' : 'false'); }catch(e){}
+      aplicar(ligar);
+    });
+  })();
 
   // ---------- THEME ----------
   document.getElementById('themeToggle').addEventListener('click', () => {
@@ -1724,6 +2538,35 @@
   let currentEstoqueFoto = null;
   const eSaveBtn = document.getElementById('eSaveBtn');
 
+  // ---------- UNIDADES DE MEDIDA (usadas pelo Estoque e pela Produção Inteligente) ----------
+  // dim = grandeza física. Só convertemos dentro da mesma grandeza; f = fator para a unidade-base.
+  const UNIDADES = {
+    un: { dim:'contagem', f:1,    rot:'un.', nome:'Unidade' },
+    cm: { dim:'comprimento', f:1, rot:'cm',  nome:'Centímetro' },
+    m:  { dim:'comprimento', f:100, rot:'m', nome:'Metro' },
+    ml: { dim:'volume', f:1,      rot:'ml',  nome:'Mililitro' },
+    l:  { dim:'volume', f:1000,   rot:'L',   nome:'Litro' },
+    g:  { dim:'massa', f:1,       rot:'g',   nome:'Grama' },
+    kg: { dim:'massa', f:1000,    rot:'kg',  nome:'Quilograma' },
+  };
+  const DIM_NOME = { contagem:'unidades', comprimento:'comprimento', volume:'volume', massa:'peso' };
+  // arredonda pra 6 casas, eliminando lixo de ponto flutuante (ex.: 0,1+0,2)
+  const r6 = v => Math.round((Number(v) || 0) * 1e6) / 1e6;
+  function unidadeRot(u){ return UNIDADES[u] ? UNIDADES[u].rot : ''; }
+  function estoqueUnidadeTxt(it){
+    if(!it.unidade || !UNIDADES[it.unidade]) return '<span class="hint" style="margin:0;" title="Defina a unidade pra usar este item nas receitas">não informada</span>';
+    let t = UNIDADES[it.unidade].rot;
+    if(it.unidade === 'un' && it.conteudo && it.conteudo.valor > 0 && UNIDADES[it.conteudo.unidade]){
+      t += ` <span style="color:var(--ink-soft); font-size:11.5px;">(${fmtNum(it.conteudo.valor, 3)} ${UNIDADES[it.conteudo.unidade].rot} cada)</span>`;
+    }
+    return t;
+  }
+  function atualizarCampoConteudoEstoque(){
+    const wrap = document.getElementById('eConteudoWrap');
+    wrap.style.display = document.getElementById('eUnidade').value === 'un' ? 'block' : 'none';
+  }
+  document.getElementById('eUnidade').addEventListener('change', atualizarCampoConteudoEstoque);
+
   function renderEstoque(){
     const body = document.getElementById('estoqueBody');
     body.innerHTML = '';
@@ -1734,7 +2577,8 @@
       tr.innerHTML = `
         <td>${it.foto ? `<img src="${it.foto}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;" alt="${it.item}">` : '<span style="opacity:.35;">🎀</span>'}</td>
         <td>${it.item}</td><td>${it.cat}</td>
-        <td><input type="number" data-est-qtd="${it.id}" value="${it.qtd}" style="width:70px;"></td>
+        <td><input type="number" step="any" data-est-qtd="${it.id}" value="${it.qtd}" style="width:80px;"></td>
+        <td style="white-space:nowrap;">${estoqueUnidadeTxt(it)}</td>
         <td>${it.min}</td>
         <td><span class="badge ${low?'low':'ok'}" data-est-badge="${it.id}">${low?'Estoque baixo':'OK'}</span></td>
         <td style="white-space:nowrap;">
@@ -1766,6 +2610,10 @@
     document.getElementById('eNome').value = '';
     document.getElementById('eQtd').value = '0';
     document.getElementById('eMin').value = '10';
+    document.getElementById('eUnidade').value = '';
+    document.getElementById('eConteudoValor').value = '';
+    document.getElementById('eConteudoUnidade').value = '';
+    atualizarCampoConteudoEstoque();
     document.getElementById('eFoto').value = '';
     document.getElementById('eFotoPreviewWrap').style.display = 'none';
     currentEstoqueFoto = null;
@@ -1774,12 +2622,21 @@
   eSaveBtn.addEventListener('click', () => {
     const nome = document.getElementById('eNome').value.trim();
     if(!nome){ alert('Digite o nome do item.'); return; }
+    const unidadeSel = document.getElementById('eUnidade').value;
+    const conteudoValor = NUM(document.getElementById('eConteudoValor').value);
+    const conteudoUnidade = document.getElementById('eConteudoUnidade').value;
+    if(unidadeSel === 'un' && conteudoValor > 0 && !conteudoUnidade){
+      alert('Escolha a unidade do conteúdo de cada embalagem (ex.: m), ou deixe o conteúdo em branco.');
+      return;
+    }
     const dados = {
       item: nome,
       cat: document.getElementById('eCategoria').value,
       qtd: NUM(document.getElementById('eQtd').value),
       min: NUM(document.getElementById('eMin').value),
       foto: currentEstoqueFoto,
+      unidade: unidadeSel || null,
+      conteudo: (unidadeSel === 'un' && conteudoValor > 0 && conteudoUnidade) ? { valor: conteudoValor, unidade: conteudoUnidade } : null,
     };
     if(editingEstoqueId){
       const idx = estoque.findIndex(x => x.id === editingEstoqueId);
@@ -1820,6 +2677,10 @@
       document.getElementById('eCategoria').value = it.cat;
       document.getElementById('eQtd').value = it.qtd;
       document.getElementById('eMin').value = it.min;
+      document.getElementById('eUnidade').value = it.unidade || '';
+      document.getElementById('eConteudoValor').value = it.conteudo ? it.conteudo.valor : '';
+      document.getElementById('eConteudoUnidade').value = it.conteudo ? it.conteudo.unidade : '';
+      atualizarCampoConteudoEstoque();
       currentEstoqueFoto = it.foto || null;
       if(currentEstoqueFoto){
         document.getElementById('eFotoPreview').src = currentEstoqueFoto;
@@ -2255,6 +3116,10 @@
         <div class="info">
           <div class="name">${m.nome}</div>
           <div class="meta">${[m.cat, m.cores, m.dif, m.tempo].filter(Boolean).join(' · ')}</div>
+          <div class="meta" style="margin-top:6px;">${(m.receita && m.receita.itens && m.receita.itens.length) ? `📋 Receita: ${m.receita.itens.length} material(is)` : '📋 Sem receita de produção'}</div>
+        </div>
+        <div style="padding:0 12px 8px;">
+          <button class="btn-ghost" type="button" data-pi-receita="${m.id}" style="width:100%;">📋 Receita de produção</button>
         </div>
         <div style="display:flex; gap:8px; padding:0 12px 12px;">
           <button class="btn-ghost" data-edit-modelo="${m.id}" style="flex:1;">Editar</button>
@@ -3198,7 +4063,15 @@
   }
   function diasAte(data){
     const hoje = new Date(); hoje.setHours(0,0,0,0);
-    const alvo = new Date(data); alvo.setHours(0,0,0,0);
+    // "AAAA-MM-DD" vira data LOCAL (new Date('2026-10-27') seria meia-noite UTC = dia anterior no Brasil)
+    let alvo;
+    if(typeof data === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data)){
+      const [y,m,d] = data.split('-').map(Number);
+      alvo = new Date(y, m-1, d);
+    } else {
+      alvo = new Date(data);
+    }
+    alvo.setHours(0,0,0,0);
     return Math.round((alvo - hoje) / 86400000);
   }
 
@@ -3477,7 +4350,8 @@
     const perfil = lsGet('perfil', null);
     const nome = perfil?.nome || '';
     const primeiroNome = nome.split(' ')[0] || '';
-    const texto = `${saudacaoPorHora()}${primeiroNome ? ', ' + primeiroNome : ''} ✨`;
+    const enfeite = document.documentElement.classList.contains('natal') ? '🎄' : '✨';
+    const texto = `${saudacaoPorHora()}${primeiroNome ? ', ' + primeiroNome : ''} ${enfeite}`;
     const dataTexto = `Aqui está o resumo do seu ateliê hoje, ${new Date().toLocaleDateString('pt-BR', { day:'numeric', month:'long' })}`;
     panelTitles.dashboard[0] = texto;
     panelTitles.dashboard[1] = dataTexto;
@@ -3542,6 +4416,8 @@
       syncCode = novoCodigo;
       localStorage.setItem(LS+'sync-code', JSON.stringify(syncCode));
       SYNC_KEYS.forEach(k => { if(dados.dados && dados.dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados.dados[k])); });
+      // os dados deste aparelho foram trocados pelos da conta conectada: nada local pra enviar
+      localStorage.removeItem(LS+'sync-pendente');
       hintEl.textContent = 'Conectado ✓ Recarregando...';
       location.reload();
     }catch(err){
@@ -3558,6 +4434,7 @@
     try{
       SYNC_KEYS.forEach(k => localStorage.removeItem(LS+k));
       localStorage.removeItem(LS+'sync-code');
+      localStorage.removeItem(LS+'sync-pendente');
       sessionStorage.removeItem('laceira-sync-inicial');
       sessionStorage.removeItem('laceira-ultimo-reload');
     }catch(e){ console.error('Falha ao desconectar aparelho:', e); }
@@ -3969,6 +4846,1075 @@
     adminOverlay.classList.remove('show');
   });
 
+  // =====================================================================
+  // ---------- PRODUÇÃO INTELIGENTE ----------
+  // Regras de dados (todas guardadas nas chaves sincronizadas de sempre):
+  //  • Receita de produção → dentro do próprio modelo: modelos-biblioteca[].receita
+  //  • Produção por pedido → 'producao' { [pedidoId]: { itens:[...], iniciadaEm, pausada, historico } }
+  //  • Lista de compras    → 'lista-compras' [ ... ]
+  //  • Capacidade diária   → 'producao-config' { minutosPorDia }
+  // Política de estoque: criar pedido ou planejar NÃO mexe no estoque. A baixa só acontece
+  // quando a laceira pede "Dar baixa no estoque", e cada item guarda quantas unidades já
+  // tiveram o material baixado (campo baixado) — então a mesma unidade nunca é baixada 2×.
+  // Não há reservas de estoque nesta versão.
+  // =====================================================================
+  (function iniciarProducaoInteligente(){
+    const PROD_KEY = 'producao', COMPRAS_KEY = 'lista-compras', CONFIG_KEY = 'producao-config';
+    const HIST_MAX = 200;
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const fmtQ = (v, u) => `${fmtNum(r6(v), 3)} ${unidadeRot(u)}`.trim();
+    function fmtData(s){ if(!s) return ''; const [y,m,d] = s.split('-'); return `${d}/${m}/${y}`; }
+    function fmtMin(min){
+      min = Math.round(min);
+      const h = Math.floor(min/60), m = min % 60;
+      if(!h) return `${m} min`;
+      return m ? `${h} h ${m} min` : `${h} h`;
+    }
+    const plural = (n, s, p) => `${fmtNum(n,0)} ${n === 1 ? s : p}`;
+
+    // ---------- leitura/gravação ----------
+    function lerProducao(){ const p = lsGet(PROD_KEY, {}); return (p && typeof p === 'object' && !Array.isArray(p)) ? p : {}; }
+    function lerCompras(){ const l = lsGet(COMPRAS_KEY, []); return Array.isArray(l) ? l : []; }
+    function lerConfig(){ const c = lsGet(CONFIG_KEY, {}); return (c && typeof c === 'object' && !Array.isArray(c)) ? c : {}; }
+
+    // Grava várias chaves juntas: se qualquer uma falhar (ex.: armazenamento cheio),
+    // devolve todas ao valor anterior — assim estoque e produção nunca ficam desencontrados.
+    function gravarJuntos(pares){
+      const anteriores = pares.map(([k]) => [k, localStorage.getItem(LS+k)]);
+      try{
+        pares.forEach(([k, v]) => localStorage.setItem(LS+k, JSON.stringify(v)));
+      }catch(e){
+        anteriores.forEach(([k, raw]) => { try{ if(raw === null) localStorage.removeItem(LS+k); else localStorage.setItem(LS+k, raw); }catch(_){} });
+        throw e;
+      }
+      marcarPendente();
+      agendarEnvioNuvem();
+    }
+
+    // ---------- toast ----------
+    let toastTimer = null;
+    function toast(msg, erro){
+      const el = document.getElementById('piToast');
+      el.textContent = msg;
+      el.classList.toggle('erro', !!erro);
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), erro ? 6000 : 3200);
+    }
+
+    // ---------- unidades ----------
+    function converter(valor, de, para){
+      const a = UNIDADES[de], b = UNIDADES[para];
+      if(!a || !b || a.dim !== b.dim) return null;
+      return r6(valor * a.f / b.f);
+    }
+    // Converte uma quantidade da receita pra unidade em que o material é controlado no estoque.
+    // unidadeEstoque permite simular uma unidade ainda não salva (usado no modal da receita).
+    function paraUnidadeDoEstoque(valor, unReceita, mat, unidadeEstoque){
+      if(!mat) return { ok:false, erro:'material-removido', msg:'Este material não existe mais no Controle de Estoque.' };
+      const uEst = unidadeEstoque !== undefined ? unidadeEstoque : mat.unidade;
+      if(!uEst || !UNIDADES[uEst]) return { ok:false, erro:'sem-unidade', msg:`"${mat.item}" está sem unidade no Controle de Estoque. Informe em que unidade você controla esse material.` };
+      if(!UNIDADES[unReceita]) return { ok:false, erro:'sem-unidade-receita', msg:'Escolha a unidade da quantidade da receita.' };
+      const direto = converter(valor, unReceita, uEst);
+      if(direto !== null) return { ok:true, valor: direto };
+      if(uEst === 'un' && mat.conteudo && mat.conteudo.valor > 0 && UNIDADES[mat.conteudo.unidade]){
+        const emConteudo = converter(valor, unReceita, mat.conteudo.unidade);
+        if(emConteudo !== null) return { ok:true, valor: r6(emConteudo / mat.conteudo.valor) };
+      }
+      const dimR = DIM_NOME[UNIDADES[unReceita].dim], dimE = DIM_NOME[UNIDADES[uEst].dim];
+      let msg = `Não dá pra converter ${UNIDADES[unReceita].rot} (${dimR}) em ${UNIDADES[uEst].rot} (${dimE}) — são grandezas diferentes, e o app não faz essa conversão sozinho.`;
+      if(uEst === 'un') msg += ` Se cada unidade de "${mat.item}" tem uma medida fixa (ex.: 1 rolo = 10 m), informe isso no Controle de Estoque.`;
+      else msg += ` Use na receita uma unidade de ${dimE} (${Object.keys(UNIDADES).filter(k => UNIDADES[k].dim === UNIDADES[uEst].dim).map(k => UNIDADES[k].rot).join(', ')}).`;
+      return { ok:false, erro:'incompativel', msg };
+    }
+
+    // ---------- modelos, materiais e pedidos ----------
+    const modeloPorId = id => modelos.find(m => m.id === id) || null;
+    const materialPorId = id => estoque.find(e => e.id === id) || null;
+    const normal = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const modeloPeloNome = nome => { const n = normal(nome); return n ? (modelos.find(m => normal(m.nome) === n) || null) : null; };
+    const receitaItens = m => (m && m.receita && Array.isArray(m.receita.itens)) ? m.receita.itens : [];
+    const temReceita = m => receitaItens(m).length > 0;
+    const pedidoNaFila = p => p.status !== 'Cancelado' && p.status !== 'Entregue';
+
+    // Registro de produção do pedido, com valores padrão seguros pra pedidos antigos.
+    // Sem registro salvo, devolve um registro "virtual" (não grava nada) que liga o pedido
+    // ao modelo de mesmo nome do produto, se existir.
+    function registroDe(prod, p, criar){
+      let reg = prod[p.id];
+      if(!reg){
+        const sugerido = modeloPeloNome(p.produto);
+        reg = { itens:[{ id:'i1', modeloId: sugerido ? sugerido.id : null, segue:true, qtd:null, produzido:0, baixado:0, consumido:{}, qtdVista:null, autoNome: !!sugerido }],
+                iniciadaEm:null, pausada:false, historico:[] };
+        if(criar) prod[p.id] = reg;
+      }
+      if(!Array.isArray(reg.itens)) reg.itens = [];
+      reg.itens.forEach(it => {
+        it.produzido = Math.max(0, NUM(it.produzido));
+        it.baixado = Math.max(0, NUM(it.baixado));
+        if(!it.consumido || typeof it.consumido !== 'object') it.consumido = {};
+      });
+      if(!Array.isArray(reg.historico)) reg.historico = [];
+      return reg;
+    }
+    function registrarHistorico(reg, evento){
+      reg.historico.push({ em: new Date().toISOString(), ...evento });
+      if(reg.historico.length > HIST_MAX) reg.historico = reg.historico.slice(-HIST_MAX);
+    }
+
+    const STATUS_ORDEM = { 'Não iniciada':0, 'Em produção':1, 'Parcialmente concluída':2, 'Pausada':3, 'Concluída':4 };
+    const STATUS_ICONE = { 'Não iniciada':'○', 'Em produção':'▶', 'Parcialmente concluída':'◐', 'Pausada':'⏸', 'Concluída':'✓' };
+
+    function analisarPedido(p, prod){
+      const reg = registroDe(prod, p, false);
+      const itens = reg.itens.map(it => {
+        const modelo = it.modeloId ? modeloPorId(it.modeloId) : null;
+        const qtd = Math.max(0, it.segue ? NUM(p.qtd) : NUM(it.qtd));
+        const produzido = it.produzido;
+        const restante = Math.max(0, qtd - produzido);
+        const progresso = qtd > 0 ? Math.min(100, Math.round(produzido / qtd * 100)) : 0;
+        const minPadrao = modelo && modelo.receita ? NUM(modelo.receita.minPorUnidade) : 0;
+        const minUn = NUM(it.minOverride) > 0 ? NUM(it.minOverride) : minPadrao;
+        return {
+          it, modelo, qtd, produzido, restante, progresso, minUn,
+          modeloRemovido: !!it.modeloId && !modelo,
+          temReceita: temReceita(modelo),
+          mudouQtd: it.qtdVista != null && it.qtdVista !== qtd && produzido > 0,
+          excedente: Math.max(0, produzido - qtd),
+          aguardandoBaixa: Math.max(0, produzido - it.baixado),
+        };
+      });
+      const total = itens.reduce((s, x) => s + x.qtd, 0);
+      const produzido = itens.reduce((s, x) => s + x.produzido, 0);
+      const restante = itens.reduce((s, x) => s + x.restante, 0);
+      let status;
+      if(total > 0 && restante === 0) status = 'Concluída';
+      else if(reg.pausada) status = 'Pausada';
+      else if(produzido > 0) status = 'Parcialmente concluída';
+      else if(reg.iniciadaEm) status = 'Em produção';
+      else status = 'Não iniciada';
+
+      const dias = p.dataEntrega ? diasAte(p.dataEntrega) : null;
+      const motivos = [];
+      if(status !== 'Concluída'){
+        if(dias === null) motivos.push({ t:'Sem prazo de entrega cadastrado' });
+        else if(dias < 0) motivos.push({ t:`⚠ Entrega atrasada (${plural(-dias,'dia','dias')})`, c:'danger' });
+        else if(dias === 0) motivos.push({ t:'⏰ Entrega prevista para hoje', c:'danger' });
+        else if(dias === 1) motivos.push({ t:'⏰ Entrega prevista para amanhã', c:'warn' });
+        else if(dias <= 7) motivos.push({ t:`Entrega em ${dias} dias (${fmtData(p.dataEntrega)})`, c: dias <= 3 ? 'warn' : '' });
+        else motivos.push({ t:`Entrega em ${fmtData(p.dataEntrega)}` });
+        if(status === 'Não iniciada') motivos.push({ t:'Produção ainda não iniciada' });
+        if(status === 'Pausada') motivos.push({ t:'⏸ Produção pausada' });
+        if(restante > 0 && produzido > 0) motivos.push({ t:`Faltam ${plural(restante,'unidade','unidades')} para concluir` });
+      }
+      const minutos = itens.reduce((s, x) => s + (x.minUn > 0 ? x.restante * x.minUn : 0), 0);
+      const semTempo = itens.some(x => x.restante > 0 && !(x.minUn > 0));
+      return { p, reg, itens, total, produzido, restante, status, dias, motivos, minutos, semTempo,
+               progresso: total > 0 ? Math.min(100, Math.round(produzido / total * 100)) : 0,
+               somaDiferente: reg.itens.length > 1 && total !== NUM(p.qtd) };
+    }
+
+    function ordenarPorPrioridade(a, b){
+      const grupo = x => x.dias === null ? 2 : (x.dias < 0 ? 0 : 1);
+      if(grupo(a) !== grupo(b)) return grupo(a) - grupo(b);
+      if(a.dias !== null && b.dias !== null && a.dias !== b.dias) return a.dias - b.dias;
+      if(STATUS_ORDEM[a.status] !== STATUS_ORDEM[b.status]) return STATUS_ORDEM[a.status] - STATUS_ORDEM[b.status];
+      return NUM(a.p.n) - NUM(b.p.n);
+    }
+
+    // ---------- cálculo de materiais ----------
+    // Para cada linha da receita: por unidade = qtd × (1 + perda%) convertido pra unidade do estoque.
+    //  • necessário (pedido inteiro) = unidades do pedido × por unidade
+    //  • para concluir               = unidades que faltam produzir × por unidade
+    //  • ainda vai sair do estoque   = unidades cujo material ainda não foi baixado × por unidade
+    // A comparação com o estoque usa "ainda vai sair do estoque": o que já foi baixado já saiu do
+    // número do estoque, então não é descontado duas vezes.
+    function calcularMateriais(analises){
+      const mapa = {};
+      const semModelo = [], semReceita = new Map(), problemas = [];
+      analises.forEach(a => {
+        a.itens.forEach(x => {
+          if(!x.modelo){ if(x.qtd > 0) semModelo.push(a.p); return; }
+          if(!x.temReceita){ if(x.qtd > 0) semReceita.set(x.modelo.id, x.modelo); return; }
+          const naoBaixadas = Math.max(0, Math.max(x.qtd, x.produzido) - x.it.baixado);
+          receitaItens(x.modelo).forEach(l => {
+            const mat = materialPorId(l.materialId);
+            const qtdLinha = r6(NUM(l.qtd) * (1 + Math.max(0, NUM(l.perda)) / 100));
+            const conv = paraUnidadeDoEstoque(qtdLinha, l.unidade, mat);
+            if(!conv.ok){ problemas.push({ modelo: x.modelo, msg: conv.msg }); return; }
+            const k = l.materialId;
+            if(!mapa[k]) mapa[k] = { mat, total:0, concluir:0, sair:0, baixado:0, unidadesReceita:new Set(), totalRec:0, perda:false, pedidos:new Set() };
+            const e = mapa[k];
+            e.total = r6(e.total + x.qtd * conv.valor);
+            e.concluir = r6(e.concluir + x.restante * conv.valor);
+            e.sair = r6(e.sair + naoBaixadas * conv.valor);
+            e.unidadesReceita.add(l.unidade);
+            e.totalRec = r6(e.totalRec + x.qtd * qtdLinha);
+            if(NUM(l.perda) > 0) e.perda = true;
+            e.pedidos.add(a.p.id);
+          });
+          Object.keys(x.it.consumido || {}).forEach(k => { if(mapa[k]) mapa[k].baixado = r6(mapa[k].baixado + NUM(x.it.consumido[k])); });
+        });
+      });
+      const lista = Object.values(mapa).map(e => {
+        const disponivel = r6(NUM(e.mat.qtd));
+        const falta = r6(Math.max(0, e.sair - Math.max(0, disponivel)));
+        return { ...e, disponivel, falta, abaixoMin: falta === 0 && (disponivel - e.sair) < NUM(e.mat.min) };
+      }).sort((a, b) => (b.falta > 0) - (a.falta > 0) || a.mat.item.localeCompare(b.mat.item, 'pt-BR'));
+      return { lista, semModelo, semReceita:[...semReceita.values()], problemas };
+    }
+
+    // ---------- estado da tela ----------
+    let abaAtual = 'encomendas';
+    let filtroAtual = 'pendentes';
+    let matSelecionados = null; // null = todos os pedidos pendentes
+    let ocupado = false;        // evita cliques repetidos em operações que gravam
+
+    function todasAnalises(){
+      const prod = lerProducao();
+      return pedidos.filter(p => p.status !== 'Cancelado').map(p => analisarPedido(p, prod));
+    }
+    const pendentes = analises => analises.filter(a => pedidoNaFila(a.p) && a.status !== 'Concluída');
+
+    // ---------- RENDER: resumo ----------
+    function renderResumo(analises){
+      const pend = pendentes(analises);
+      const el = document.getElementById('piResumo');
+      if(!pedidos.length){
+        el.innerHTML = `<div class="pi-empty" style="grid-column:1/-1;">Ainda não há pedidos cadastrados. Cadastre suas encomendas em <button type="button" class="link-azul" data-goto="pedidos">Pedidos</button> e as receitas dos modelos em <button type="button" class="link-azul" data-pi-ir="receitas">Receitas de produção</button> — o resumo do dia aparece aqui sozinho.</div>`;
+        return;
+      }
+      const unidades = pend.reduce((s, a) => s + a.restante, 0);
+      const proximas = pend.filter(a => a.dias !== null && a.dias >= 0 && a.dias <= 3).length;
+      const atrasadas = pend.filter(a => a.dias !== null && a.dias < 0).length;
+      const emAndamento = pend.filter(a => a.status === 'Em produção' || a.status === 'Parcialmente concluída').length;
+      const concluidas = analises.filter(a => a.status === 'Concluída' && pedidoNaFila(a.p)).length;
+      const mats = calcularMateriais(pend);
+      const insuf = mats.lista.filter(m => m.falta > 0).length;
+      el.innerHTML = `
+        <div class="stat-card"><div class="k">Pedidos pendentes</div><div class="v">${pend.length}</div><div class="trend" style="color:var(--ink-soft);">${emAndamento} em andamento · ${concluidas} produção concluída</div></div>
+        <div class="stat-card"><div class="k">Unidades restantes</div><div class="v">${fmtNum(unidades,0)}</div><div class="trend" style="color:var(--ink-soft);">pra concluir os pendentes</div></div>
+        <div class="stat-card"><div class="k">Entregas em até 3 dias</div><div class="v">${proximas}</div><div class="trend" style="color:${atrasadas ? 'var(--danger)' : 'var(--ink-soft)'};">${atrasadas ? '⚠ ' + plural(atrasadas,'atrasada','atrasadas') : 'nenhuma atrasada'}</div></div>
+        <div class="stat-card"><div class="k">Materiais insuficientes</div><div class="v">${mats.lista.length ? insuf : '—'}</div><div class="trend" style="color:var(--ink-soft);">${mats.lista.length ? `de ${plural(mats.lista.length,'material calculado','materiais calculados')} · <button type="button" class="link-azul" data-pi-ir="materiais" style="font-size:11px;">ver</button>` : 'cadastre receitas pra calcular'}</div></div>`;
+    }
+
+    // ---------- RENDER: lista de encomendas ----------
+    function passaFiltro(a){
+      const naFila = pedidoNaFila(a.p);
+      const pend = naFila && a.status !== 'Concluída';
+      switch(filtroAtual){
+        case 'hoje': return pend && a.dias === 0;
+        case 'proximos': return pend && a.dias !== null && a.dias >= 0 && a.dias <= 7;
+        case 'atrasados': return pend && a.dias !== null && a.dias < 0;
+        case 'em-producao': return pend && (a.status === 'Em produção' || a.status === 'Parcialmente concluída');
+        case 'nao-iniciados': return pend && a.status === 'Não iniciada';
+        case 'concluidos': return a.status === 'Concluída';
+        default: return pend;
+      }
+    }
+
+    function renderItem(a, x){
+      const nomeModelo = x.modelo ? esc(x.modelo.nome) : (x.modeloRemovido ? '<i>Modelo excluído da Biblioteca</i>' : '<i>Modelo não escolhido</i>');
+      const autoTxt = x.it.autoNome ? ' <span class="hint" style="margin:0; font-size:11px;">(ligado pelo nome do produto)</span>' : '';
+      let avisos = '';
+      if(!x.modelo){
+        avisos += `<div class="pi-note warn">Escolha qual modelo da Biblioteca é esse produto ("${esc(a.p.produto)}") pra calcular materiais e tempo. <button type="button" class="link-azul" data-pi-modelos="${a.p.id}">Escolher modelo</button></div>`;
+      } else if(!x.temReceita){
+        avisos += `<div class="pi-note">Este modelo ainda não possui uma receita de produção. <button type="button" class="link-azul" data-pi-receita="${x.modelo.id}">Cadastrar receita</button></div>`;
+      }
+      if(x.mudouQtd){
+        avisos += `<div class="pi-note warn">A quantidade mudou de <b>${fmtNum(x.it.qtdVista,0)}</b> para <b>${fmtNum(x.qtd,0)}</b> depois que a produção começou. As ${fmtNum(x.produzido,0)} já produzidas foram mantidas — agora faltam <b>${fmtNum(x.restante,0)}</b>. <button type="button" class="link-azul" data-pi-ciente="${a.p.id}|${x.it.id}">Entendi</button></div>`;
+      }
+      if(x.excedente > 0){
+        avisos += `<div class="pi-note warn">Produção excedente: ${plural(x.excedente,'unidade','unidades')} além do pedido.</div>`;
+      }
+      if(x.aguardandoBaixa > 0 && x.temReceita){
+        avisos += `<div class="pi-note">${plural(x.aguardandoBaixa,'unidade produzida ainda não teve','unidades produzidas ainda não tiveram')} o material baixado do estoque.</div>`;
+      }
+      if(x.it.baixado > x.produzido){
+        avisos += `<div class="pi-note warn">O material de ${fmtNum(x.it.baixado,0)} unidades já foi baixado, mas agora constam ${fmtNum(x.produzido,0)} produzidas. O material baixado não volta sozinho pro estoque — se precisar, corrija a quantidade no Controle de Estoque.</div>`;
+      }
+      const tempoTxt = x.restante > 0 && x.minUn > 0 ? ` · ⏱ ${fmtMin(x.restante * x.minUn)} estimados` : '';
+      return `
+        <div class="pi-item">
+          <div class="pi-item-top">
+            <div><b>${nomeModelo}</b>${autoTxt}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-weight:600;">${fmtNum(x.produzido,0)} / ${fmtNum(x.qtd,0)} · ${x.progresso}%</div>
+          </div>
+          <div class="pi-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${x.progresso}" aria-label="Progresso de ${x.modelo ? esc(x.modelo.nome) : 'item'}"><span style="width:${x.progresso}%"></span></div>
+          <div class="pi-meta">Solicitadas: ${fmtNum(x.qtd,0)} · Produzidas: ${fmtNum(x.produzido,0)} · Restantes: ${fmtNum(x.restante,0)}${tempoTxt}</div>
+          <div class="pi-qty">
+            <label for="piProd-${a.p.id}-${x.it.id}">Produzidas até agora</label>
+            <input type="number" min="0" step="1" inputmode="numeric" id="piProd-${a.p.id}-${x.it.id}" value="${x.produzido}">
+            <button type="button" class="btn-ghost" data-pi-salvar-prod="${a.p.id}|${x.it.id}">Salvar</button>
+            <button type="button" class="btn-ghost" data-pi-mais="${a.p.id}|${x.it.id}|1" aria-label="Somar 1 unidade produzida">+1</button>
+            <button type="button" class="btn-ghost" data-pi-mais="${a.p.id}|${x.it.id}|10" aria-label="Somar 10 unidades produzidas">+10</button>
+          </div>
+          <p class="pi-field-err" id="piProdErr-${a.p.id}-${x.it.id}" role="alert"></p>
+          ${avisos}
+        </div>`;
+    }
+
+    function renderLista(analises){
+      const termo = normal(document.getElementById('piBusca').value);
+      const lista = analises.filter(passaFiltro).filter(a => {
+        if(!termo) return true;
+        return normal(a.p.cliente).includes(termo) || String(a.p.n).includes(termo.replace('#','')) || normal(a.p.produto).includes(termo);
+      }).sort(ordenarPorPrioridade);
+      document.querySelectorAll('[data-pi-filtro]').forEach(b => b.setAttribute('aria-pressed', b.dataset.piFiltro === filtroAtual ? 'true' : 'false'));
+      const wrap = document.getElementById('piLista');
+      if(!lista.length){
+        const msgs = {
+          pendentes: pedidos.length ? 'Nenhuma encomenda pendente de produção. 🎉' : 'Nenhum pedido ainda — cadastre em <button type="button" class="link-azul" data-goto="pedidos">Pedidos</button>.',
+          hoje:'Nenhuma entrega pendente pra hoje.', proximos:'Nenhuma entrega pendente nos próximos 7 dias.', atrasados:'Nenhuma encomenda atrasada. ✓',
+          'em-producao':'Nenhuma encomenda em produção agora.', 'nao-iniciados':'Todas as encomendas pendentes já começaram.', concluidos:'Nenhuma produção concluída ainda.',
+        };
+        wrap.innerHTML = `<div class="pi-empty">${termo ? 'Nenhum pedido encontrado pra essa busca.' : msgs[filtroAtual]}</div>`;
+        return;
+      }
+      wrap.innerHTML = lista.map(a => {
+        const p = a.p;
+        const cls = a.status !== 'Concluída' && a.dias !== null ? (a.dias < 0 ? 'late' : (a.dias <= 1 ? 'soon' : '')) : '';
+        const motivos = a.motivos.map(m => `<span class="pi-reason ${m.c || ''}">${esc(m.t)}</span>`).join('');
+        const temBaixa = a.itens.some(x => x.aguardandoBaixa > 0 && x.temReceita);
+        const ehConcluida = a.status === 'Concluída';
+        const acoes = [];
+        if(!ehConcluida){
+          if(a.status === 'Não iniciada') acoes.push(`<button type="button" class="btn-ghost" data-pi-iniciar="${p.id}">▶ Iniciar produção</button>`);
+          if(a.status === 'Pausada') acoes.push(`<button type="button" class="btn-ghost" data-pi-pausar="${p.id}">▶ Retomar</button>`);
+          else if(a.status !== 'Não iniciada') acoes.push(`<button type="button" class="btn-ghost" data-pi-pausar="${p.id}">⏸ Pausar</button>`);
+          acoes.push(`<button type="button" class="btn-ghost" data-pi-concluir="${p.id}">✓ Concluir produção</button>`);
+        } else if(pedidoNaFila(p) && p.status !== 'Pronto'){
+          acoes.push(`<button type="button" class="btn-ghost" data-pi-pronto="${p.id}">Marcar pedido como "Pronto"</button>`);
+        }
+        if(temBaixa) acoes.push(`<button type="button" class="btn-ghost" data-pi-baixar="${p.id}">📦 Dar baixa no estoque</button>`);
+        acoes.push(`<button type="button" class="btn-ghost" data-pi-ver-materiais="${p.id}">🧮 Materiais</button>`);
+        acoes.push(`<button type="button" class="btn-ghost" data-pi-modelos="${p.id}">🎀 Modelos do pedido</button>`);
+        acoes.push(`<button type="button" class="btn-ghost" data-pi-abrir-pedido="${p.id}">🧾 Abrir pedido</button>`);
+        const tempo = a.restante > 0 && a.minutos > 0 ? `<div class="pi-meta">⏱ Tempo estimado pra terminar: <b>${fmtMin(a.minutos)}</b>${a.semTempo ? ' (sem contar modelos sem tempo definido)' : ''} — estimativa, não é tempo trabalhado.</div>` : '';
+        return `
+          <article class="pi-card ${cls}" aria-label="Pedido ${esc(p.n)} de ${esc(p.cliente)}">
+            <div class="pi-card-head">
+              <div>
+                <b>#${esc(p.n)} · ${esc(p.cliente)}</b>
+                <div class="pi-meta">${esc(p.produto)} · pedido em ${p.data ? fmtData(p.data) : '—'} · entrega ${p.dataEntrega ? fmtData(p.dataEntrega) : 'sem prazo'} · comercial: ${esc(p.status)}</div>
+              </div>
+              <span class="badge ${ehConcluida ? 'ok' : (a.status === 'Pausada' ? 'low' : 'pink')}">${STATUS_ICONE[a.status]} ${a.status}</span>
+            </div>
+            <div class="pi-reasons">${motivos}</div>
+            ${a.reg.itens.length > 1 ? `<div class="pi-meta" style="margin-top:8px;">Total: ${fmtNum(a.produzido,0)} de ${fmtNum(a.total,0)} produzidas (${a.progresso}%)</div>` : ''}
+            ${a.somaDiferente ? `<div class="pi-note warn">A soma dos modelos (${fmtNum(a.total,0)}) é diferente da quantidade do pedido (${fmtNum(NUM(p.qtd),0)}). Confira em "Modelos do pedido".</div>` : ''}
+            ${a.itens.map(x => renderItem(a, x)).join('')}
+            ${tempo}
+            <div class="pi-actions">${acoes.join('')}</div>
+          </article>`;
+      }).join('');
+    }
+
+    // ---------- RENDER: materiais ----------
+    function renderMateriais(analises){
+      const pend = pendentes(analises);
+      const pick = document.getElementById('piMatPedidos');
+      if(matSelecionados){
+        // tira da seleção pedidos que deixaram de estar pendentes (ex.: cancelados)
+        matSelecionados = new Set([...matSelecionados].filter(id => pend.some(a => a.p.id === id)));
+      }
+      const sel = a => matSelecionados ? matSelecionados.has(a.p.id) : true;
+      const pendOrd = [...pend].sort(ordenarPorPrioridade);
+      pick.innerHTML = pendOrd.length ? pendOrd.map(a => `
+        <label><input type="checkbox" data-pi-mat-pedido="${a.p.id}" ${sel(a) ? 'checked' : ''}>
+          #${esc(a.p.n)} · ${esc(a.p.cliente)} — ${esc(a.p.produto)} (${plural(a.restante,'restante','restantes')}${a.dias !== null ? ', entrega ' + fmtData(a.p.dataEntrega) : ''})</label>`).join('')
+        : '<span class="hint" style="margin:0;">Nenhum pedido pendente de produção.</span>';
+      const escolhidos = pend.filter(sel);
+      const r = calcularMateriais(escolhidos);
+      const avisos = [];
+      if(r.semModelo.length){
+        avisos.push(`<div class="pi-note warn">${plural(r.semModelo.length,'pedido sem modelo escolhido','pedidos sem modelo escolhido')} ficou fora do cálculo: ${r.semModelo.map(p => `<button type="button" class="link-azul" data-pi-modelos="${p.id}">#${esc(p.n)} ${esc(p.cliente)}</button>`).join(', ')}.</div>`);
+      }
+      r.semReceita.forEach(m => avisos.push(`<div class="pi-note">"${esc(m.nome)}": este modelo ainda não possui uma receita de produção, então ficou fora do cálculo. <button type="button" class="link-azul" data-pi-receita="${m.id}">Cadastrar receita</button></div>`));
+      const probUnicos = [...new Map(r.problemas.map(x => [x.modelo.id + x.msg, x])).values()];
+      probUnicos.forEach(x => avisos.push(`<div class="pi-note danger">Receita de "${esc(x.modelo.nome)}": ${esc(x.msg)} <button type="button" class="link-azul" data-pi-receita="${x.modelo.id}">Corrigir receita</button></div>`));
+      document.getElementById('piMatAvisos').innerHTML = avisos.join('');
+      const listaEl = document.getElementById('piMatLista');
+      if(!escolhidos.length){
+        listaEl.innerHTML = '<div class="pi-empty">Selecione pelo menos um pedido acima pra calcular os materiais.</div>';
+      } else if(!r.lista.length){
+        listaEl.innerHTML = '<div class="pi-empty">Nenhum material calculado ainda. Escolha os modelos dos pedidos e cadastre as receitas de produção.</div>';
+      } else {
+        const faltando = r.lista.filter(m => m.falta > 0);
+        const frase = faltando.length
+          ? `<div class="pi-note danger" style="margin-bottom:6px;">${faltando.map(m => `Você precisa de mais <b>${fmtQ(m.falta, m.mat.unidade)}</b> de ${esc(m.mat.item)} para concluir os pedidos selecionados.`).join('<br>')}</div>`
+          : '<div class="pi-note ok" style="margin-bottom:6px;">✓ O estoque registrado cobre todos os materiais dos pedidos selecionados.</div>';
+        listaEl.innerHTML = frase + r.lista.map(m => {
+          const u = m.mat.unidade;
+          const recUnicas = [...m.unidadesReceita];
+          const equivalente = (recUnicas.length === 1 && recUnicas[0] !== u) ? ` <span class="sub">(${fmtQ(m.totalRec, recUnicas[0])})</span>` : '';
+          const situacao = m.falta > 0 ? '<span class="badge low">✕ Material insuficiente</span>' : (m.abaixoMin ? '<span class="badge pink">! Fica abaixo do mínimo</span>' : '<span class="badge ok">✓ Suficiente</span>');
+          return `
+            <div class="pi-mat">
+              <div><b>${esc(m.mat.item)}</b><div class="sub">${situacao}${m.perda ? ' · inclui perda configurada' : ''}</div></div>
+              <div><span class="k">Disponível</span><span class="v">${fmtQ(m.disponivel, u)}</span></div>
+              <div><span class="k">Necessário</span><span class="v">${fmtQ(m.sair, u)}</span>${m.sair !== m.total ? `<div class="sub">pedido inteiro: ${fmtQ(m.total, u)}</div>` : (equivalente ? `<div>${equivalente}</div>` : '')}${m.baixado > 0 ? `<div class="sub">já baixado: ${fmtQ(m.baixado, u)}</div>` : ''}</div>
+              <div><span class="k">Falta</span><span class="v" style="color:${m.falta > 0 ? 'var(--danger)' : 'inherit'};">${fmtQ(m.falta, u)}</span>${m.concluir !== m.sair ? `<div class="sub">p/ concluir: ${fmtQ(m.concluir, u)}</div>` : ''}</div>
+              <div>${m.falta > 0 ? `<button type="button" class="btn-ghost" data-pi-comprar="${m.mat.id}" data-pi-comprar-qtd="${m.falta}">🛒 Pôr na lista de compras</button>` : ''}</div>
+            </div>`;
+        }).join('');
+      }
+      document.getElementById('piMatCriterio').innerHTML = escolhidos.length && r.lista.length
+        ? '<b>Como é calculado:</b> receita por unidade (com a perda que você configurou) × unidades. "Necessário" é o que ainda vai sair do estoque: considera todas as unidades do pedido cujo material ainda não foi baixado — o que já foi baixado já saiu do número do estoque e não é descontado de novo. "Pedido inteiro" mostra a necessidade total da encomenda e "p/ concluir" só as unidades que faltam produzir.'
+        : '';
+    }
+
+    // ---------- RENDER: receitas ----------
+    function renderReceitas(){
+      const wrap = document.getElementById('piReceitasLista');
+      if(!modelos.length){
+        wrap.innerHTML = '<div class="pi-empty">Você ainda não tem modelos cadastrados. Cadastre em <button type="button" class="link-azul" data-goto="biblioteca">Biblioteca de Modelos</button>.</div>';
+        return;
+      }
+      wrap.innerHTML = modelos.map(m => {
+        const itens = receitaItens(m);
+        const min = m.receita ? NUM(m.receita.minPorUnidade) : 0;
+        const linhas = itens.map(l => {
+          const mat = materialPorId(l.materialId);
+          const conv = paraUnidadeDoEstoque(NUM(l.qtd), l.unidade, mat);
+          return `<li>${mat ? esc(mat.item) : '<i>material excluído do estoque</i>'}: ${fmtQ(l.qtd, l.unidade)} por unidade${NUM(l.perda) > 0 ? ` + ${fmtNum(l.perda,2)}% de perda` : ''}${conv.ok ? '' : ' <span class="pi-reason danger">⚠ ' + esc(conv.msg) + '</span>'}</li>`;
+        }).join('');
+        return `
+          <div class="pi-card">
+            <div class="pi-card-head">
+              <div><b>${esc(m.nome)}</b><div class="pi-meta">${[m.cat, m.tempo ? 'tempo na biblioteca: ' + m.tempo : ''].filter(Boolean).map(esc).join(' · ')}</div></div>
+              <button type="button" class="btn-ghost" data-pi-receita="${m.id}">${itens.length ? '✎ Editar receita' : '＋ Cadastrar receita'}</button>
+            </div>
+            ${itens.length ? `<ul style="margin:10px 0 0 18px; padding:0; font-size:13px; line-height:1.7;">${linhas}</ul>` : '<p class="pi-note" style="margin-top:10px;">Este modelo ainda não possui uma receita de produção.</p>'}
+            ${min > 0 ? `<div class="pi-meta" style="margin-top:6px;">⏱ ${fmtNum(min,2)} min por unidade</div>` : ''}
+          </div>`;
+      }).join('');
+    }
+
+    // ---------- RENDER: lista de compras ----------
+    function renderCompras(){
+      const lista = lerCompras();
+      const wrap = document.getElementById('piComprasLista');
+      if(!lista.length){
+        wrap.innerHTML = '<div class="pi-empty">Sua lista de compras está vazia. Em "Materiais necessários", use "Pôr na lista de compras" nos materiais que faltam.</div>';
+        return;
+      }
+      const ord = [...lista].sort((a, b) => (a.comprado - b.comprado) || String(b.criadoEm).localeCompare(String(a.criadoEm)));
+      wrap.innerHTML = ord.map(c => {
+        const mat = c.materialId ? materialPorId(c.materialId) : null;
+        const podeLancar = c.comprado && !c.lancadoNoEstoque && mat && mat.unidade === c.unidade;
+        return `
+          <div class="pi-buy ${c.comprado ? 'done' : ''}">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" data-pi-compra-check="${c.id}" ${c.comprado ? 'checked' : ''} aria-label="Marcar ${esc(c.nome)} como comprado">
+              <span class="pi-buy-name"><b>${esc(c.nome)}</b> — ${fmtQ(c.qtd, c.unidade)}${c.lancadoNoEstoque ? ' <span class="badge ok">✓ lançado no estoque</span>' : ''}</span>
+            </label>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-left:auto;">
+              ${podeLancar ? `<button type="button" class="btn-ghost" data-pi-compra-lancar="${c.id}">＋ Somar ao estoque</button>` : ''}
+              <button type="button" class="btn-ghost" data-pi-compra-del="${c.id}" aria-label="Remover ${esc(c.nome)} da lista">Remover</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function renderCapacidade(analises){
+      const cfg = lerConfig();
+      const inp = document.getElementById('piCapacidade');
+      if(document.activeElement !== inp) inp.value = cfg.minutosPorDia > 0 ? cfg.minutosPorDia : '';
+      const pend = pendentes(analises);
+      const minutos = pend.reduce((s, a) => s + a.minutos, 0);
+      const semTempo = pend.filter(a => a.semTempo).length;
+      const info = document.getElementById('piCapacidadeInfo');
+      if(!pend.length){ info.textContent = ''; return; }
+      let t = minutos > 0 ? `Tempo estimado das encomendas pendentes: ${fmtMin(minutos)}.` : 'Nenhum modelo pendente tem tempo por unidade definido na receita ainda.';
+      if(minutos > 0 && cfg.minutosPorDia > 0) t += ` Com ${fmtNum(cfg.minutosPorDia,0)} min por dia, dá cerca de ${fmtNum(Math.ceil(minutos / cfg.minutosPorDia),0)} dia(s) de trabalho — sem contar outras tarefas, por isso não é uma data garantida.`;
+      if(semTempo) t += ` ${plural(semTempo,'pedido tem','pedidos têm')} modelo sem tempo definido e não entra na conta.`;
+      info.textContent = t;
+    }
+
+    function renderProducao(){
+      try{
+        document.querySelectorAll('[data-pi-tab]').forEach(b => b.setAttribute('aria-selected', b.dataset.piTab === abaAtual ? 'true' : 'false'));
+        document.querySelectorAll('[data-pi-view]').forEach(v => v.classList.toggle('active', v.dataset.piView === abaAtual));
+        const analises = todasAnalises();
+        renderResumo(analises);
+        renderLista(analises);
+        renderCapacidade(analises);
+        renderMateriais(analises);
+        renderReceitas();
+        renderCompras();
+      }catch(e){
+        console.error('Falha ao montar a Produção Inteligente:', e);
+        document.getElementById('piLista').innerHTML = '<div class="pi-note danger">Não consegui montar a tela de produção. Seus dados não foram alterados. Recarregue a página e, se continuar, baixe um backup em Perfil.</div>';
+      }
+    }
+    window.__laceiraRenderProducao = renderProducao;
+
+    // ---------- AÇÕES: produção ----------
+    function comRegistro(pedidoId, fn){
+      if(ocupado) return;
+      const p = pedidos.find(x => x.id === pedidoId);
+      if(!p){ toast('Pedido não encontrado (pode ter sido excluído).', true); renderProducao(); return; }
+      ocupado = true;
+      try{
+        const prod = lerProducao();
+        const reg = registroDe(prod, p, true);
+        const resultado = fn(reg, p, prod);
+        if(resultado === false) return;
+        gravarJuntos([[PROD_KEY, prod]]);
+        renderProducao();
+      }catch(e){
+        console.error(e);
+        toast('Não consegui salvar. Nada foi alterado — tente de novo.', true);
+      }finally{
+        ocupado = false;
+      }
+    }
+
+    function definirProduzido(pedidoId, itemId, valor){
+      const errEl = document.getElementById(`piProdErr-${pedidoId}-${itemId}`);
+      if(errEl) errEl.textContent = '';
+      const mostrarErro = msg => { if(errEl) errEl.textContent = msg; else toast(msg, true); };
+      if(!Number.isFinite(valor)){ mostrarErro('Digite um número.'); return; }
+      if(valor < 0){ mostrarErro('A quantidade produzida não pode ser negativa.'); return; }
+      if(!Number.isInteger(valor)){ mostrarErro('Use um número inteiro de unidades.'); return; }
+      comRegistro(pedidoId, (reg, p) => {
+        const it = reg.itens.find(i => i.id === itemId);
+        if(!it){ toast('Item não encontrado.', true); return false; }
+        const qtd = Math.max(0, it.segue ? NUM(p.qtd) : NUM(it.qtd));
+        if(valor === it.produzido) return false;
+        if(valor > qtd){
+          const ok = confirm(`O pedido pede ${qtd} unidade(s) desse modelo e você está registrando ${valor}.\n\nRegistrar ${valor - qtd} unidade(s) como produção excedente?`);
+          if(!ok) return false;
+        }
+        registrarHistorico(reg, { tipo:'producao', itemId, de: it.produzido, para: valor });
+        it.produzido = valor;
+        it.qtdVista = qtd;
+        if(!reg.iniciadaEm) reg.iniciadaEm = new Date().toISOString();
+        toast(`Produção atualizada: ${valor} de ${qtd} ✓`);
+      });
+    }
+
+    // ---------- AÇÕES: baixa de estoque ----------
+    function darBaixa(pedidoId){
+      if(ocupado) return;
+      const p = pedidos.find(x => x.id === pedidoId);
+      if(!p){ toast('Pedido não encontrado.', true); return; }
+      ocupado = true;
+      try{
+        const prod = lerProducao();
+        const reg = registroDe(prod, p, true);
+        const porItem = [], problemas = [], totais = {};
+        reg.itens.forEach(it => {
+          const unidades = Math.max(0, it.produzido - it.baixado);
+          if(!unidades) return;
+          const modelo = modeloPorId(it.modeloId);
+          if(!temReceita(modelo)){ problemas.push(`${modelo ? `"${modelo.nome}"` : 'Um item'} não tem receita de produção.`); return; }
+          const consumo = {};
+          receitaItens(modelo).forEach(l => {
+            const mat = materialPorId(l.materialId);
+            const qtdLinha = r6(NUM(l.qtd) * (1 + Math.max(0, NUM(l.perda)) / 100));
+            const conv = paraUnidadeDoEstoque(qtdLinha, l.unidade, mat);
+            if(!conv.ok){ problemas.push(`"${modelo.nome}": ${conv.msg}`); return; }
+            consumo[l.materialId] = r6((consumo[l.materialId] || 0) + unidades * conv.valor);
+          });
+          porItem.push({ it, unidades, consumo });
+        });
+        if(problemas.length){ alert('Não dei baixa em nada, porque:\n\n• ' + problemas.join('\n• ') + '\n\nCorrija e tente de novo.'); return; }
+        if(!porItem.length){ toast('Não há unidades produzidas aguardando baixa.'); renderProducao(); return; }
+        porItem.forEach(x => Object.keys(x.consumo).forEach(k => { totais[k] = r6((totais[k] || 0) + x.consumo[k]); }));
+        const insuficientes = Object.keys(totais).filter(k => NUM(materialPorId(k).qtd) < totais[k]);
+        const linhas = Object.keys(totais).map(k => { const m = materialPorId(k); return `• ${m.item}: −${fmtQ(totais[k], m.unidade)} (fica ${fmtQ(r6(NUM(m.qtd) - totais[k]), m.unidade)})`; });
+        if(insuficientes.length){
+          alert('Não dei baixa: o estoque registrado não tem o suficiente.\n\n' +
+            insuficientes.map(k => { const m = materialPorId(k); return `• ${m.item}: tem ${fmtQ(m.qtd, m.unidade)}, precisaria de ${fmtQ(totais[k], m.unidade)}`; }).join('\n') +
+            '\n\nSe o estoque estiver desatualizado, corrija a quantidade no Controle de Estoque e tente de novo.');
+          return;
+        }
+        const unidadesTot = porItem.reduce((s, x) => s + x.unidades, 0);
+        if(!confirm(`Dar baixa no estoque do material de ${unidadesTot} unidade(s) produzida(s) do pedido #${p.n}?\n\n${linhas.join('\n')}\n\n(Estimativa pela receita, incluindo a perda configurada.)`)) return;
+        // aplica numa cópia e grava estoque + produção juntos (tudo ou nada)
+        const estoqueNovo = estoque.map(m => totais[m.id] ? { ...m, qtd: r6(NUM(m.qtd) - totais[m.id]) } : m);
+        porItem.forEach(x => {
+          x.it.baixado = x.it.baixado + x.unidades;
+          Object.keys(x.consumo).forEach(k => { x.it.consumido[k] = r6(NUM(x.it.consumido[k]) + x.consumo[k]); });
+          registrarHistorico(reg, { tipo:'baixa', itemId: x.it.id, unidades: x.unidades, consumo: x.consumo });
+        });
+        gravarJuntos([['estoque', estoqueNovo], [PROD_KEY, prod]]);
+        estoque.splice(0, estoque.length, ...estoqueNovo);
+        renderEstoque();
+        if(typeof renderDashboard === 'function') renderDashboard();
+        toast('Baixa no estoque registrada ✓');
+        renderProducao();
+      }catch(e){
+        console.error(e);
+        toast('Não consegui dar baixa. O estoque não foi alterado — tente de novo.', true);
+      }finally{
+        ocupado = false;
+      }
+    }
+
+    // ---------- lista de compras ----------
+    function adicionarCompra(item){
+      const lista = lerCompras();
+      const existente = item.materialId ? lista.find(c => c.materialId === item.materialId && !c.comprado) : null;
+      if(existente){
+        existente.qtd = item.qtd; existente.unidade = item.unidade; existente.nome = item.nome;
+        gravarJuntos([[COMPRAS_KEY, lista]]);
+        toast(`"${item.nome}" já estava na lista — quantidade atualizada pra ${fmtQ(item.qtd, item.unidade)}.`);
+      } else {
+        lista.push({ id: uid(), comprado:false, lancadoNoEstoque:false, criadoEm: new Date().toISOString(), ...item });
+        gravarJuntos([[COMPRAS_KEY, lista]]);
+        toast(`"${item.nome}" adicionado à lista de compras ✓`);
+      }
+      renderProducao();
+    }
+
+    // ---------- MODAL: receita ----------
+    const recOverlay = document.getElementById('piReceitaOverlay');
+    let recModeloId = null;
+    let recLinhas = [];          // [{id, materialId, qtd, unidade, perda}]
+    let recUnidadesPendentes = {}; // materialId -> unidade escolhida aqui pra um material sem unidade
+
+    function opcoesUnidade(sel){
+      return Object.keys(UNIDADES).map(k => `<option value="${k}" ${k === sel ? 'selected' : ''}>${UNIDADES[k].rot}</option>`).join('');
+    }
+    function unidadeEstoqueEfetiva(mat){ return mat ? (recUnidadesPendentes[mat.id] || mat.unidade || '') : ''; }
+
+    function validarLinha(l){
+      if(!l.materialId) return 'Escolha o material.';
+      const mat = materialPorId(l.materialId);
+      if(!mat) return 'Este material não existe mais no estoque.';
+      if(!(NUM(l.qtd) > 0)) return 'Informe a quantidade por unidade (maior que zero).';
+      if(NUM(l.perda) < 0 || NUM(l.perda) > 100) return 'A perda deve ficar entre 0 e 100%.';
+      const conv = paraUnidadeDoEstoque(NUM(l.qtd), l.unidade, mat, unidadeEstoqueEfetiva(mat));
+      return conv.ok ? '' : conv.msg;
+    }
+
+    function renderLinhasReceita(){
+      const wrap = document.getElementById('piReceitaLinhas');
+      document.getElementById('piReceitaSemMateriais').style.display = estoque.length ? 'none' : 'block';
+      document.getElementById('piReceitaAddLinha').disabled = !estoque.length;
+      if(!recLinhas.length){
+        wrap.innerHTML = '<p class="pi-note">Nenhum material nesta receita ainda. Toque em "＋ Adicionar material".</p>';
+        return;
+      }
+      const usados = recLinhas.map(l => l.materialId);
+      wrap.innerHTML = recLinhas.map((l, idx) => {
+        const mat = materialPorId(l.materialId);
+        const uEst = unidadeEstoqueEfetiva(mat);
+        const err = (l.materialId || l.tocado) ? validarLinha(l) : '';
+        const repetido = l.materialId && usados.indexOf(l.materialId) !== idx;
+        const semUnidade = mat && !mat.unidade;
+        return `
+          <div class="pi-rec-line" data-rec-linha="${l.id}">
+            <div class="field text"><label for="piRecMat-${l.id}">Material ${idx + 1}</label>
+              <select id="piRecMat-${l.id}" data-rec-campo="materialId" data-rec-id="${l.id}">
+                <option value="">— escolha —</option>
+                ${estoque.map(m => `<option value="${m.id}" ${m.id === l.materialId ? 'selected' : ''}>${esc(m.item)}${m.unidade ? ' (' + unidadeRot(m.unidade) + ')' : ' (sem unidade)'}</option>`).join('')}
+              </select>
+            </div>
+            <div class="field"><label for="piRecQtd-${l.id}">Qtd por unidade</label><input type="number" min="0" step="any" id="piRecQtd-${l.id}" data-rec-campo="qtd" data-rec-id="${l.id}" value="${l.qtd !== '' && l.qtd != null ? l.qtd : ''}"></div>
+            <div class="field text"><label for="piRecUn-${l.id}">Unidade</label><select id="piRecUn-${l.id}" data-rec-campo="unidade" data-rec-id="${l.id}"><option value="">—</option>${opcoesUnidade(l.unidade)}</select></div>
+            <div class="field"><label for="piRecPerda-${l.id}">Perda (%)</label><input type="number" min="0" max="100" step="any" id="piRecPerda-${l.id}" data-rec-campo="perda" data-rec-id="${l.id}" value="${NUM(l.perda) || ''}" placeholder="0"></div>
+            <button type="button" class="btn-ghost" data-rec-remover="${l.id}" aria-label="Remover material ${idx + 1}" style="height:36px;">✕</button>
+            ${semUnidade ? `<div style="grid-column:1/-1;" class="pi-note warn"><label for="piRecUnEst-${l.id}" style="font-weight:600;">"${esc(mat.item)}" está sem unidade no estoque. Em que unidade você conta esse material?</label>
+              <select id="piRecUnEst-${l.id}" data-rec-unest="${mat.id}" style="margin-left:6px;"><option value="">— escolha —</option>${opcoesUnidade(recUnidadesPendentes[mat.id] || '')}</select>
+              <div style="font-size:11.5px; margin-top:4px;">Isso também será salvo no Controle de Estoque. A quantidade atual (${fmtNum(mat.qtd,3)}) passa a ser lida nessa unidade.</div></div>` : ''}
+            ${mat && uEst ? `<div style="grid-column:1/-1;" class="hint">No estoque: ${fmtQ(mat.qtd, uEst)}${mat.conteudo && mat.conteudo.valor > 0 && uEst === 'un' ? ` (cada um com ${fmtQ(mat.conteudo.valor, mat.conteudo.unidade)})` : ''}</div>` : ''}
+            ${repetido ? '<div style="grid-column:1/-1;" class="pi-field-err">Esse material já está na receita — some as quantidades numa linha só.</div>' : (err ? `<div style="grid-column:1/-1;" class="pi-field-err">${esc(err)}</div>` : '')}
+          </div>`;
+      }).join('');
+    }
+
+    function abrirReceita(modeloId){
+      const m = modeloPorId(modeloId);
+      if(!m){ toast('Modelo não encontrado.', true); return; }
+      recModeloId = modeloId;
+      recUnidadesPendentes = {};
+      recLinhas = receitaItens(m).map(l => ({ ...l, tocado:true }));
+      document.getElementById('piReceitaTitulo').textContent = `Receita de produção — ${m.nome}`;
+      const minSalvo = m.receita ? NUM(m.receita.minPorUnidade) : 0;
+      const minInp = document.getElementById('piReceitaMin');
+      const dica = document.getElementById('piReceitaMinDica');
+      dica.textContent = '';
+      if(minSalvo > 0) minInp.value = minSalvo;
+      else {
+        const t = String(m.tempo || '').match(/(\d+(?:[.,]\d+)?)\s*min/i);
+        if(t){ minInp.value = NUM(t[1].replace(',', '.')); dica.textContent = `Preenchido a partir do tempo médio cadastrado na Biblioteca ("${m.tempo}"). Ajuste se precisar.`; }
+        else minInp.value = '';
+      }
+      document.getElementById('piReceitaErro').textContent = '';
+      renderLinhasReceita();
+      recOverlay.classList.add('show');
+    }
+    function fecharReceita(){ recOverlay.classList.remove('show'); recModeloId = null; recLinhas = []; recUnidadesPendentes = {}; }
+
+    function salvarReceita(){
+      if(ocupado) return;
+      const errEl = document.getElementById('piReceitaErro');
+      errEl.textContent = '';
+      const m = modeloPorId(recModeloId);
+      if(!m){ errEl.textContent = 'Modelo não encontrado (pode ter sido excluído).'; return; }
+      recLinhas.forEach(l => { l.tocado = true; });
+      const linhasValidas = recLinhas.filter(l => l.materialId || NUM(l.qtd) > 0);
+      const ids = linhasValidas.map(l => l.materialId);
+      const erros = linhasValidas.map(validarLinha).filter(Boolean);
+      if(ids.some((id, i) => ids.indexOf(id) !== i)) erros.push('Há material repetido.');
+      const pendSemEscolha = linhasValidas.some(l => { const mat = materialPorId(l.materialId); return mat && !mat.unidade && !recUnidadesPendentes[mat.id]; });
+      if(pendSemEscolha) erros.push('Informe a unidade dos materiais que estão sem unidade no estoque.');
+      const min = document.getElementById('piReceitaMin').value === '' ? 0 : NUM(document.getElementById('piReceitaMin').value);
+      if(min < 0) erros.push('O tempo por unidade não pode ser negativo.');
+      if(erros.length){ renderLinhasReceita(); errEl.textContent = 'Corrija os campos destacados: ' + erros[0]; return; }
+      ocupado = true;
+      try{
+        const receita = {
+          itens: linhasValidas.map(l => ({ id: l.id, materialId: l.materialId, qtd: r6(NUM(l.qtd)), unidade: l.unidade, perda: r6(Math.max(0, NUM(l.perda))) })),
+          minPorUnidade: min > 0 ? r6(min) : 0,
+          atualizadoEm: new Date().toISOString(),
+        };
+        const modelosNovo = modelos.map(x => x.id === m.id ? { ...x, receita } : x);
+        const pares = [['modelos-biblioteca', modelosNovo]];
+        let estoqueNovo = null;
+        if(Object.keys(recUnidadesPendentes).length){
+          estoqueNovo = estoque.map(e => recUnidadesPendentes[e.id] && !e.unidade ? { ...e, unidade: recUnidadesPendentes[e.id] } : e);
+          pares.push(['estoque', estoqueNovo]);
+        }
+        gravarJuntos(pares);
+        modelos.splice(0, modelos.length, ...modelosNovo);
+        if(estoqueNovo){ estoque.splice(0, estoque.length, ...estoqueNovo); renderEstoque(); }
+        renderBiblioteca();
+        fecharReceita();
+        toast(receita.itens.length ? 'Receita salva ✓' : 'Receita salva (sem materiais).');
+        renderProducao();
+      }catch(e){
+        console.error(e);
+        errEl.textContent = 'Não consegui salvar a receita. Nada foi alterado — tente de novo.';
+      }finally{
+        ocupado = false;
+      }
+    }
+
+    recOverlay.addEventListener('input', e => {
+      const id = e.target.dataset.recId, campo = e.target.dataset.recCampo;
+      if(!id || !campo) return;
+      const l = recLinhas.find(x => x.id === id); if(!l) return;
+      l[campo] = e.target.value;
+      l.tocado = true;
+    });
+    recOverlay.addEventListener('change', e => {
+      const id = e.target.dataset.recId, campo = e.target.dataset.recCampo;
+      if(e.target.dataset.recUnest){ recUnidadesPendentes[e.target.dataset.recUnest] = e.target.value; renderLinhasReceita(); return; }
+      if(!id || !campo) return;
+      const l = recLinhas.find(x => x.id === id); if(!l) return;
+      l[campo] = e.target.value;
+      l.tocado = true;
+      // campos de número não redesenham a linha (pra não tirar o foco de quem está digitando);
+      // os erros deles aparecem ao trocar material/unidade ou ao salvar.
+      if(e.target.tagName !== 'SELECT') return;
+      if(campo === 'materialId'){
+        const mat = materialPorId(l.materialId);
+        // sugere a unidade em que o material é contado (ou a do conteúdo do rolo/pacote)
+        if(mat && !l.unidade) l.unidade = (mat.unidade === 'un' && mat.conteudo && mat.conteudo.unidade) ? mat.conteudo.unidade : (mat.unidade || '');
+      }
+      renderLinhasReceita();
+      const foco = document.getElementById(campo === 'materialId' ? `piRecQtd-${id}` : `piRecUn-${id}`);
+      if(foco) foco.focus();
+    });
+    recOverlay.addEventListener('click', e => {
+      if(e.target === recOverlay){ fecharReceita(); return; }
+      const rem = e.target.closest('[data-rec-remover]');
+      if(rem){ recLinhas = recLinhas.filter(l => l.id !== rem.dataset.recRemover); renderLinhasReceita(); }
+    });
+    document.getElementById('piReceitaAddLinha').addEventListener('click', () => {
+      recLinhas.push({ id: uid(), materialId:'', qtd:'', unidade:'', perda:'' });
+      renderLinhasReceita();
+      const ult = recLinhas[recLinhas.length - 1];
+      const el = document.getElementById(`piRecMat-${ult.id}`); if(el) el.focus();
+    });
+    document.getElementById('piReceitaSalvar').addEventListener('click', salvarReceita);
+    document.getElementById('piReceitaFechar').addEventListener('click', fecharReceita);
+    document.getElementById('piReceitaCancelar').addEventListener('click', fecharReceita);
+
+    // ---------- MODAL: modelos do pedido ----------
+    const modOverlay = document.getElementById('piModelosOverlay');
+    let modPedidoId = null;
+    let modLinhas = []; // [{id, modeloId, qtd, produzido}]
+
+    function renderLinhasModelos(){
+      const p = pedidos.find(x => x.id === modPedidoId);
+      if(!p) return;
+      const varios = modLinhas.length > 1;
+      document.getElementById('piModelosInfo').innerHTML = varios
+        ? `O pedido tem <b>${fmtNum(NUM(p.qtd),0)}</b> unidade(s) no total. Informe quantas são de cada modelo.`
+        : `Produto do pedido: <b>${esc(p.produto)}</b> · ${fmtNum(NUM(p.qtd),0)} unidade(s). Com um modelo só, a quantidade acompanha a do pedido sozinha.`;
+      const wrap = document.getElementById('piModelosLinhas');
+      if(!modelos.length){
+        wrap.innerHTML = '<div class="pi-note warn">Você ainda não tem modelos na Biblioteca de Modelos. Cadastre lá primeiro.</div>';
+        return;
+      }
+      wrap.innerHTML = modLinhas.map((l, idx) => `
+        <div class="pi-rec-line" style="grid-template-columns:1.8fr .8fr auto;">
+          <div class="field text"><label for="piModSel-${l.id}">Modelo ${varios ? idx + 1 : ''}</label>
+            <select id="piModSel-${l.id}" data-mod-campo="modeloId" data-mod-id="${l.id}">
+              <option value="">— escolha —</option>
+              ${modelos.map(m => `<option value="${m.id}" ${m.id === l.modeloId ? 'selected' : ''}>${esc(m.nome)}${temReceita(m) ? '' : ' (sem receita)'}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field"><label for="piModQtd-${l.id}">Quantidade</label>
+            <input type="number" min="0" step="1" id="piModQtd-${l.id}" data-mod-campo="qtd" data-mod-id="${l.id}" value="${varios ? l.qtd : NUM(p.qtd)}" ${varios ? '' : 'disabled'}>
+          </div>
+          ${varios ? `<button type="button" class="btn-ghost" data-mod-remover="${l.id}" aria-label="Remover modelo ${idx + 1}" style="height:36px;">✕</button>` : '<span></span>'}
+          ${l.produzido > 0 ? `<div class="hint" style="grid-column:1/-1; margin-top:0;">${fmtNum(l.produzido,0)} já produzidas registradas nesta linha.</div>` : ''}
+        </div>`).join('');
+    }
+
+    function abrirModelos(pedidoId){
+      const p = pedidos.find(x => x.id === pedidoId);
+      if(!p){ toast('Pedido não encontrado.', true); return; }
+      modPedidoId = pedidoId;
+      const reg = registroDe(lerProducao(), p, false);
+      modLinhas = reg.itens.map(it => ({ id: it.id, modeloId: it.modeloId || '', qtd: it.segue ? NUM(p.qtd) : NUM(it.qtd), produzido: it.produzido }));
+      if(!modLinhas.length) modLinhas = [{ id: uid(), modeloId:'', qtd: NUM(p.qtd), produzido:0 }];
+      document.getElementById('piModelosTitulo').textContent = `Modelos do pedido #${p.n} — ${p.cliente}`;
+      document.getElementById('piModelosErro').textContent = '';
+      renderLinhasModelos();
+      modOverlay.classList.add('show');
+    }
+    function fecharModelos(){ modOverlay.classList.remove('show'); modPedidoId = null; modLinhas = []; }
+
+    modOverlay.addEventListener('input', e => {
+      const l = modLinhas.find(x => x.id === e.target.dataset.modId); if(!l) return;
+      l[e.target.dataset.modCampo] = e.target.value;
+    });
+    modOverlay.addEventListener('change', e => {
+      const l = modLinhas.find(x => x.id === e.target.dataset.modId); if(!l) return;
+      l[e.target.dataset.modCampo] = e.target.value;
+    });
+    modOverlay.addEventListener('click', e => {
+      if(e.target === modOverlay){ fecharModelos(); return; }
+      const rem = e.target.closest('[data-mod-remover]');
+      if(rem){
+        const l = modLinhas.find(x => x.id === rem.dataset.modRemover);
+        if(l && l.produzido > 0 && !confirm(`Essa linha tem ${l.produzido} unidade(s) produzida(s) registradas. Remover mesmo assim? O registro fica no histórico, mas sai do acompanhamento.`)) return;
+        modLinhas = modLinhas.filter(x => x.id !== rem.dataset.modRemover);
+        renderLinhasModelos();
+      }
+    });
+    document.getElementById('piModelosAddLinha').addEventListener('click', () => {
+      const p = pedidos.find(x => x.id === modPedidoId);
+      if(modLinhas.length === 1 && p) modLinhas[0].qtd = NUM(p.qtd);
+      modLinhas.push({ id: uid(), modeloId:'', qtd:0, produzido:0 });
+      renderLinhasModelos();
+    });
+    document.getElementById('piModelosFechar').addEventListener('click', fecharModelos);
+    document.getElementById('piModelosCancelar').addEventListener('click', fecharModelos);
+    document.getElementById('piModelosSalvar').addEventListener('click', () => {
+      const errEl = document.getElementById('piModelosErro');
+      errEl.textContent = '';
+      if(!modLinhas.length){ errEl.textContent = 'Adicione pelo menos um modelo.'; return; }
+      if(modLinhas.some(l => !l.modeloId)){ errEl.textContent = 'Escolha o modelo em todas as linhas.'; return; }
+      const varios = modLinhas.length > 1;
+      if(varios && modLinhas.some(l => !Number.isInteger(Number(l.qtd)) || Number(l.qtd) < 0 || String(l.qtd).trim() === '')){ errEl.textContent = 'Use quantidades inteiras, de 0 pra cima.'; return; }
+      const pedidoId = modPedidoId;
+      comRegistro(pedidoId, (reg, p) => {
+        const antigos = Object.fromEntries(reg.itens.map(it => [it.id, it]));
+        const removidos = reg.itens.filter(it => !modLinhas.some(l => l.id === it.id));
+        removidos.forEach(it => registrarHistorico(reg, { tipo:'item-removido', itemId: it.id, modeloId: it.modeloId, produzido: it.produzido, baixado: it.baixado }));
+        reg.itens = modLinhas.map(l => {
+          const ant = antigos[l.id] || { id: l.id, produzido:0, baixado:0, consumido:{}, qtdVista:null };
+          return { ...ant, modeloId: l.modeloId, segue: !varios, qtd: varios ? Number(l.qtd) : null, autoNome:false };
+        });
+        registrarHistorico(reg, { tipo:'modelos', itens: reg.itens.map(i => ({ id:i.id, modeloId:i.modeloId, qtd:i.qtd })) });
+        toast('Modelos do pedido salvos ✓');
+      });
+      fecharModelos();
+    });
+
+    // ---------- eventos do painel ----------
+    const painel = document.querySelector('[data-p="producao"]');
+    painel.addEventListener('click', e => {
+      const t = e.target.closest('button, [data-pi-tab]');
+      if(!t) return;
+      const d = t.dataset;
+      if(d.piTab){ abaAtual = d.piTab; renderProducao(); return; }
+      if(d.piFiltro){ filtroAtual = d.piFiltro; renderProducao(); return; }
+      if(d.piIr){ abaAtual = d.piIr; renderProducao(); window.scrollTo({ top:0 }); return; }
+      if(d.piReceita){ abrirReceita(d.piReceita); return; }
+      if(d.piModelos){ abrirModelos(d.piModelos); return; }
+      if(d.piSalvarProd){
+        const [pid, iid] = d.piSalvarProd.split('|');
+        const inp = document.getElementById(`piProd-${pid}-${iid}`);
+        const v = inp.value.trim() === '' ? NaN : Number(inp.value);
+        definirProduzido(pid, iid, v);
+        return;
+      }
+      if(d.piMais){
+        const [pid, iid, n] = d.piMais.split('|');
+        const p = pedidos.find(x => x.id === pid); if(!p) return;
+        const it = registroDe(lerProducao(), p, false).itens.find(i => i.id === iid); if(!it) return;
+        definirProduzido(pid, iid, it.produzido + Number(n));
+        return;
+      }
+      if(d.piCiente){
+        const [pid, iid] = d.piCiente.split('|');
+        comRegistro(pid, (reg, p) => {
+          const it = reg.itens.find(i => i.id === iid); if(!it) return false;
+          it.qtdVista = Math.max(0, it.segue ? NUM(p.qtd) : NUM(it.qtd));
+        });
+        return;
+      }
+      if(d.piIniciar){
+        comRegistro(d.piIniciar, reg => { reg.iniciadaEm = reg.iniciadaEm || new Date().toISOString(); reg.pausada = false; registrarHistorico(reg, { tipo:'iniciada' }); toast('Produção iniciada ▶'); });
+        return;
+      }
+      if(d.piPausar){
+        comRegistro(d.piPausar, reg => { reg.pausada = !reg.pausada; if(!reg.iniciadaEm) reg.iniciadaEm = new Date().toISOString(); registrarHistorico(reg, { tipo: reg.pausada ? 'pausada' : 'retomada' }); toast(reg.pausada ? 'Produção pausada ⏸' : 'Produção retomada ▶'); });
+        return;
+      }
+      if(d.piConcluir){
+        const p = pedidos.find(x => x.id === d.piConcluir); if(!p) return;
+        if(!confirm(`Marcar toda a produção do pedido #${p.n} como concluída?\n\nIsso registra todas as unidades como produzidas. O status comercial do pedido não muda sozinho, e nada é baixado do estoque sem você pedir.`)) return;
+        comRegistro(d.piConcluir, (reg, p2) => {
+          reg.itens.forEach(it => {
+            const qtd = Math.max(0, it.segue ? NUM(p2.qtd) : NUM(it.qtd));
+            if(it.produzido < qtd){ registrarHistorico(reg, { tipo:'producao', itemId: it.id, de: it.produzido, para: qtd }); it.produzido = qtd; }
+            it.qtdVista = qtd;
+          });
+          reg.pausada = false;
+          if(!reg.iniciadaEm) reg.iniciadaEm = new Date().toISOString();
+          toast('Produção concluída ✓');
+        });
+        return;
+      }
+      if(d.piPronto){
+        const p = pedidos.find(x => x.id === d.piPronto); if(!p) return;
+        if(!confirm(`Mudar o status comercial do pedido #${p.n} de "${p.status}" para "Pronto"?`)) return;
+        p.status = 'Pronto';
+        lsSet('pedidos', pedidos);
+        renderPedidos();
+        if(typeof renderDashboard === 'function') renderDashboard();
+        toast(`Pedido #${p.n} marcado como Pronto ✓`);
+        renderProducao();
+        return;
+      }
+      if(d.piBaixar){ darBaixa(d.piBaixar); return; }
+      if(d.piVerMateriais){ matSelecionados = new Set([d.piVerMateriais]); abaAtual = 'materiais'; renderProducao(); window.scrollTo({ top:0 }); return; }
+      if(d.piAbrirPedido){
+        const b = document.createElement('button');
+        b.dataset.pedEdit = d.piAbrirPedido; b.style.display = 'none';
+        document.body.appendChild(b); b.click(); b.remove();
+        return;
+      }
+      if(d.piComprar){
+        const mat = materialPorId(d.piComprar); if(!mat) return;
+        let qtd = r6(NUM(d.piComprarQtd));
+        if(mat.unidade === 'un') qtd = Math.ceil(qtd - 1e-9);
+        adicionarCompra({ materialId: mat.id, nome: mat.item, qtd, unidade: mat.unidade });
+        return;
+      }
+      if(d.piCompraDel){
+        const lista = lerCompras();
+        const c = lista.find(x => x.id === d.piCompraDel); if(!c) return;
+        if(!confirm(`Remover "${c.nome}" da lista de compras?`)) return;
+        gravarJuntos([[COMPRAS_KEY, lista.filter(x => x.id !== c.id)]]);
+        renderProducao();
+        return;
+      }
+      if(d.piCompraLancar){
+        if(ocupado) return;
+        const lista = lerCompras();
+        const c = lista.find(x => x.id === d.piCompraLancar);
+        if(!c || c.lancadoNoEstoque) return;
+        const mat = materialPorId(c.materialId);
+        if(!mat || mat.unidade !== c.unidade){ toast('A unidade do material no estoque mudou; ajuste a quantidade direto no Controle de Estoque.', true); return; }
+        if(!confirm(`Somar ${fmtQ(c.qtd, c.unidade)} ao estoque de "${mat.item}"?\n\nHoje: ${fmtQ(mat.qtd, mat.unidade)} → fica ${fmtQ(r6(NUM(mat.qtd) + c.qtd), mat.unidade)}`)) return;
+        ocupado = true;
+        try{
+          const estoqueNovo = estoque.map(m => m.id === mat.id ? { ...m, qtd: r6(NUM(m.qtd) + c.qtd) } : m);
+          c.lancadoNoEstoque = true; c.lancadoEm = new Date().toISOString();
+          gravarJuntos([['estoque', estoqueNovo], [COMPRAS_KEY, lista]]);
+          estoque.splice(0, estoque.length, ...estoqueNovo);
+          renderEstoque();
+          if(typeof renderDashboard === 'function') renderDashboard();
+          toast('Estoque atualizado ✓');
+        }catch(err){ console.error(err); toast('Não consegui atualizar o estoque. Nada foi alterado.', true); }
+        finally{ ocupado = false; }
+        renderProducao();
+        return;
+      }
+      if(t.id === 'piMatTodos'){ matSelecionados = null; renderProducao(); return; }
+      if(t.id === 'piMatNenhum'){ matSelecionados = new Set(); renderProducao(); return; }
+      if(t.id === 'piCapacidadeSalvar'){
+        const v = document.getElementById('piCapacidade').value;
+        const n = v === '' ? 0 : NUM(v);
+        if(n < 0 || n > 1440){ toast('Use um valor entre 0 e 1440 minutos.', true); return; }
+        gravarJuntos([[CONFIG_KEY, { ...lerConfig(), minutosPorDia: n }]]);
+        toast('Capacidade salva ✓');
+        renderProducao();
+        return;
+      }
+      if(t.id === 'piCompraAdd'){
+        const nome = document.getElementById('piCompraNome').value.trim();
+        const qtd = NUM(document.getElementById('piCompraQtd').value);
+        const unidade = document.getElementById('piCompraUn').value;
+        const errEl = document.getElementById('piCompraErro');
+        errEl.textContent = '';
+        if(!nome){ errEl.textContent = 'Digite o nome do item.'; return; }
+        if(!(qtd > 0)){ errEl.textContent = 'Informe uma quantidade maior que zero.'; return; }
+        const mat = estoque.find(m => normal(m.item) === normal(nome) && m.unidade === unidade);
+        adicionarCompra({ materialId: mat ? mat.id : null, nome: mat ? mat.item : nome, qtd: r6(qtd), unidade });
+        document.getElementById('piCompraNome').value = ''; document.getElementById('piCompraQtd').value = '';
+        return;
+      }
+    });
+    painel.addEventListener('change', e => {
+      if(e.target.dataset.piMatPedido){
+        if(!matSelecionados){
+          const ativos = pendentes(todasAnalises()).map(a => a.p.id);
+          matSelecionados = new Set(ativos);
+        }
+        if(e.target.checked) matSelecionados.add(e.target.dataset.piMatPedido);
+        else matSelecionados.delete(e.target.dataset.piMatPedido);
+        renderProducao();
+        return;
+      }
+      if(e.target.dataset.piCompraCheck){
+        const lista = lerCompras();
+        const c = lista.find(x => x.id === e.target.dataset.piCompraCheck); if(!c) return;
+        c.comprado = e.target.checked;
+        c.compradoEm = c.comprado ? new Date().toISOString() : null;
+        gravarJuntos([[COMPRAS_KEY, lista]]);
+        renderProducao();
+      }
+    });
+    painel.addEventListener('keydown', e => {
+      if(e.key === 'Enter' && e.target.id && e.target.id.startsWith('piProd-')){
+        const btn = e.target.parentElement.querySelector('[data-pi-salvar-prod]');
+        if(btn) btn.click();
+      }
+    });
+    document.getElementById('piBusca').addEventListener('input', () => renderLista(todasAnalises()));
+    // botão "Receita de produção" nos cards da Biblioteca de Modelos
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-pi-receita]');
+      if(b && !painel.contains(b)) abrirReceita(b.dataset.piReceita);
+      // link "Abrir agora" da Central de Dúvidas → abre direto a aba Como funciona
+      if(e.target.closest('[data-pi-abrir-ajuda]')){ abaAtual = 'ajuda'; renderProducao(); window.scrollTo({ top:0 }); }
+    });
+    // Esc fecha os modais da produção
+    document.addEventListener('keydown', e => {
+      if(e.key !== 'Escape') return;
+      if(recOverlay.classList.contains('show')) fecharReceita();
+      if(modOverlay.classList.contains('show')) fecharModelos();
+    });
+
+    // se a página abriu (ou recarregou) já na Produção, monta a tela agora
+    const ativo = document.querySelector('.panel.active');
+    if(ativo && ativo.dataset.p === 'producao') renderProducao();
+  })();
+
   // ---------- DÚVIDAS (central de ajuda por aba) ----------
   const DUVIDAS_TOPICOS = [
     {
@@ -4103,6 +6049,29 @@
         <p>Depois que o pedido já foi salvo, as cores dele aparecem na tabela como uma <b>palavrinha azul clicável</b> (tipo "🎨 3 cores"). Tocando nela, abre um cartãozinho flutuante só com as cores daquele pedido específico, onde dá pra adicionar, trocar ou remover — e some sozinho, sem precisar de nenhum botão de salvar.</p>
         <h4>Data prevista de entrega e aviso antecipado</h4>
         <p>Além da data em que o pedido foi feito, dá pra marcar quando ele precisa estar pronto pra entregar. E do lado tem "Avisar com quantos dias de antecedência" — se você colocar <code>2</code>, o app te lembra lá no Dashboard 2 dias antes da entrega chegar (e também avisa se ela já passou e o pedido continua em aberto).</p>
+      `,
+    },
+    {
+      id:'producao', icon:'🧵', titulo:'Produção Inteligente',
+      palavras:'produção producao inteligente receita materiais necessários estoque insuficiente lista de compras prioridade prazo atrasado baixa tempo estimado capacidade perda desperdício unidade conversão',
+      html:`
+        <p>É a sua <b>mesa de produção organizada</b>: ela pega os pedidos e as receitas dos modelos e responde o que fazer primeiro, quanto falta, quanto material vai precisar e se o estoque dá conta.</p>
+        <p>💡 Tem um <b>passo a passo ilustrado, bem fácil</b>, dentro da própria Produção Inteligente: abra a aba <b>"❓ Como funciona"</b>. <button type="button" class="link-azul" data-goto="producao" data-pi-abrir-ajuda="1">Abrir agora</button></p>
+        <h4>1. Receita de produção</h4>
+        <p>Em cada modelo da Biblioteca (ou na aba "Receitas de produção") você diz quanto de cada material vai em <b>uma unidade</b>. Ex.: <code>50 cm</code> de fita + <code>1 un.</code> de presilha. Se um modelo não tem receita, ele continua funcionando nos pedidos — só não entra no cálculo de materiais.</p>
+        <h4>2. Unidades e conversões</h4>
+        <p>O app converte só o que é da mesma grandeza: <code>100 cm = 1 m</code>, <code>1.000 g = 1 kg</code>, <code>1.000 ml = 1 L</code>. Centímetro nunca vira grama, e peso nunca vira volume. Se você conta a fita em <b>rolos</b>, cadastre no Estoque a unidade "un." e quanto tem cada rolo (ex.: <code>10 m</code>) — aí <code>45 m</code> de necessidade aparecem como <code>4,5 rolos</code>.</p>
+        <h4>3. Perda (desperdício)</h4>
+        <p>Opcional, por material. Com <code>10 m</code> calculados e <code>5%</code> de perda, a necessidade fica <code>10,5 m</code>. Fica escrito "inclui perda configurada" sempre que ela entra na conta.</p>
+        <h4>4. O que produzir primeiro</h4>
+        <p>A lista vem em ordem de prazo: atrasados primeiro, depois a entrega mais próxima, e pedidos sem prazo por último (nunca são considerados atrasados). Cada cartão diz o motivo: "Entrega atrasada", "Entrega prevista para amanhã", "Faltam 35 unidades"...</p>
+        <h4>5. Registrar a produção</h4>
+        <p>Digite quantas já ficaram prontas (ou use +1 / +10). Pedido de <code>150</code> com <code>90</code> prontas = <code>60</code> restantes, <code>60%</code>. Se a quantidade do pedido mudar depois, as já produzidas ficam guardadas e o app mostra a diferença. Produzir mais que o pedido pede só é aceito se você confirmar. O <b>status da produção</b> é separado do status comercial do pedido — terminar a produção não marca o pedido como Pronto sozinho (tem um botão pra isso).</p>
+        <h4>6. Materiais e estoque</h4>
+        <p>Na aba "Materiais necessários" o app soma a necessidade de todos os pedidos escolhidos, juntando o mesmo material (pelo item do estoque, não pelo nome parecido). Ex.: tem <code>20 m</code>, precisa <code>75 m</code> → falta <code>55 m</code>. Dá pra jogar o que falta na Lista de compras.</p>
+        <p><b>Criar um pedido não tira nada do estoque.</b> A baixa só acontece quando você toca em "Dar baixa no estoque" no cartão do pedido, e o app lembra quantas unidades já foram baixadas — então nada é descontado duas vezes. Se o estoque não tiver o suficiente, nada é baixado e o app avisa. Material que já foi baixado não volta sozinho se o pedido for cancelado: ajuste no Controle de Estoque se precisar.</p>
+        <h4>7. Tempo estimado</h4>
+        <p>Na receita você pode informar os minutos por unidade. <code>4 min × 50 unidades = 200 min</code> (3 h 20 min). Se informar quantos minutos por dia você produz, o app estima os dias de trabalho — é uma estimativa, não uma data garantida.</p>
       `,
     },
     {
