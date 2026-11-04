@@ -505,6 +505,10 @@
   .natal-toggle{border:1px solid var(--line); background:var(--bg); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px;}
   html.natal .natal-toggle{border-color:var(--fita); background:var(--pink);}
   .theme-toggle:focus-visible, .natal-toggle:focus-visible, .nav-item:focus-visible, .pi-tab:focus-visible, .pi-chip:focus-visible{outline:2px solid var(--pinheiro, var(--pink-deep)); outline-offset:2px;}
+  .barra-atualizacao{position:fixed; left:50%; top:12px; transform:translate(-50%,-160%); visibility:hidden; pointer-events:none; z-index:10003; display:flex; align-items:center; gap:10px; background:var(--ink); color:#fff; padding:10px 10px 10px 16px; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.25); font:500 13px 'Inter',sans-serif; width:max-content; max-width:calc(100% - 24px); transition:transform .3s ease, visibility 0s linear .3s;}
+  .barra-atualizacao.show{transform:translate(-50%,0); visibility:visible; pointer-events:auto; transition:transform .3s ease, visibility 0s;}
+  .barra-atualizacao button{border:none; border-radius:9px; padding:7px 12px; font:600 12.5px 'Inter',sans-serif; cursor:pointer; background:var(--pink-deep); color:#fff; white-space:nowrap;}
+  .barra-atualizacao button.x{background:none; padding:4px 6px; color:#fff; opacity:.7;}
 </style>
 <script>
   // aplica o tema de Natal antes de desenhar a página (evita "piscar" sem tema). Vale só pra este aparelho.
@@ -717,10 +721,10 @@
         </div>
         <div class="field">
           <label>Comprimento da fita do laço (cm)</label>
-          <input type="number" id="mTamanho" value="12" step="0.5">
+          <input type="text" inputmode="decimal" id="mTamanho" value="12" step="0.5">
           <p class="hint" style="margin-top:4px;">Corte um pedaço de fita pra esse laço, meça com a régua e coloca aqui o tamanho real que deu.</p>
         </div>
-        <div class="field"><label>Largura da fita do laço (mm)</label><input type="number" id="mLargura" value="22" step="1"></div>
+        <div class="field"><label>Largura da fita do laço (mm)</label><input type="text" inputmode="decimal" id="mLargura" value="22" step="1"></div>
         <div class="field text">
           <label>Acabamento</label>
           <div class="editable-select" data-storage-key="opcoes-acabamento">
@@ -732,10 +736,10 @@
         </div>
         <div class="field">
           <label>Comprimento da fita do acabamento (cm)</label>
-          <input type="number" id="mAcabComp" value="0" step="0.5">
+          <input type="text" inputmode="decimal" id="mAcabComp" value="0" step="0.5">
           <p class="hint" style="margin-top:4px;">Se o acabamento usa um pedaço de fita à parte, meça e coloca aqui. Se não usar, deixa 0.</p>
         </div>
-        <div class="field"><label>Largura da fita do acabamento (mm)</label><input type="number" id="mAcabLargura" value="0" step="1"></div>
+        <div class="field"><label>Largura da fita do acabamento (mm)</label><input type="text" inputmode="decimal" id="mAcabLargura" value="0" step="1"></div>
         <div class="field text">
           <label>Fixação</label>
           <div class="editable-select" data-storage-key="opcoes-fixacao">
@@ -745,7 +749,7 @@
             <button type="button" class="del-opt-btn" data-target="mFixacao">✕ Remover</button>
           </div>
         </div>
-        <div class="field"><label>Quantidade desejada</label><input type="number" id="mQtd" value="20" step="1"></div>
+        <div class="field"><label>Quantidade desejada</label><input type="text" inputmode="decimal" id="mQtd" value="20" step="1"></div>
       </div>
       <div class="result-strip" id="mResult"></div>
       <button class="btn-primary" style="margin-top:16px;" id="mSaveBtn">Salvar este cálculo</button>
@@ -793,10 +797,10 @@
       <button class="btn-ghost" style="margin-top:12px;" id="addCustoItemBtn">＋ Adicionar item de custo</button>
 
       <div class="grid-inputs" style="max-width:460px; margin-top:20px;">
-        <div class="field"><label>Multiplicador de venda</label><input type="number" id="cMult" value="8" step="0.5"></div>
+        <div class="field"><label>Multiplicador de venda</label><input type="text" inputmode="decimal" id="cMult" value="8" step="0.5"></div>
         <div class="field">
           <label>Multiplicador do preço mínimo <span style="font-weight:400; color:var(--ink-soft);">(margem de segurança sobre o custo)</span></label>
-          <input type="number" id="cMultMin" value="1.3" step="0.05" min="1">
+          <input type="text" inputmode="decimal" id="cMultMin" value="1.3" step="0.05" min="1">
           <p class="hint" id="cMultMinHint" style="margin-top:4px;"></p>
         </div>
       </div>
@@ -828,11 +832,11 @@
       <h2>Calculadora de Lucro</h2>
       <p class="sub">Defina sua meta de ganho e descubra quantos laços precisa vender.</p>
       <div class="grid-inputs">
-        <div class="field"><label>Quanto deseja ganhar por mês (R$)</label><input type="number" id="lMeta" value="5000" step="100"></div>
-        <div class="field"><label>Dias trabalhados por mês</label><input type="number" id="lDias" value="22" step="1"></div>
-        <div class="field"><label>Horas por dia</label><input type="number" id="lHoras" value="6" step="0.5"></div>
-        <div class="field"><label>Tempo médio por laço (min)</label><input type="number" id="lTempo" value="18" step="1"></div>
-        <div class="field"><label>Preço médio de venda (R$)</label><input type="number" id="lPreco" value="22" step="1"></div>
+        <div class="field"><label>Quanto deseja ganhar por mês (R$)</label><input type="text" inputmode="decimal" id="lMeta" value="5000" step="100"></div>
+        <div class="field"><label>Dias trabalhados por mês</label><input type="text" inputmode="decimal" id="lDias" value="22" step="1"></div>
+        <div class="field"><label>Horas por dia</label><input type="text" inputmode="decimal" id="lHoras" value="6" step="0.5"></div>
+        <div class="field"><label>Tempo médio por laço (min)</label><input type="text" inputmode="decimal" id="lTempo" value="18" step="1"></div>
+        <div class="field"><label>Preço médio de venda (R$)</label><input type="text" inputmode="decimal" id="lPreco" value="22" step="1"></div>
       </div>
       <div class="result-strip" id="lResult"></div>
     </div>
@@ -855,7 +859,7 @@
             <button type="button" class="del-opt-btn" data-target="eCategoria">✕ Remover</button>
           </div>
         </div>
-        <div class="field"><label>Quantidade atual</label><input type="number" id="eQtd" value="0" step="any" min="0"></div>
+        <div class="field"><label>Quantidade atual</label><input type="text" inputmode="decimal" id="eQtd" value="0" step="any" min="0"></div>
         <div class="field text"><label for="eUnidade">Unidade da quantidade</label>
           <select id="eUnidade">
             <option value="">Não informada</option>
@@ -868,11 +872,11 @@
             <option value="kg">Quilograma (kg)</option>
           </select>
         </div>
-        <div class="field"><label>Mínimo</label><input type="number" id="eMin" value="10" step="any"></div>
+        <div class="field"><label>Mínimo</label><input type="text" inputmode="decimal" id="eMin" value="10" step="any"></div>
         <div class="field text" id="eConteudoWrap" style="display:none;">
           <label for="eConteudoValor">Cada unidade (rolo, pacote...) tem <span style="font-weight:400;">(opcional)</span></label>
           <div style="display:flex; gap:6px;">
-            <input type="number" id="eConteudoValor" step="any" min="0" placeholder="Ex.: 10" style="flex:1; min-width:0;">
+            <input type="text" inputmode="decimal" id="eConteudoValor" step="any" min="0" placeholder="Ex.: 10" style="flex:1; min-width:0;">
             <select id="eConteudoUnidade" style="flex:0 0 74px;">
               <option value="">—</option><option value="cm">cm</option><option value="m">m</option><option value="ml">ml</option><option value="l">L</option><option value="g">g</option><option value="kg">kg</option>
             </select>
@@ -906,12 +910,12 @@
         <div class="field text"><label>Cliente</label><input type="text" id="pCliente" placeholder="Nome da cliente"></div>
         <div class="field text"><label>Telefone (opcional)</label><input type="text" id="pTelefone" placeholder="(00) 00000-0000"></div>
         <div class="field text"><label>Produto</label><input type="text" id="pProduto" placeholder="Ex.: Laço Boutique M"></div>
-        <div class="field"><label>Quantidade</label><input type="number" id="pQtd" value="1" step="1"></div>
-        <div class="field"><label>Valor total (R$)</label><input type="number" id="pValor" value="0" step="1"></div>
+        <div class="field"><label>Quantidade</label><input type="text" inputmode="decimal" id="pQtd" value="1" step="1"></div>
+        <div class="field"><label>Valor total (R$)</label><input type="text" inputmode="decimal" id="pValor" value="0" step="1"></div>
         <div class="field text"><label>Status</label><select id="pStatus"><option>Aguardando pagamento</option><option>Em produção</option><option>Pronto</option><option>Entregue</option><option>Cancelado</option></select></div>
         <div class="field"><label>Data do pedido</label><input type="date" id="pData"></div>
         <div class="field"><label>Data prevista de entrega</label><input type="date" id="pDataEntrega"></div>
-        <div class="field"><label>Avisar com quantos dias de antecedência</label><input type="number" id="pAvisoDias" value="2" min="0" step="1"></div>
+        <div class="field"><label>Avisar com quantos dias de antecedência</label><input type="text" inputmode="decimal" id="pAvisoDias" value="2" min="0" step="1"></div>
       </div>
 
       <div class="field text" style="margin-bottom:14px;">
@@ -975,7 +979,7 @@
         <h2>Capacidade de produção</h2>
         <p class="sub">Opcional. Com quantos minutos por dia você conta pra produzir, o app estima quantos dias de trabalho as encomendas pendentes ocupam.</p>
         <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
-          <div class="field" style="max-width:220px;"><label for="piCapacidade">Minutos de produção por dia</label><input type="number" id="piCapacidade" min="0" step="10" placeholder="Ex.: 240"></div>
+          <div class="field" style="max-width:220px;"><label for="piCapacidade">Minutos de produção por dia</label><input type="text" inputmode="decimal" id="piCapacidade" min="0" step="10" placeholder="Ex.: 240"></div>
           <button class="btn-ghost" type="button" id="piCapacidadeSalvar">Salvar</button>
         </div>
         <p class="hint" id="piCapacidadeInfo"></p>
@@ -1017,7 +1021,7 @@
         <p class="sub">Materiais que faltam pra produção. Nada é comprado sozinho — é só a sua lista pra levar na loja ou mandar pro fornecedor.</p>
         <div class="grid-inputs" style="margin-bottom:10px;">
           <div class="field text"><label for="piCompraNome">Item</label><input type="text" id="piCompraNome" placeholder="Ex.: Fita gorgurão azul"></div>
-          <div class="field"><label for="piCompraQtd">Quantidade</label><input type="number" id="piCompraQtd" min="0" step="any"></div>
+          <div class="field"><label for="piCompraQtd">Quantidade</label><input type="text" inputmode="decimal" id="piCompraQtd" min="0" step="any"></div>
           <div class="field text"><label for="piCompraUn">Unidade</label>
             <select id="piCompraUn"><option value="un">un.</option><option value="cm">cm</option><option value="m">m</option><option value="ml">ml</option><option value="l">L</option><option value="g">g</option><option value="kg">kg</option></select>
           </div>
@@ -1161,7 +1165,7 @@
       <div id="piReceitaSemMateriais" class="pi-note warn" style="display:none;">Você ainda não tem materiais no Controle de Estoque. Cadastre os materiais lá primeiro (fita, bico, cola...) e volte aqui.</div>
       <button class="btn-ghost" type="button" id="piReceitaAddLinha" style="margin-top:10px;">＋ Adicionar material</button>
       <div class="grid-inputs" style="margin-top:16px;">
-        <div class="field"><label for="piReceitaMin">Tempo médio por unidade (min) <span style="font-weight:400;">(opcional)</span></label><input type="number" id="piReceitaMin" min="0" step="any"></div>
+        <div class="field"><label for="piReceitaMin">Tempo médio por unidade (min) <span style="font-weight:400;">(opcional)</span></label><input type="text" inputmode="decimal" id="piReceitaMin" min="0" step="any"></div>
       </div>
       <p class="hint" id="piReceitaMinDica"></p>
       <p class="pi-field-err" id="piReceitaErro" role="alert"></p>
@@ -1245,9 +1249,9 @@
         <div class="field text"><label>Cidade</label><input type="text" id="clCidade" placeholder="Cidade"></div>
         <div class="field"><label>🎂 Aniversário</label><input type="date" id="clAniversario"></div>
         <div class="field text"><label>Endereço / Local</label><input type="text" id="clEndereco" placeholder="Rua, bairro, referência..."></div>
-        <div class="field"><label>Avaliação (0 a 5)</label><input type="number" id="clAvaliacao" min="0" max="5" step="0.1" value="5"></div>
+        <div class="field"><label>Avaliação (0 a 5)</label><input type="text" inputmode="decimal" id="clAvaliacao" min="0" max="5" step="0.1" value="5"></div>
         <div class="field text"><label>Instagram</label><input type="text" id="clInsta" placeholder="@usuario"></div>
-        <div class="field"><label>Total comprado (R$)</label><input type="number" id="clTotal" value="0" step="1"></div>
+        <div class="field"><label>Total comprado (R$)</label><input type="text" inputmode="decimal" id="clTotal" value="0" step="1"></div>
       </div>
       <div class="field text" style="margin-bottom:16px;">
         <label>Observações (opcional)</label>
@@ -1337,7 +1341,7 @@
 
       <div class="grid-inputs" style="margin-bottom:14px;">
         <div class="field text"><label>Título da data</label><input type="text" id="agTitulo" placeholder="Ex.: Dia dos Namorados"></div>
-        <div class="field"><label>Dia</label><input type="number" id="agDia" min="1" max="31" value="1"></div>
+        <div class="field"><label>Dia</label><input type="text" inputmode="decimal" id="agDia" min="1" max="31" value="1"></div>
         <div class="field text"><label>Mês</label>
           <select id="agMes">
             <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
@@ -1410,7 +1414,7 @@
           </div>
         </div>
         <div class="field text"><label>Endereço / Local</label><input type="text" id="fEndereco" placeholder="Rua, bairro, referência..."></div>
-        <div class="field"><label>Avaliação (0 a 5)</label><input type="number" id="fAvaliacao" min="0" max="5" step="0.1" value="5"></div>
+        <div class="field"><label>Avaliação (0 a 5)</label><input type="text" inputmode="decimal" id="fAvaliacao" min="0" max="5" step="0.1" value="5"></div>
         <div class="field text"><label>Telefone / WhatsApp (opcional)</label><input type="text" id="fTelefone" placeholder="(00) 00000-0000"></div>
         <div class="field text"><label>Instagram ou site (opcional)</label><input type="text" id="fInsta" placeholder="@fornecedor ou site.com"></div>
       </div>
@@ -1516,7 +1520,7 @@
       <div class="grid-inputs" style="margin-bottom:10px;">
         <div class="field text" style="text-align:left;">
           <label>Mostrar por quantos dias (a partir de agora)</label>
-          <input type="number" id="novidadeDias" value="14" min="1" max="90">
+          <input type="text" inputmode="decimal" id="novidadeDias" value="14" min="1" max="90">
         </div>
         <div class="field text" style="text-align:left;">
           <label>Link (opcional)</label>
@@ -1555,7 +1559,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import { getAuth, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, updateDoc, deleteDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, updateDoc, deleteDoc, query, orderBy, limit, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDXUdzqt4zGGiP-wI59AWvclwp1T-rOwf8",
@@ -1580,11 +1584,54 @@
           else { signInAnonymously(auth).then(cred => resolve(cred.user)).catch(reject); }
         }, reject);
       }),
-      buscarDados: async (codigo) => {
-        const snap = await getDoc(doc(db, 'usuarios', codigo));
-        return snap.exists() ? snap.data() : null;
+      // Os dados vão para a nuvem como texto, dividido em pedaços de até 300 mil
+      // caracteres (cada documento do Firestore aceita no máximo 1 MB). Assim as
+      // fotos não estouram o limite e a sincronização não falha mais.
+      salvarPacote: async (codigo, json, partesAntes) => {
+        const TAM = 300000;
+        const partes = [];
+        for(let i = 0; i < json.length; i += TAM) partes.push(json.slice(i, i + TAM));
+        if(!partes.length) partes.push('');
+        const versao = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        const agoraIso = new Date().toISOString();
+        const lote = writeBatch(db);
+        for(let i = 1; i < partes.length; i++) lote.set(doc(db, 'usuarios', codigo + '_p' + i), { versao, parte: partes[i] });
+        lote.set(doc(db, 'usuarios', codigo), { formato: 2, versao, partes: partes.length, json0: partes[0], atualizadoEm: agoraIso, formatoEm: agoraIso });
+        for(let i = partes.length; i < (partesAntes || 0); i++) lote.delete(doc(db, 'usuarios', codigo + '_p' + i));
+        try{
+          await lote.commit();
+        }catch(e){
+          // Se as regras da nuvem não aceitarem o formato novo, salva do jeito antigo (que já funcionava)
+          if(e && e.code === 'permission-denied' && new Blob([json]).size < 900000){
+            await setDoc(doc(db, 'usuarios', codigo), { dados: JSON.parse(json || '{}'), atualizadoEm: new Date().toISOString() });
+            return { versao: null, partes: 0, legado: true };
+          }
+          throw e;
+        }
+        return { versao, partes: partes.length };
       },
-      salvarDados: (codigo, dados) => setDoc(doc(db, 'usuarios', codigo), dados, { merge: true }),
+      lerPacote: async (codigo, principal) => {
+        let d = principal;
+        if(!d){ const snap = await getDoc(doc(db, 'usuarios', codigo)); d = snap.exists() ? snap.data() : null; }
+        if(!d) return null;
+        // se um aparelho com a versão antiga salvou depois (campo dados + data mais nova), vale o dele
+        const legadoMaisNovo = d.dados && d.formatoEm && d.atualizadoEm && d.atualizadoEm > d.formatoEm;
+        if(d.formato === 2 && !legadoMaisNovo){
+          const ids = [];
+          for(let i = 1; i < (d.partes || 1); i++) ids.push(codigo + '_p' + i);
+          const snaps = await Promise.all(ids.map(id => getDoc(doc(db, 'usuarios', id))));
+          let json = d.json0 || '';
+          snaps.forEach(sp => {
+            const x = sp.exists() ? sp.data() : null;
+            if(!x || x.versao !== d.versao){ const e = new Error('Pacote da nuvem ainda incompleto'); e.code = 'incompleto'; throw e; }
+            json += x.parte;
+          });
+          return { formato: 2, json, versao: d.versao, partes: d.partes || 1, dados: JSON.parse(json || '{}') };
+        }
+        if(d.dados) return { formato: 1, json: null, versao: null, partes: 0, dados: d.dados };
+        return null;
+      },
+      buscarDados: async (codigo) => window.__firebase.lerPacote(codigo),
       escutarDados: (codigo, cb) => onSnapshot(doc(db, 'usuarios', codigo), (snap) => {
         cb(snap.exists() ? snap.data() : null, snap.metadata.hasPendingWrites);
       }, (err) => console.error('Erro ao escutar mudanças da nuvem:', err)),
@@ -1631,7 +1678,17 @@
 <script>
 (function(){
   const BRL = v => (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const NUM = v => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
+  // Aceita "0,80", "1.234,56" e "2.5" (o celular em português digita vírgula)
+  const NUM = v => {
+    if(typeof v === 'number') return isFinite(v) ? v : 0;
+    let t = String(v == null ? '' : v).trim().replace(/\s|R\$/g, '');
+    if(t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+    const n = parseFloat(t); return isFinite(n) ? n : 0;
+  };
+  // texto seguro dentro de HTML/atributos (nomes com aspas ou < não quebram a tela)
+  const esc = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // data de hoje no fuso do aparelho (toISOString usa o horário de Londres: depois das 21h já virava o dia seguinte)
+  const isoLocal = d => { const x = d || new Date(); return x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0'); };
   const uid = () => 'id'+Math.random().toString(36).slice(2,9);
   const LS = 'laceira-pro:';
   const lsGet = (k,d) => { try{ const r = localStorage.getItem(LS+k); return r ? JSON.parse(r) : d; }catch(e){ return d; } };
@@ -1653,6 +1710,35 @@
 
   let syncCode = lsGet('sync-code', null);
   let cloudSyncTimer = null;
+  let ultimoJsonConhecido = null;     // o que sabemos que já está salvo na nuvem
+  let ultimaVersaoConhecida = null;
+  let partesNaNuvem = 0;
+  let enviando = false, reenviarDepois = false;
+  let contadorAlteracoes = 0;
+  let nuvemPronta = false;            // só envia depois de conferir a nuvem na abertura
+  let esperaErro = 30000;
+
+  // JSON sempre na mesma ordem (pra comparar sem achar diferença onde não tem)
+  function estavel(v){
+    if(v === null || typeof v !== 'object') return JSON.stringify(v === undefined ? null : v);
+    if(Array.isArray(v)) return '[' + v.map(x => (x === undefined || typeof x === 'function') ? 'null' : estavel(x)).join(',') + ']';
+    return '{' + Object.keys(v).sort().filter(k => v[k] !== undefined && typeof v[k] !== 'function').map(k => JSON.stringify(k) + ':' + estavel(v[k])).join(',') + '}';
+  }
+  function montarBlobLocal(){
+    const blob = {};
+    SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) blob[k] = v; });
+    return blob;
+  }
+  // "pendente" = tem alteração feita neste aparelho que ainda não chegou na nuvem.
+  // Enquanto tiver, NADA da nuvem sobrescreve o aparelho (evita perder o que a pessoa fez).
+  // (a marca guarda o horário da alteração; sem marca = nada pendente — igual à versão anterior,
+  // então quem atualizar a ferramenta continua com as alterações pendentes protegidas)
+  function temEnvioPendente(){
+    try{ const v = localStorage.getItem(LS+'sync-pendente'); return v !== null && v !== '0'; }catch(e){ return true; }
+  }
+  function marcarEnvioPendente(sim){ try{ if(sim) localStorage.setItem(LS+'sync-pendente', String(Date.now())); else localStorage.removeItem(LS+'sync-pendente'); }catch(e){} }
+  // usado pela Produção Inteligente (que grava várias coisas juntas por conta própria)
+  function marcarPendente(){ contadorAlteracoes++; marcarEnvioPendente(true); esconderBarraAtualizacao(true); }
 
   function aoFirebasePronto(cb){
     if(window.__firebase) return cb();
@@ -1661,44 +1747,70 @@
   setTimeout(() => {
     if(!window.__firebase){
       const el = document.getElementById('statusNuvem');
-      if(el){ el.textContent = '🔴 Não consegui carregar a conexão com a nuvem (sem internet?). Os dados continuam salvos só neste aparelho.'; el.style.color = '#B4453C'; }
+      if(el){ el.textContent = '🔴 Não consegui carregar a conexão com a nuvem (sem internet?). Os dados continuam salvos neste aparelho e sobem quando a internet voltar.'; el.style.color = '#B4453C'; }
     }
   }, 6000);
 
-  // "sync-pendente" = momento (ms) da última alteração feita neste aparelho que ainda não
-  // chegou na nuvem. Ao abrir o app, se ela existir e for mais nova que a cópia da nuvem,
-  // o aparelho ENVIA o que tem em vez de puxar — assim uma alteração feita sem internet
-  // (ou logo antes de fechar o app) não é apagada pela cópia antiga da nuvem.
-  const PENDENTE_KEY = LS + 'sync-pendente';
-  function marcarPendente(){ try{ localStorage.setItem(PENDENTE_KEY, String(Date.now())); }catch(e){} }
-
-  async function enviarNuvemAgora(){
-    if(!syncCode || !window.__firebase) return false;
-    const marcaNoEnvio = localStorage.getItem(PENDENTE_KEY);
-    const blob = {};
-    SYNC_KEYS.forEach(k => { const v = lsGet(k, null); if(v !== null) blob[k] = v; });
-    ultimoBlobConhecido = JSON.stringify(blob);
-    await window.__firebase.salvarDados(syncCode, { dados: blob, atualizadoEm: new Date().toISOString() });
-    // só limpa a marca se nada novo foi alterado enquanto o envio acontecia
-    if(localStorage.getItem(PENDENTE_KEY) === marcaNoEnvio) localStorage.removeItem(PENDENTE_KEY);
-    return true;
+  function statusNuvem(tipo, texto){
+    const el = document.getElementById('statusNuvem');
+    if(!el) return;
+    const cores = { ok:'var(--success)', erro:'#B4453C', info:'var(--pink-deep)' };
+    el.textContent = texto; el.style.color = cores[tipo] || '';
   }
 
-  function agendarEnvioNuvem(){
-    if(!syncCode || !window.__firebase) return;
+  function agendarEnvioNuvem(atraso){
     clearTimeout(cloudSyncTimer);
-    cloudSyncTimer = setTimeout(async () => {
-      try{ await enviarNuvemAgora(); }
-      catch(e){ console.error('Falha ao sincronizar com a nuvem:', e); }
-    }, 1200);
+    cloudSyncTimer = setTimeout(enviarParaNuvem, atraso == null ? 1500 : atraso);
   }
+  async function enviarParaNuvem(){
+    if(!syncCode || !window.__firebase || !nuvemPronta) return;
+    if(enviando){ reenviarDepois = true; return; }
+    enviando = true; reenviarDepois = false;
+    const geracao = contadorAlteracoes;
+    try{
+      const json = estavel(montarBlobLocal());
+      if(json !== ultimoJsonConhecido){
+        const r = await window.__firebase.salvarPacote(syncCode, json, partesNaNuvem);
+        ultimoJsonConhecido = json; ultimaVersaoConhecida = r.versao; partesNaNuvem = r.partes;
+      }
+      if(geracao === contadorAlteracoes) marcarEnvioPendente(false);
+      esperaErro = 30000;
+      statusNuvem('ok', '🟢 Tudo salvo na nuvem.');
+    }catch(e){
+      console.error('Falha ao sincronizar com a nuvem:', e);
+      statusNuvem('erro', '🟠 Não consegui enviar para a nuvem agora. Seus dados estão salvos neste aparelho e vou tentar de novo sozinho.');
+      clearTimeout(cloudSyncTimer);
+      cloudSyncTimer = setTimeout(enviarParaNuvem, esperaErro);
+      esperaErro = Math.min(esperaErro * 2, 5 * 60 * 1000);
+    }finally{
+      enviando = false;
+      if(reenviarDepois) agendarEnvioNuvem(300);
+    }
+  }
+  // quando a pessoa sai do app (troca de app, bloqueia a tela), manda na hora o que faltar
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'hidden' && temEnvioPendente()) agendarEnvioNuvem(0);
+  });
 
-  let ultimoBlobConhecido = null;
+  let ultimoAvisoMemoria = 0;
+  function avisarMemoriaCheia(){
+    if(Date.now() - ultimoAvisoMemoria < 20000) return;
+    ultimoAvisoMemoria = Date.now();
+    alert('⚠️ Não deu para salvar esta alteração: a memória da ferramenta neste aparelho está cheia (normalmente por causa das fotos).\n\nTente salvar sem foto, ou apague fotos de itens antigos que não usa mais.');
+  }
 
   const lsSet = (k,v) => {
-    try{ localStorage.setItem(LS+k, JSON.stringify(v)); }catch(e){}
-    if(k !== 'sync-code') marcarPendente();
-    agendarEnvioNuvem();
+    try{ localStorage.setItem(LS+k, JSON.stringify(v)); }
+    catch(e){ console.error('Falha ao salvar no aparelho:', k, e); avisarMemoriaCheia(); return false; }
+    // só conta como alteração dela depois que a ferramenta terminou de abrir
+    // (antes disso são só os valores iniciais da tela — não podem ir por cima da nuvem)
+    if(SYNC_KEYS.includes(k) && window.__laceiraAberta){
+      contadorAlteracoes++;
+      marcarEnvioPendente(true);
+      esconderBarraAtualizacao(true);
+      agendarEnvioNuvem();
+    }
+    return true;
   };
 
   if(!syncCode){
@@ -1706,46 +1818,74 @@
     lsSet('sync-code', syncCode);
   }
 
-  async function puxarDaNuvemEAtualizar(codigoAlvo){
-    if(!window.__firebase) return false;
+  // ---------- ESTADO DA TELA (volta para onde a pessoa estava, se a página recarregar) ----------
+  let houveInteracao = false;
+  ['pointerdown','keydown','touchstart'].forEach(ev => document.addEventListener(ev, () => { houveInteracao = true; }, { capture:true, passive:true }));
+  function salvarEstadoTela(){
     try{
-      const doc = await window.__firebase.buscarDados(codigoAlvo);
-      if(!doc || !doc.dados) return false;
-      const dados = doc.dados;
-      const antesSnapshot = JSON.stringify(SYNC_KEYS.map(k => lsGet(k, null)));
-      SYNC_KEYS.forEach(k => { if(dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados[k])); });
-      const depoisSnapshot = JSON.stringify(SYNC_KEYS.map(k => lsGet(k, null)));
-      ultimoBlobConhecido = JSON.stringify(dados);
-      localStorage.removeItem(PENDENTE_KEY); // o aparelho agora está igual à nuvem
-      return antesSnapshot !== depoisSnapshot;
-    }catch(e){ console.error('Falha ao buscar dados da nuvem:', e); return false; }
+      const painel = document.querySelector('.panel.active');
+      const sub = document.querySelector('.precifica-subtab.active');
+      localStorage.setItem(LS+'tela', JSON.stringify({ p: painel ? painel.dataset.p : 'dashboard', sub: sub ? sub.dataset.precificaTab : null, y: window.scrollY, t: Date.now() }));
+    }catch(e){}
+  }
+  window.addEventListener('pagehide', salvarEstadoTela);
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') salvarEstadoTela(); });
+
+  function recarregarSuave(){
+    salvarEstadoTela();
+    try{ sessionStorage.setItem('laceira-recarga-suave', '1'); }catch(e){}
+    location.reload();
   }
 
-  function statusNuvemEl(){ return document.getElementById('statusNuvem'); }
-
-  const RECARGA_MIN_INTERVALO_MS = 8000;
-  function podeRecarregarAgora(){
-    const ultimo = Number(sessionStorage.getItem('laceira-ultimo-reload') || '0');
-    return (Date.now() - ultimo) > RECARGA_MIN_INTERVALO_MS;
+  // ---------- NOVIDADE DE OUTRO APARELHO ----------
+  let pacoteAguardando = null;
+  function mudariaAlgo(dados){
+    return SYNC_KEYS.some(k => dados[k] !== undefined && estavel(dados[k]) !== estavel(lsGet(k, null)));
   }
-  function marcarRecarregouAgora(){
-    sessionStorage.setItem('laceira-ultimo-reload', String(Date.now()));
+  function aplicarPacote(pacote){
+    try{
+      SYNC_KEYS.forEach(k => { if(pacote.dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(pacote.dados[k])); });
+    }catch(e){ avisarMemoriaCheia(); return false; }
+    ultimoJsonConhecido = pacote.formato === 2 ? pacote.json : null;
+    ultimaVersaoConhecida = pacote.versao;
+    marcarEnvioPendente(false);
+    return true;
   }
-
-  async function mostrarAvisoSincronizando(){
-    if(!podeRecarregarAgora()){
-      // já atualizamos a página recentemente — só atualiza os dados guardados,
-      // sem recarregar de novo (evita ficar recarregando sem parar).
-      try{ await puxarDaNuvemEAtualizar(syncCode); }catch(e){ console.error(e); }
-      const el = statusNuvemEl();
-      if(el){ el.textContent = '🟢 Sincronizado — abra a tela de novo pra ver a última atualização.'; el.style.color = 'var(--success)'; }
+  function mostrarBarraAtualizacao(){
+    let bar = document.getElementById('barraAtualizacao');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'barraAtualizacao';
+      bar.className = 'barra-atualizacao';
+      bar.innerHTML = '<span>🔄 Chegaram alterações feitas em outro aparelho.</span><button type="button" id="barraAtualizacaoBtn">Atualizar agora</button><button type="button" class="x" id="barraAtualizacaoX" aria-label="Fechar">✕</button>';
+      document.body.appendChild(bar);
+      document.getElementById('barraAtualizacaoBtn').addEventListener('click', () => {
+        if(pacoteAguardando && aplicarPacote(pacoteAguardando)) recarregarSuave();
+        esconderBarraAtualizacao(false);
+      });
+      document.getElementById('barraAtualizacaoX').addEventListener('click', () => esconderBarraAtualizacao(false));
+    }
+    requestAnimationFrame(() => bar.classList.add('show'));
+  }
+  function esconderBarraAtualizacao(descartar){
+    if(descartar) pacoteAguardando = null;
+    const bar = document.getElementById('barraAtualizacao');
+    if(bar) bar.classList.remove('show');
+  }
+  function receberPacoteRemoto(pacote, naAbertura){
+    if(!mudariaAlgo(pacote.dados)){
+      ultimoJsonConhecido = pacote.formato === 2 ? pacote.json : ultimoJsonConhecido;
+      ultimaVersaoConhecida = pacote.versao;
       return;
     }
-    const el = statusNuvemEl();
-    if(el){ el.textContent = '🔄 Novidade de outro aparelho chegou — atualizando...'; el.style.color = 'var(--pink-deep)'; }
-    try{ await puxarDaNuvemEAtualizar(syncCode); }catch(e){ console.error(e); }
-    marcarRecarregouAgora();
-    setTimeout(() => location.reload(), 500);
+    // Só atualiza sozinho se a pessoa ainda não encostou em nada (logo que abriu o app).
+    // Se ela já está mexendo, NUNCA recarrega no meio: mostra um aviso e ela escolhe a hora.
+    if(naAbertura && !houveInteracao && !document.querySelector('.modal-overlay.show')){
+      if(aplicarPacote(pacote)) recarregarSuave();
+      return;
+    }
+    pacoteAguardando = pacote;
+    mostrarBarraAtualizacao();
   }
 
   aoFirebasePronto(async () => {
@@ -1753,56 +1893,56 @@
       await window.__firebase.garantirAutenticado();
     }catch(e){
       console.error('Falha ao conectar com a nuvem:', e);
-      const el = statusNuvemEl(); if(el){ el.textContent = '🔴 Sem conexão com a nuvem agora — os dados continuam salvos só neste aparelho.'; el.style.color = '#B4453C'; }
+      statusNuvem('erro', '🔴 Sem conexão com a nuvem agora — os dados continuam salvos neste aparelho.');
       return;
     }
     if(syncCode){
       try{
-        // Tem alteração deste aparelho que não chegou na nuvem? Se a nuvem for mais antiga
-        // que ela, envia primeiro; se a nuvem for mais nova (outro aparelho mexeu depois),
-        // vale a nuvem, como sempre foi.
-        let enviouPendente = false;
-        const pendente = Number(localStorage.getItem(PENDENTE_KEY) || '0');
-        if(pendente){
-          const remoto = await window.__firebase.buscarDados(syncCode);
-          const remotoEm = remoto && remoto.atualizadoEm ? Date.parse(remoto.atualizadoEm) : 0;
-          if(!remoto || !(remotoEm > pendente)){
-            await enviarNuvemAgora();
-            enviouPendente = true;
+        if(temEnvioPendente()){
+          // tem coisa feita aqui que ainda não subiu: o que está no aparelho vale, manda pra nuvem
+          try{ const r = await window.__firebase.lerPacote(syncCode); if(r){ partesNaNuvem = r.partes || 0; } }catch(e){}
+          nuvemPronta = true;
+          agendarEnvioNuvem(0);
+        } else {
+          const pacote = await window.__firebase.lerPacote(syncCode);
+          nuvemPronta = true;
+          if(!pacote){ marcarEnvioPendente(true); agendarEnvioNuvem(0); }
+          else {
+            partesNaNuvem = pacote.partes || 0;
+            receberPacoteRemoto(pacote, true);
           }
         }
-        if(!enviouPendente) await puxarDaNuvemEAtualizar(syncCode);
-        // Na primeira vez que essa aba sincroniza, recarrega uma única vez pra garantir
-        // que a tela já nasça com os dados mais recentes (em vez de só atualizar depois).
-        if(!sessionStorage.getItem('laceira-sync-inicial')){
-          sessionStorage.setItem('laceira-sync-inicial', '1');
-          marcarRecarregouAgora();
-          location.reload();
-          return;
-        }
+        if(!temEnvioPendente()) statusNuvem('ok', '🟢 Conectado à nuvem — sincronizando automaticamente.');
       }catch(e){
-        const el = statusNuvemEl(); if(el){ el.textContent = '🔴 ' + (window.__firebase.mapErro(e.code) || 'Erro ao buscar dados da nuvem.'); el.style.color = '#B4453C'; }
-        return;
+        console.error('Falha ao buscar dados da nuvem:', e);
+        nuvemPronta = true;
+        statusNuvem('erro', '🔴 ' + (window.__firebase.mapErro(e.code) || 'Erro ao buscar dados da nuvem.'));
       }
 
-      // fica escutando mudanças em tempo real vindas de outro aparelho
-      window.__firebase.escutarDados(syncCode, (remoto, temEnvioPendente) => {
-        if(!remoto || !remoto.dados) return;
-        if(temEnvioPendente) return; // eco da nossa própria escrita, ignora
-        const blobRemoto = JSON.stringify(remoto.dados);
-        if(blobRemoto === ultimoBlobConhecido) return; // já é o que já temos
-        ultimoBlobConhecido = blobRemoto;
-        mostrarAvisoSincronizando();
+      // fica escutando mudanças vindas de outro aparelho
+      window.__firebase.escutarDados(syncCode, async (principal, pendente) => {
+        if(!principal || pendente) return;
+        if(principal.formato === 2 && principal.versao === ultimaVersaoConhecida && !(principal.dados && principal.atualizadoEm > principal.formatoEm)) return;
+        if(enviando || temEnvioPendente()) return;
+        let pacote = null;
+        try{ pacote = await window.__firebase.lerPacote(syncCode, principal); }catch(e){ return; }
+        if(!pacote || enviando || temEnvioPendente()) return;
+        if(pacote.partes) partesNaNuvem = pacote.partes;
+        receberPacoteRemoto(pacote, false);
       });
     }
-    const el = statusNuvemEl();
-    if(el){ el.textContent = '🟢 Conectado à nuvem — sincronizando automaticamente.'; el.style.color = 'var(--success)'; }
 
     try{
       novidadesGlobaisCache = await window.__firebase.buscarNovidadesGlobais();
       if(typeof renderDashboard === 'function') renderDashboard();
     }catch(e){ console.error('Falha ao buscar novidades globais:', e); }
   });
+
+  // ---------- JANELAS DE FORMULÁRIO: só fecham pelo ✕ / Cancelar ----------
+  const JANELAS_FORMULARIO = ['piReceitaOverlay','piModelosOverlay','clModalOverlay','fModalOverlay','campModalOverlay'];
+  document.addEventListener('click', e => {
+    if(e.target && JANELAS_FORMULARIO.includes(e.target.id)) e.stopImmediatePropagation();
+  }, true);
 
   // ---------- NAV ----------
   const sidebar = document.getElementById('sidebar');
@@ -1827,7 +1967,8 @@
     posts:['Gerador de Posts','Conteúdo pronto pra Instagram'],
     agenda:['Agenda Comercial','O calendário do seu ateliê'],
     fornecedores:['Fornecedores','Encontre quem fornece o que você precisa'],
-    perfil:['Perfil','Seus dados e a segurança de acesso']
+    perfil:['Perfil','Seus dados e a segurança de acesso'],
+    duvidas:['Dúvidas','Respostas rápidas sobre como usar a ferramenta']
   };
   document.querySelectorAll('.nav-item[data-panel]').forEach(btn => {
     btn.addEventListener('click', () => { goTo(btn.dataset.panel); closeSidebar(); });
@@ -1843,6 +1984,9 @@
     if(t){ document.getElementById('panelTitle').textContent = t[0]; document.getElementById('panelSub').textContent = t[1]; }
     try{ sessionStorage.setItem('laceira-ultimo-painel', name); }catch(e){}
     if(name === 'producao' && typeof window.__laceiraRenderProducao === 'function') window.__laceiraRenderProducao();
+    window.scrollTo(0, 0);
+    const mainEl = document.querySelector('.main'); if(mainEl) mainEl.scrollTop = 0;
+    salvarEstadoTela();
   }
   // Se a página recarregar sozinha (ex.: sincronização com outro aparelho), volta pra aba
   // que a laceira estava usando, em vez de jogar sempre pro Dashboard.
@@ -2042,7 +2186,7 @@
     const opcoes = lsGet(key, cfg.defaults);
     const sel = document.getElementById(cfg.select);
     const prev = sel.value;
-    sel.innerHTML = opcoes.map(o => `<option${o===prev?' selected':''}>${o}</option>`).join('');
+    sel.innerHTML = opcoes.map(o => `<option value="${esc(o)}"${o===prev?' selected':''}>${esc(o)}</option>`).join('');
   }
   Object.keys(OPCOES_PADRAO).forEach(populateEditableSelect);
 
@@ -2145,7 +2289,7 @@
     list.forEach(c => {
       const tr = document.createElement('tr');
       const dataStr = new Date(c.date).toLocaleDateString('pt-BR');
-      tr.innerHTML = `<td>${dataStr}</td><td>${c.modelo||''}</td><td>${c.tamanho||''} cm</td><td>${c.qtd||''}</td><td>${c.acabamento||''}</td><td>${c.fixacao||''}</td>
+      tr.innerHTML = `<td>${dataStr}</td><td>${esc(c.modelo||'')}</td><td>${esc(c.tamanho||'')} cm</td><td>${esc(c.qtd||'')}</td><td>${esc(c.acabamento||'')}</td><td>${esc(c.fixacao||'')}</td>
         <td style="white-space:nowrap;">
           <button class="btn-ghost" data-edit-medida="${c.id}">Editar</button>
           <button class="btn-ghost" data-del-medida="${c.id}">Excluir</button>
@@ -2235,8 +2379,8 @@
     custoItens.forEach(item => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td><input type="text" data-custo-nome="${item.id}" value="${item.nome.replace(/"/g,'&quot;')}" placeholder="Nome do item"></td>
-        <td><input type="number" step="0.01" data-custo-valor="${item.id}" value="${item.valor}" style="width:110px;"></td>
+        <td><input type="text" data-custo-nome="${item.id}" value="${esc(item.nome)}" placeholder="Nome do item"></td>
+        <td><input type="text" inputmode="decimal" step="0.01" data-custo-valor="${item.id}" value="${item.valor}" style="width:110px;"></td>
         <td><button class="btn-ghost" data-custo-del="${item.id}">Remover</button></td>
       `;
       body.appendChild(tr);
@@ -2428,9 +2572,9 @@
     list.forEach(c => {
       const card = document.createElement('div'); card.className = 'model-card';
       card.innerHTML = `
-        ${c.foto ? `<img class="thumb" src="${c.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${c.nome||'Produto'}">` : `<div class="thumb">🎀</div>`}
+        ${c.foto ? `<img class="thumb" src="${c.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${esc(c.nome||'Produto')}">` : `<div class="thumb">🎀</div>`}
         <div class="info">
-          <div class="name">${c.nome || 'Sem nome'}</div>
+          <div class="name">${esc(c.nome || 'Sem nome')}</div>
           <div class="meta">Custo: ${BRL(c.resumo?.soma||0)} · Sugerido: ${BRL(c.resumo?.precoSugerido||0)}</div>
         </div>
         <div style="display:flex; gap:8px; padding:0 12px 12px;">
@@ -2575,9 +2719,9 @@
       const tr = document.createElement('tr');
       tr.dataset.estRow = it.id;
       tr.innerHTML = `
-        <td>${it.foto ? `<img src="${it.foto}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;" alt="${it.item}">` : '<span style="opacity:.35;">🎀</span>'}</td>
-        <td>${it.item}</td><td>${it.cat}</td>
-        <td><input type="number" step="any" data-est-qtd="${it.id}" value="${it.qtd}" style="width:80px;"></td>
+        <td>${it.foto ? `<img src="${it.foto}" style="width:36px;height:36px;object-fit:cover;border-radius:8px;" alt="${esc(it.item)}">` : '<span style="opacity:.35;">🎀</span>'}</td>
+        <td>${esc(it.item)}</td><td>${esc(it.cat)}</td>
+        <td><input type="text" inputmode="decimal" step="any" data-est-qtd="${it.id}" value="${it.qtd}" style="width:80px;"></td>
         <td style="white-space:nowrap;">${estoqueUnidadeTxt(it)}</td>
         <td>${it.min}</td>
         <td><span class="badge ${low?'low':'ok'}" data-est-badge="${it.id}">${low?'Estoque baixo':'OK'}</span></td>
@@ -2704,8 +2848,8 @@
 
   // ---------- PEDIDOS ----------
   let pedidos = lsGet('pedidos', [
-    {id:uid(), n:128, cliente:'Marina Alves', telefone:'', produto:'Laço Boutique M', cores:['Rosa'], qtd:6, valor:120, status:'Em produção', data: new Date().toISOString().slice(0,10), dataEntrega:'', avisoDias:2},
-    {id:uid(), n:127, cliente:'Juliana Costa', telefone:'', produto:'Kit Butterfly', cores:['Lilás','Dourado'], qtd:12, valor:260, status:'Entregue', data: new Date(Date.now()-5*86400000).toISOString().slice(0,10), dataEntrega:'', avisoDias:2},
+    {id:uid(), n:128, cliente:'Marina Alves', telefone:'', produto:'Laço Boutique M', cores:['Rosa'], qtd:6, valor:120, status:'Em produção', data: isoLocal(), dataEntrega:'', avisoDias:2},
+    {id:uid(), n:127, cliente:'Juliana Costa', telefone:'', produto:'Kit Butterfly', cores:['Lilás','Dourado'], qtd:12, valor:260, status:'Entregue', data: isoLocal(new Date(Date.now()-5*86400000)), dataEntrega:'', avisoDias:2},
   ]);
   let pedidoSeq = lsGet('pedido-seq', 129);
   let editingPedidoId = null;
@@ -2723,7 +2867,7 @@
     const wrap = document.getElementById('pCoresChips');
     wrap.innerHTML = pCoresAtual.map((cor, idx) => `
       <span class="badge pink" style="display:inline-flex; align-items:center; gap:6px;">
-        ${cor}
+        ${esc(cor)}
         <button type="button" data-cor-remover="${idx}" style="background:none; border:none; color:inherit; cursor:pointer; font-weight:700; padding:0; line-height:1;">✕</button>
       </span>
     `).join('') || '<span class="hint" style="margin:0;">Nenhuma cor adicionada ainda.</span>';
@@ -2750,7 +2894,7 @@
   function preencherSelectPaleta(selectEl){
     const opcoes = lsGet('opcoes-cores-pedido', OPCOES_PADRAO['opcoes-cores-pedido'].defaults);
     const prev = selectEl.value;
-    selectEl.innerHTML = opcoes.map(o => `<option${o===prev?' selected':''}>${o}</option>`).join('');
+    selectEl.innerHTML = opcoes.map(o => `<option value="${esc(o)}"${o===prev?' selected':''}>${esc(o)}</option>`).join('');
   }
 
   function renderCoresModalChips(){
@@ -2760,7 +2904,7 @@
     const wrap = document.getElementById('pCoresModalChips');
     wrap.innerHTML = p.cores.map((cor, idx) => `
       <span class="badge pink" style="display:inline-flex; align-items:center; gap:6px;">
-        ${cor}
+        ${esc(cor)}
         <button type="button" data-cor-modal-remover="${idx}" style="background:none; border:none; color:inherit; cursor:pointer; font-weight:700; padding:0; line-height:1;">✕</button>
       </span>
     `).join('') || '<span class="hint" style="margin:0;">Nenhuma cor nesse pedido ainda.</span>';
@@ -2824,7 +2968,7 @@
         ? `<button type="button" class="link-azul" data-cores-ver="${p.id}">🎨 ${qtdCores} cor${qtdCores>1?'es':''}</button>`
         : `<button type="button" class="link-azul" data-cores-ver="${p.id}">+ adicionar cores</button>`;
       const entregaTxt = p.dataEntrega ? new Date(p.dataEntrega+'T00:00:00').toLocaleDateString('pt-BR') : '—';
-      tr.innerHTML = `<td>#${p.n}</td><td>${p.cliente}</td><td>${p.telefone||'—'}</td><td>${p.produto}</td><td>${coresLink}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td><td>${entregaTxt}</td>
+      tr.innerHTML = `<td>#${p.n}</td><td>${esc(p.cliente)}</td><td>${esc(p.telefone||'—')}</td><td>${esc(p.produto)}</td><td>${coresLink}</td><td>${esc(p.qtd)}</td><td>${BRL(p.valor)}</td><td>${entregaTxt}</td>
         <td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td>
         <td style="white-space:nowrap;">
           <button class="btn-ghost" data-ped-edit="${p.id}">Editar</button>
@@ -2844,7 +2988,7 @@
     document.getElementById('pQtd').value='1';
     document.getElementById('pValor').value='0';
     document.getElementById('pStatus').value='Aguardando pagamento';
-    document.getElementById('pData').value = new Date().toISOString().slice(0,10);
+    document.getElementById('pData').value = isoLocal();
     document.getElementById('pDataEntrega').value = '';
     document.getElementById('pAvisoDias').value = '2';
     pCoresAtual = [];
@@ -2854,7 +2998,7 @@
 
   addPedidoBtn.addEventListener('click', () => {
     const cliente = document.getElementById('pCliente').value.trim();
-    if(!cliente) return;
+    if(!cliente){ alert('Digite o nome da cliente do pedido.'); document.getElementById('pCliente').focus(); return; }
     const dados = {
       cliente,
       telefone: document.getElementById('pTelefone').value.trim(),
@@ -2863,7 +3007,7 @@
       qtd: NUM(document.getElementById('pQtd').value),
       valor: NUM(document.getElementById('pValor').value),
       status: document.getElementById('pStatus').value,
-      data: document.getElementById('pData').value || new Date().toISOString().slice(0,10),
+      data: document.getElementById('pData').value || isoLocal(),
       dataEntrega: document.getElementById('pDataEntrega').value || '',
       avisoDias: NUM(document.getElementById('pAvisoDias').value),
     };
@@ -2900,7 +3044,7 @@
       document.getElementById('pQtd').value = p.qtd;
       document.getElementById('pValor').value = p.valor;
       document.getElementById('pStatus').value = p.status;
-      document.getElementById('pData').value = p.data || new Date().toISOString().slice(0,10);
+      document.getElementById('pData').value = p.data || isoLocal();
       document.getElementById('pDataEntrega').value = p.dataEntrega || '';
       document.getElementById('pAvisoDias').value = p.avisoDias != null ? p.avisoDias : 2;
       pCoresAtual = p.cores ? [...p.cores] : [];
@@ -2971,7 +3115,7 @@
       const prox = proximoAniversario(c.aniversario);
       const diasAniv = prox ? diasAte(prox) : null;
       const avisoAniv = diasAniv != null && diasAniv <= 14;
-      tr.innerHTML = `<td>${c.nome}</td><td>${c.tel||'—'}</td><td>${c.cidade||'—'}</td>
+      tr.innerHTML = `<td>${esc(c.nome)}</td><td>${esc(c.tel||'—')}</td><td>${esc(c.cidade||'—')}</td>
         <td>${aniversarioFmt(c.aniversario)}${avisoAniv ? ` <span class="badge low" title="Aniversário chegando">${diasAniv===0?'hoje 🎉':'em '+diasAniv+'d'}</span>` : ''}</td>
         <td>⭐ ${c.nota||0}</td><td>${BRL(c.total||0)}</td>
         <td style="white-space:nowrap;">
@@ -3112,9 +3256,9 @@
     modelos.forEach(m => {
       const card = document.createElement('div'); card.className = 'model-card';
       card.innerHTML = `
-        ${m.foto ? `<img class="thumb" src="${m.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${m.nome}">` : `<div class="thumb">🎀</div>`}
+        ${m.foto ? `<img class="thumb" src="${m.foto}" style="width:100%; height:100px; object-fit:cover;" alt="${esc(m.nome)}">` : `<div class="thumb">🎀</div>`}
         <div class="info">
-          <div class="name">${m.nome}</div>
+          <div class="name">${esc(m.nome)}</div>
           <div class="meta">${[m.cat, m.cores, m.dif, m.tempo].filter(Boolean).join(' · ')}</div>
           <div class="meta" style="margin-top:6px;">${(m.receita && m.receita.itens && m.receita.itens.length) ? `📋 Receita: ${m.receita.itens.length} material(is)` : '📋 Sem receita de produção'}</div>
         </div>
@@ -3900,9 +4044,9 @@
         <h2>${camp}</h2>
         <p class="sub">Conteúdo gerado para a campanha</p>
         <div class="field text" style="margin-bottom:12px;"><label>Legenda</label><textarea style="width:100%; min-height:60px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;">${leg.val}</textarea></div>
-        <div class="field text" style="margin-bottom:12px;"><label>Hashtags</label><input value="${hash.val}"></div>
+        <div class="field text" style="margin-bottom:12px;"><label>Hashtags</label><input value="${esc(hash.val)}"></div>
         <div class="field text" style="margin-bottom:12px;"><label>Roteiro para Reels</label><textarea style="width:100%; min-height:80px; border:1px solid var(--line); border-radius:9px; padding:9px; font-family:Inter;">${rot.val}</textarea></div>
-        <div class="field text" style="margin-bottom:14px;"><label>CTA</label><input value="${cta.val}"></div>
+        <div class="field text" style="margin-bottom:14px;"><label>CTA</label><input value="${esc(cta.val)}"></div>
         <button class="btn-ghost" id="genMorePostBtn">🔄 Gerar mais ideias diferentes</button>
       </div>`;
     const moreBtn = document.getElementById('genMorePostBtn');
@@ -4094,7 +4238,7 @@
         div.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
             <div>
-              <b style="color:var(--pink-dark);">🔔 ${item.titulo} é ${dias===0?'hoje':'em '+dias+' dia(s)'}</b>
+              <b style="color:var(--pink-dark);">🔔 ${esc(item.titulo)} é ${dias===0?'hoje':'em '+dias+' dia(s)'}</b>
               <div style="font-size:12.5px; color:var(--pink-dark); margin-top:2px;">Já preparou os posts e o estoque pra essa data?</div>
             </div>
             <div style="display:flex; gap:8px;">
@@ -4116,8 +4260,8 @@
       div.innerHTML = `
         <div class="agenda-date"><div class="d">${String(item.dia).padStart(2,'0')}</div><div class="m">${MESES_NOME[item.mes]}</div></div>
         <div class="agenda-info" style="flex:1;">
-          <b>${item.titulo}${item.silenciado ? ' <span style="font-size:11px; color:var(--ink-soft); font-weight:500;">(avisos silenciados)</span>' : ''}</b>
-          <div class="meta">${item.prod} · ${item.inicio} · sugestão: ${item.qtd}</div>
+          <b>${esc(item.titulo)}${item.silenciado ? ' <span style="font-size:11px; color:var(--ink-soft); font-weight:500;">(avisos silenciados)</span>' : ''}</b>
+          <div class="meta">${esc(item.prod)} · ${esc(item.inicio)} · sugestão: ${esc(item.qtd)}</div>
         </div>
         <div style="display:flex; gap:6px; flex:0 0 auto;">
           <button class="btn-ghost" data-ag-edit="${item.id}">Editar</button>
@@ -4237,7 +4381,7 @@
     fBody.innerHTML = '';
     fornecedores.filter(f => (!est||f.estado===est) && (!cat||f.cat===cat)).forEach(f => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${f.nome}</td><td>${f.estado}</td><td>${f.cidade}</td><td>${f.cat}</td><td>⭐ ${f.nota}</td>
+      tr.innerHTML = `<td>${esc(f.nome)}</td><td>${esc(f.estado)}</td><td>${esc(f.cidade)}</td><td>${esc(f.cat)}</td><td>⭐ ${f.nota}</td>
         <td style="white-space:nowrap;"><button class="btn-ghost" data-forn-edit="${f.id}">Editar</button></td>`;
       fBody.appendChild(tr);
     });
@@ -4415,11 +4559,12 @@
       }
       syncCode = novoCodigo;
       localStorage.setItem(LS+'sync-code', JSON.stringify(syncCode));
-      SYNC_KEYS.forEach(k => { if(dados.dados && dados.dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados.dados[k])); });
+      try{ SYNC_KEYS.forEach(k => { if(dados.dados && dados.dados[k] !== undefined) localStorage.setItem(LS+k, JSON.stringify(dados.dados[k])); }); }
+      catch(e){ avisarMemoriaCheia(); return; }
       // os dados deste aparelho foram trocados pelos da conta conectada: nada local pra enviar
-      localStorage.removeItem(LS+'sync-pendente');
+      marcarEnvioPendente(false);
       hintEl.textContent = 'Conectado ✓ Recarregando...';
-      location.reload();
+      recarregarSuave();
     }catch(err){
       console.error(err);
       hintEl.style.color = '#B4453C';
@@ -4435,8 +4580,7 @@
       SYNC_KEYS.forEach(k => localStorage.removeItem(LS+k));
       localStorage.removeItem(LS+'sync-code');
       localStorage.removeItem(LS+'sync-pendente');
-      sessionStorage.removeItem('laceira-sync-inicial');
-      sessionStorage.removeItem('laceira-ultimo-reload');
+      localStorage.removeItem(LS+'tela');
     }catch(e){ console.error('Falha ao desconectar aparelho:', e); }
     if(hintEl){ hintEl.style.color = 'var(--success)'; hintEl.textContent = 'Desconectado ✓ Recarregando...'; }
     setTimeout(() => location.reload(), 600);
@@ -4460,7 +4604,7 @@
       const sufixo = nomePerfil ? '-' + nomePerfil.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') : '';
       const a = document.createElement('a');
       a.href = url;
-      a.download = `laceira-pro-backup${sufixo}-${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `laceira-pro-backup${sufixo}-${isoLocal()}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -4574,7 +4718,7 @@
         novidades.push({ warn:false, destaque:true, txt: `📢 <b>${n.titulo}</b><br><span style="font-size:12px;">${n.texto}</span>${linkHtml}` });
       });
     estoque.forEach(it => {
-      if(it.qtd < it.min) novidades.push({ warn:true, txt: `Estoque baixo: <b>${it.item}</b> (${it.qtd} de ${it.min} mín.)` });
+      if(it.qtd < it.min) novidades.push({ warn:true, txt: `Estoque baixo: <b>${esc(it.item)}</b> (${esc(it.qtd)} de ${it.min} mín.)` });
     });
     // Entregas de pedido chegando (cada pedido usa o próprio "avisar com quantos dias de antecedência")
     pedidos.forEach(p => {
@@ -4585,9 +4729,9 @@
       if(dias <= aviso){
         const dataFmt = new Date(p.dataEntrega+'T00:00:00').toLocaleDateString('pt-BR');
         if(dias < 0){
-          novidades.push({ warn:true, txt: `Pedido de <b>${p.cliente}</b> (#${p.n}) está atrasado — entrega prevista era ${dataFmt}` });
+          novidades.push({ warn:true, txt: `Pedido de <b>${esc(p.cliente)}</b> (#${p.n}) está atrasado — entrega prevista era ${dataFmt}` });
         } else {
-          novidades.push({ warn:true, txt: `Pedido de <b>${p.cliente}</b> (#${p.n}) ${dias===0?'entrega hoje':'entrega em '+dias+' dia(s)'} (${dataFmt}) — ${p.produto}` });
+          novidades.push({ warn:true, txt: `Pedido de <b>${esc(p.cliente)}</b> (#${p.n}) ${dias===0?'entrega hoje':'entrega em '+dias+' dia(s)'} (${dataFmt}) — ${esc(p.produto)}` });
         }
       }
     });
@@ -4598,7 +4742,7 @@
       const dias = diasAte(prox);
       if(item.feitoAno === prox.getFullYear()) return;
       if(dias >= 0 && dias <= 14){
-        novidades.push({ warn:false, txt: `<b>${item.titulo}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira a Agenda Comercial` });
+        novidades.push({ warn:false, txt: `<b>${esc(item.titulo)}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira a Agenda Comercial` });
       }
     });
     // Aniversários de clientes chegando perto
@@ -4608,7 +4752,7 @@
       if(!prox) return;
       const dias = diasAte(prox);
       if(dias >= 0 && dias <= 14){
-        novidades.push({ warn:false, txt: `🎂 Aniversário de <b>${c.nome}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira em Clientes` });
+        novidades.push({ warn:false, txt: `🎂 Aniversário de <b>${esc(c.nome)}</b> ${dias===0?'é hoje':'em '+dias+' dia(s)'} — confira em Clientes` });
       }
     });
     const novList = document.getElementById('novidadesList');
@@ -4644,7 +4788,7 @@
       futuros.forEach(p => {
         const d = pedidoDataObj(p);
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${d.toLocaleDateString('pt-BR')}</td><td>${p.cliente}</td><td>${p.produto}</td><td>${p.qtd}</td><td>${BRL(p.valor)}</td>
+        tr.innerHTML = `<td>${d.toLocaleDateString('pt-BR')}</td><td>${esc(p.cliente)}</td><td>${esc(p.produto)}</td><td>${esc(p.qtd)}</td><td>${BRL(p.valor)}</td>
           <td><span class="badge ${statusBadgeClass(p.status)}">${p.status}</span></td>`;
         futBody.appendChild(tr);
       });
@@ -4661,7 +4805,7 @@
     renderDashboard();
   });
 
-  document.getElementById('dashDataConsulta').value = new Date().toISOString().slice(0,10);
+  document.getElementById('dashDataConsulta').value = isoLocal();
   document.getElementById('consultarDataBtn').addEventListener('click', () => {
     const val = document.getElementById('dashDataConsulta').value;
     if(!val) return;
@@ -5145,7 +5289,7 @@
           <div class="pi-meta">Solicitadas: ${fmtNum(x.qtd,0)} · Produzidas: ${fmtNum(x.produzido,0)} · Restantes: ${fmtNum(x.restante,0)}${tempoTxt}</div>
           <div class="pi-qty">
             <label for="piProd-${a.p.id}-${x.it.id}">Produzidas até agora</label>
-            <input type="number" min="0" step="1" inputmode="numeric" id="piProd-${a.p.id}-${x.it.id}" value="${x.produzido}">
+            <input type="text" inputmode="decimal" min="0" step="1" inputmode="numeric" id="piProd-${a.p.id}-${x.it.id}" value="${x.produzido}">
             <button type="button" class="btn-ghost" data-pi-salvar-prod="${a.p.id}|${x.it.id}">Salvar</button>
             <button type="button" class="btn-ghost" data-pi-mais="${a.p.id}|${x.it.id}|1" aria-label="Somar 1 unidade produzida">+1</button>
             <button type="button" class="btn-ghost" data-pi-mais="${a.p.id}|${x.it.id}|10" aria-label="Somar 10 unidades produzidas">+10</button>
@@ -5515,9 +5659,9 @@
                 ${estoque.map(m => `<option value="${m.id}" ${m.id === l.materialId ? 'selected' : ''}>${esc(m.item)}${m.unidade ? ' (' + unidadeRot(m.unidade) + ')' : ' (sem unidade)'}</option>`).join('')}
               </select>
             </div>
-            <div class="field"><label for="piRecQtd-${l.id}">Qtd por unidade</label><input type="number" min="0" step="any" id="piRecQtd-${l.id}" data-rec-campo="qtd" data-rec-id="${l.id}" value="${l.qtd !== '' && l.qtd != null ? l.qtd : ''}"></div>
+            <div class="field"><label for="piRecQtd-${l.id}">Qtd por unidade</label><input type="text" inputmode="decimal" min="0" step="any" id="piRecQtd-${l.id}" data-rec-campo="qtd" data-rec-id="${l.id}" value="${l.qtd !== '' && l.qtd != null ? l.qtd : ''}"></div>
             <div class="field text"><label for="piRecUn-${l.id}">Unidade</label><select id="piRecUn-${l.id}" data-rec-campo="unidade" data-rec-id="${l.id}"><option value="">—</option>${opcoesUnidade(l.unidade)}</select></div>
-            <div class="field"><label for="piRecPerda-${l.id}">Perda (%)</label><input type="number" min="0" max="100" step="any" id="piRecPerda-${l.id}" data-rec-campo="perda" data-rec-id="${l.id}" value="${NUM(l.perda) || ''}" placeholder="0"></div>
+            <div class="field"><label for="piRecPerda-${l.id}">Perda (%)</label><input type="text" inputmode="decimal" min="0" max="100" step="any" id="piRecPerda-${l.id}" data-rec-campo="perda" data-rec-id="${l.id}" value="${NUM(l.perda) || ''}" placeholder="0"></div>
             <button type="button" class="btn-ghost" data-rec-remover="${l.id}" aria-label="Remover material ${idx + 1}" style="height:36px;">✕</button>
             ${semUnidade ? `<div style="grid-column:1/-1;" class="pi-note warn"><label for="piRecUnEst-${l.id}" style="font-weight:600;">"${esc(mat.item)}" está sem unidade no estoque. Em que unidade você conta esse material?</label>
               <select id="piRecUnEst-${l.id}" data-rec-unest="${mat.id}" style="margin-left:6px;"><option value="">— escolha —</option>${opcoesUnidade(recUnidadesPendentes[mat.id] || '')}</select>
@@ -5663,7 +5807,7 @@
             </select>
           </div>
           <div class="field"><label for="piModQtd-${l.id}">Quantidade</label>
-            <input type="number" min="0" step="1" id="piModQtd-${l.id}" data-mod-campo="qtd" data-mod-id="${l.id}" value="${varios ? l.qtd : NUM(p.qtd)}" ${varios ? '' : 'disabled'}>
+            <input type="text" inputmode="decimal" min="0" step="1" id="piModQtd-${l.id}" data-mod-campo="qtd" data-mod-id="${l.id}" value="${varios ? l.qtd : NUM(p.qtd)}" ${varios ? '' : 'disabled'}>
           </div>
           ${varios ? `<button type="button" class="btn-ghost" data-mod-remover="${l.id}" aria-label="Remover modelo ${idx + 1}" style="height:36px;">✕</button>` : '<span></span>'}
           ${l.produzido > 0 ? `<div class="hint" style="grid-column:1/-1; margin-top:0;">${fmtNum(l.produzido,0)} já produzidas registradas nesta linha.</div>` : ''}
@@ -6174,6 +6318,18 @@
 
   renderDashboard();
   atualizarSaudacao();
+
+  // volta para a aba em que a pessoa estava (se a página recarregou ou o celular fechou o app há pouco)
+  (function restaurarTela(){
+    let est = null, suave = false;
+    try{ est = JSON.parse(localStorage.getItem(LS+'tela') || 'null'); suave = sessionStorage.getItem('laceira-recarga-suave') === '1'; sessionStorage.removeItem('laceira-recarga-suave'); }catch(e){}
+    if(!est || !est.p || !panelTitles[est.p]) return;
+    if(!suave && Date.now() - (est.t || 0) > 2 * 3600 * 1000) return;
+    goTo(est.p);
+    if(est.p === 'precifica' && est.sub){ const b = document.querySelector('.precifica-subtab[data-precifica-tab="'+est.sub+'"]'); if(b) b.click(); }
+    if(suave && est.y) setTimeout(() => window.scrollTo(0, est.y), 50);
+  })();
+  window.__laceiraAberta = true;
 
   // Reavalia novidades expiradas mesmo se ninguém mexer em nada na tela —
   // sem isso, uma novidade só "sumia" quando algo mais disparava um novo render.
